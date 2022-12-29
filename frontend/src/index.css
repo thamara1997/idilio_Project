@@ -21,7 +21,7 @@
   --color-white: #fff;
   --color-gray: rgba(255, 255, 255, 0.6);
 
-  --transition: all 400ms ease;
+  --transition: all 600ms ease;
 
   --container-width-lg: 75%;
   --container-width-md: 86%;
@@ -30,6 +30,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+html :hover {
+  transition: var(--transition);
 }
 
 body {

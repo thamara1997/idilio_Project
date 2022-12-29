@@ -1,7 +1,7 @@
 import React from "react";
 import PackageCard from "../PackageCard";
 
-function Podcast() {
+const CompanyLogo = () => {
   const packcard = [
     {
       id: 1,
@@ -43,7 +43,7 @@ function Podcast() {
   return (
     <div>
       <div>
-        <h3 className="font-bold text-[20px] mb-8">Podcast Cover Packages</h3>
+        <h3 className="font-bold text-[20px] mb-8">Company Logo Packages</h3>
         <h6 className="font-light text-[12px] mx-[200px]">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, veniam
           doloribus est cum recusandae assumenda dolores adipisci! Aperiam,
@@ -70,6 +70,6 @@ function Podcast() {
       </div>
     </div>
   );
-}
+};
 
-export default Podcast;
+export default CompanyLogo;

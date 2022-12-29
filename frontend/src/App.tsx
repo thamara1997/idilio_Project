@@ -19,12 +19,15 @@ function App() {
         <NavBar />
         <Routes>
           <Route path={routeNames.Overview} element={<Overview />} />
-          <Route path="/joinUs" element={<JoinUs />} />
+          <Route path={routeNames.JoinUs} element={<JoinUs />} />
           <Route path={routeNames.NewDesign} element={<NewDesign />} />
-          <Route path="/resourceDesign" element={<ResourceDesign />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/sayHello" element={<SayHello />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path={routeNames.ResourceDesign}
+            element={<ResourceDesign />}
+          />
+          <Route path={routeNames.Community} element={<Community />} />
+          <Route path={routeNames.SayHello} element={<SayHello />} />
+          <Route path={routeNames.Profile} element={<Profile />} />
         </Routes>
         <Footer />
       </BrowserRouter>

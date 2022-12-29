@@ -2,11 +2,12 @@ import Slider from "components/ImageSlider/Slider";
 import Projects from "assets/Projects.png";
 import Employee from "assets/Employee.png";
 import Reviews from "assets/reviews.png";
-import CarousalCard from "components/carouselCard/CarousalCard";
+import CarousalCard from "components/CarouselCard/CarousalCard";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
 import community from "assets/community.png";
 import { Link } from "react-router-dom";
+import { routeNames } from "routes/route";
 
 const Overview = () => {
   // handle click for Discover Button
@@ -91,7 +92,7 @@ const Overview = () => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Deserunt, eos.
             </h5>
-            <Link to="/newDesign">
+            <Link to={routeNames.NewDesign}>
               <button className="btn1">Tap Me</button>
             </Link>
           </div>
@@ -209,7 +210,7 @@ const Overview = () => {
           </h5>
         </div>
         <div className="content-center text-center">
-          <Link to="/joinUs">
+          <Link to={routeNames.JoinUs}>
             <button className="btn1 ">I like to Join</button>
           </Link>
         </div>

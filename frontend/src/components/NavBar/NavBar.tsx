@@ -12,7 +12,7 @@ const NavBar = () => {
     <div className="flex justify-between w-full h-[70px] bg-black pt-3">
       {/* Logo  */}
       <div className="w-[60px] h-[60px] ml-5">
-        <Link to="/overview">
+        <Link to={routeNames.Overview}>
           <img src={logo} alt="" className="align-middle" />
         </Link>
       </div>
@@ -21,8 +21,8 @@ const NavBar = () => {
       <div className="flex mt-[20px] text-[#FEC850]">
         <ul>
           <li className="space-x-[50px] text-sm font-light">
-            <Link to="/overview">Overview</Link>
-            <Link to="/joinUs">Join Us</Link>
+            <Link to={routeNames.Overview}>Overview</Link>
+            <Link to={routeNames.JoinUs}>Join Us</Link>
             <div className="content-center dropdown dropdown-hover">
               <label tabIndex={0} className="p-[10px] hover:text-white">
                 Start
@@ -42,15 +42,15 @@ const NavBar = () => {
                 <li>
                   <Link
                     className="hover:bg-black focus:bg-[#171717]"
-                    to="/resourceDesign"
+                    to={routeNames.ResourceDesign}
                   >
                     Resource Design
                   </Link>
                 </li>
               </ul>
             </div>
-            <Link to="/community">Community</Link>
-            <Link to="/sayHello">Say Hello</Link>
+            <Link to={routeNames.Community}>Community</Link>
+            <Link to={routeNames.SayHello}>Say Hello</Link>
           </li>
         </ul>
       </div>
@@ -74,7 +74,7 @@ const NavBar = () => {
               <li>
                 <Link
                   className="hover:bg-black focus:bg-[#FEC850]"
-                  to="/profile"
+                  to={routeNames.Profile}
                 >
                   Profile
                 </Link>
