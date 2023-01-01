@@ -1,13 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
 import logo from "assets/logo.png";
 import avatar from "assets/avatar.jpg";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 
 const NavBar = () => {
-  const location = useLocation();
-  console.log(location.pathname);
   return (
     <div className="flex justify-between w-full h-[70px] bg-black pt-3">
       {/* Logo  */}
@@ -87,6 +84,11 @@ const NavBar = () => {
               <li>
                 <Link className="hover:bg-black focus:bg-[#FEC850]" to="#">
                   Log Out
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:bg-black focus:bg-[#FEC850] " to="#">
+                  Register
                 </Link>
               </li>
             </ul>
