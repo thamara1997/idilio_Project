@@ -1,7 +1,8 @@
 export enum routeNames {
-  Overview = "/overview",
+  Overview = "/",
   NewDesign = "/newdesign/*",
   ResourceDesign = "/resourcedesign",
+
   JoinUs = "/joinus",
   Community = "/community",
   SayHello = "/sayhello",
@@ -14,4 +15,7 @@ export enum routeNames {
   Flyer = "/flyer",
   Mascotlogo = "/mascotlogo",
   Companylogo = "/companylogo",
+
+  //under new design
+  RDesignDetails = "/resourcedesign/details/:id",
 }

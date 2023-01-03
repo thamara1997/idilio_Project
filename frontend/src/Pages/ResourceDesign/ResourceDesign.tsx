@@ -1,34 +1,43 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import React from "react";
 import { BiSearchAlt } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { routeNames } from "routes/route";
+import { cardDetails } from "data/data";
 
 const ResourceDesign = () => {
-  const artDetails = [
-    {
-      name: "Darshana Thamara",
-      price: "10$",
-    },
-    {
-      name: "Chamith Viduranga",
-      price: "20$",
-    },
-    {
-      name: "Kavindu Jayawardana",
-      price: "40$",
-    },
-    {
-      name: "Ushan Malshika",
-      price: "10$",
-    },
-    {
-      name: "Manula Herath",
-      price: "50$",
-    },
-    {
-      name: "Darshana Thamara",
-      price: "30$",
-    },
-  ];
+  // const artDetails = [
+  //   {
+  //     name: "Darshana Thamara",
+  //     price: "10$",
+  //     link: `resourcedesign/details/`,
+  //   },
+  //   {
+  //     name: "Chamith Viduranga",
+  //     price: "20$",
+  //     link: `resourcedesign/details/`,
+  //   },
+  //   {
+  //     name: "Viranga Jayawardana",
+  //     price: "40$",
+  //     link: `resourcedesign/details/`,
+  //   },
+  //   {
+  //     name: "Ushan Malshika",
+  //     price: "10$",
+  //     link: `resourcedesign/details/`,
+  //   },
+  //   {
+  //     name: "Manula Gunawardana",
+  //     price: "50$",
+  //     link: `resourcedesign/details/`,
+  //   },
+  //   {
+  //     name: "Thaveesha Yanith",
+  //     price: "30$",
+  //     link: `resourcedesign/details/`,
+  //   },
+  // ];
 
   return (
     <div className="text-center">
@@ -77,10 +86,12 @@ const ResourceDesign = () => {
       {/* card Section */}
 
       <div className="flex justify-center mb-[100px]">
-        <div className="mt-[80px] grid grid-cols-3 gap-[60px]">
-          {artDetails.map((t: any, i: number) => (
+        <div className="mt-[80px] grid grid-cols-1 gap-[60px] md:grid-cols-3">
+          {cardDetails.map((t: any, i: number) => (
             <div id="item1" className="w-full carousel-item" key={i}>
-              <ArtCard name={t.name} price={t.price} />
+              <Link to={routeNames.RDesignDetails.replace(":id", i.toString())}>
+                <ArtCard name={t.name} price={t.price} />
+              </Link>
             </div>
           ))}
         </div>
