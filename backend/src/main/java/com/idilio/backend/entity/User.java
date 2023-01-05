@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,4 +19,5 @@ public class User {
     private String lastName;
     private String country;
     private String role;
+    private Timestamp lastLogIn;
 }
