@@ -61,6 +61,24 @@ body {
   color: var(--color-bg);
   border-color: transparent;
 }
+
+.btn2 {
+  /* width: max-content; */
+  display: inline-block;
+  color: var(--color-primary);
+  padding: 0.4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  border: 0.5px solid var(--color-primary);
+  transition: var(--transition);
+}
+
+.btn2:hover {
+  background: var(--color-primary);
+  color: var(--color-bg);
+  border-color: transparent;
+}
+
 section {
   margin-top: 100px;
   height: 890px;

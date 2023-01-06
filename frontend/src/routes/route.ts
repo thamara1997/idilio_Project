@@ -2,7 +2,7 @@ export enum routeNames {
   Overview = "/",
   NewDesign = "/newdesign/*",
   ResourceDesign = "/resourcedesign",
-
+  Register = "/registration",
   JoinUs = "/joinus",
   Community = "/community",
   SayHello = "/sayhello",

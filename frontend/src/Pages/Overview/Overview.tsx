@@ -39,7 +39,7 @@ const Overview = () => {
   ];
 
   return (
-    <div>
+    <div className="z-10">
       {/* Hero Section */}
       <div className="content-center text-center pt-[250px] mb-[400px]">
         <h1 className="text-[36px] font-[400]">THE ARTISTIC ELYSIUM</h1>
