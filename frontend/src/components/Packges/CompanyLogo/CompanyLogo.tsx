@@ -61,6 +61,7 @@ const CompanyLogo = () => {
                 designCount={t.designCount}
                 revisions={t.revisions}
                 resolution={t.resolution}
+                id={t.id}
                 size={t.size}
                 other={t.other}
               />

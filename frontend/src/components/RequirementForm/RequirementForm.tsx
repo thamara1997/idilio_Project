@@ -1,6 +1,3 @@
-import FileUploader from "components/FileUploader/FileUploader";
-import React from "react";
-
 const RequirementForm = ({ title, id2, name, price, category }: any) => {
   return (
     <div>

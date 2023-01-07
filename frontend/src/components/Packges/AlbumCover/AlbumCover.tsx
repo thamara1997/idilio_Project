@@ -62,6 +62,7 @@ const Album = () => {
                 revisions={t.revisions}
                 resolution={t.resolution}
                 size={t.size}
+                id={t.id}
                 other={t.other}
               />
             </div>

@@ -1,5 +1,3 @@
-import React from "react";
-
 const PackageCard = ({
   name,
   price,
@@ -8,6 +6,7 @@ const PackageCard = ({
   resolution,
   size,
   other,
+  id,
 }: any) => {
   return (
     <div>
@@ -27,6 +26,12 @@ const PackageCard = ({
         </div>
         <div className="absolute w-full mx-auto bottom-4 ">
           <button className="btn1 text-[12px] ">ORDER NOW</button>
+          {/* <Link
+            to={routeNames.NDesignDetails.replace(":id", id)}
+            className="btn1"
+          >
+            OrderNow
+          </Link> */}
         </div>
       </div>
     </div>

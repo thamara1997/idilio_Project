@@ -1,5 +1,5 @@
-import React from "react";
 import registering from "assets/Companylogo.jpg";
+import { Link } from "react-router-dom";
 
 const Login = ({ visible, onClose }: any) => {
   if (!visible) return null;
@@ -23,7 +23,9 @@ const Login = ({ visible, onClose }: any) => {
                   </h1>
                   <h6 className="relative top-9 text-[12px] font-light">
                     If You Are Not a member Yet
-                    <a className="text-[#fec750] m-2">Register</a>
+                    <Link className="text-[#fec750] m-2" to={""}>
+                      Register
+                    </Link>
                   </h6>
                 </div>
                 <button className="flex" onClick={onClose}>

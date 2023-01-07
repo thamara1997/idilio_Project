@@ -60,6 +60,7 @@ const Flyer = () => {
                 price={t.price}
                 designCount={t.designCount}
                 revisions={t.revisions}
+                id={t.id}
                 resolution={t.resolution}
                 size={t.size}
                 other={t.other}

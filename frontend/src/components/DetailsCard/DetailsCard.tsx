@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/* eslint-disable array-callback-return */
+import { useEffect } from "react";
 import Art from "assets/AlbumCover.jpg";
 import Avatar from "assets/avatar.jpg";
 import { routeNames } from "routes/route";
@@ -15,10 +16,11 @@ const DetailsCard = ({
   console.log(reviews);
 
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     reviews.map((r: any, i: number) => {
       console.log(r);
     });
-  }, []);
+  }, [reviews]);
 
   return (
     <div className="px-[150px] mt-[20px] flex justify-evenly text-center gap-[50px] ">
