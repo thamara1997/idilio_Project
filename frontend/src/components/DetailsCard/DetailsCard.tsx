@@ -1,8 +1,17 @@
 import React, { useEffect } from "react";
 import Art from "assets/AlbumCover.jpg";
 import Avatar from "assets/avatar.jpg";
+import { routeNames } from "routes/route";
+import { Link } from "react-router-dom";
 
-const DetailsCard = ({ title, description, name, price, reviews }: any) => {
+const DetailsCard = ({
+  title,
+  description,
+  name,
+  price,
+  reviews,
+  id2,
+}: any) => {
   console.log(reviews);
 
   useEffect(() => {
@@ -39,7 +48,12 @@ const DetailsCard = ({ title, description, name, price, reviews }: any) => {
 
           <div className="flex flex-row">
             <h1 className="text-white mr-8 text-[25px]">{price}</h1>
-            <button className="btn1">Order Now</button>
+            <Link
+              to={routeNames.Requirement.replace(":id", id2)}
+              className="btn1"
+            >
+              OrderNow
+            </Link>
           </div>
         </div>
 

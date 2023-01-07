@@ -12,6 +12,7 @@ import NavBar from "components/NavBar/NavBar";
 import Footer from "components/Footer/Footer";
 import { routeNames } from "routes/route";
 import RDesignDetails from "Pages/RDesignDetails/RDesignDetails";
+import Requirement from "Pages/Requirement/Requirement";
 
 function App() {
   return (
@@ -95,6 +96,16 @@ function App() {
               <>
                 <NavBar />
                 <RDesignDetails />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path={routeNames.Requirement}
+            element={
+              <>
+                <NavBar />
+                <Requirement />
                 <Footer />
               </>
             }

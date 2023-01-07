@@ -18,4 +18,5 @@ export enum routeNames {
 
   //under new design
   RDesignDetails = "/resourcedesign/details/:id",
+  Requirement = "/resourcedesign/details/:id/requirement",
 }

@@ -6,39 +6,6 @@ import { routeNames } from "routes/route";
 import { cardDetails } from "data/data";
 
 const ResourceDesign = () => {
-  // const artDetails = [
-  //   {
-  //     name: "Darshana Thamara",
-  //     price: "10$",
-  //     link: `resourcedesign/details/`,
-  //   },
-  //   {
-  //     name: "Chamith Viduranga",
-  //     price: "20$",
-  //     link: `resourcedesign/details/`,
-  //   },
-  //   {
-  //     name: "Viranga Jayawardana",
-  //     price: "40$",
-  //     link: `resourcedesign/details/`,
-  //   },
-  //   {
-  //     name: "Ushan Malshika",
-  //     price: "10$",
-  //     link: `resourcedesign/details/`,
-  //   },
-  //   {
-  //     name: "Manula Gunawardana",
-  //     price: "50$",
-  //     link: `resourcedesign/details/`,
-  //   },
-  //   {
-  //     name: "Thaveesha Yanith",
-  //     price: "30$",
-  //     link: `resourcedesign/details/`,
-  //   },
-  // ];
-
   return (
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>

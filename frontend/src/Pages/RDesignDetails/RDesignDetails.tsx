@@ -5,7 +5,6 @@ import ReviewCard from "components/ReviewCard/ReviewCard";
 
 const RDesignDetails = () => {
   let { id } = useParams();
-  console.log(id);
 
   let iid: number = Number(id);
 
@@ -48,6 +47,7 @@ const RDesignDetails = () => {
           name={details.name}
           price={details.price}
           reviews={details.reviews}
+          id2={details.id}
         />
       </div>
       <div>
