@@ -52,8 +52,8 @@ const ResourceDesign = () => {
 
       {/* card Section */}
 
-      <div className="flex justify-center mb-[100px]">
-        <div className="mt-[80px] grid grid-cols-1 gap-[60px] md:grid-cols-3">
+      <div className="flex justify-center items-center text-center mb-[100px]">
+        <div className="mt-[80px] grid grid-cols-1 gap-[60px] mx-auto md:grid-cols-3">
           {cardDetails.map((t: any, i: number) => (
             <div id="item1" className="w-full carousel-item" key={i}>
               <Link to={routeNames.RDesignDetails.replace(":id", i.toString())}>
