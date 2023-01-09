@@ -13,6 +13,8 @@ import Footer from "components/Footer/Footer";
 import { routeNames } from "routes/route";
 import RDesignDetails from "Pages/RDesignDetails/RDesignDetails";
 import Requirement from "Pages/Requirement/Requirement";
+import Login from "components/Login/Login";
+import Register from "components/Register/Register";
 
 function App() {
   return (
@@ -107,6 +109,22 @@ function App() {
                 <NavBar />
                 <Requirement />
                 <Footer />
+              </>
+            }
+          />
+          <Route
+            path={routeNames.Login}
+            element={
+              <>
+                <Login />
+              </>
+            }
+          />
+          <Route
+            path={routeNames.Register}
+            element={
+              <>
+                <Register />
               </>
             }
           />

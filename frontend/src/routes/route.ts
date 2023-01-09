@@ -2,11 +2,12 @@ export enum routeNames {
   Overview = "/",
   NewDesign = "/newdesign/*",
   ResourceDesign = "/resourcedesign",
-  Register = "/registration",
   JoinUs = "/joinus",
   Community = "/community",
   SayHello = "/sayhello",
   Profile = "/profile",
+  Register = "/Register",
+  Login = "/Login",
 
   //under new design
   AlbumCover = "/albumcover/:id",
