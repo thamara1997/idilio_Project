@@ -1,43 +1,48 @@
+import { packageDetails } from "data/package";
 import React from "react";
 import PackageCard from "../PackageCard";
 
 function Podcast() {
   const packcard = [
     {
-      id: 1,
+      id: 5,
       name: "BASIC",
       price: "$29.99",
       designCount: "1 Design Concept",
       revisions: "5 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
+      category: "podcast",
     },
     {
-      id: 2,
+      id: 6,
       name: "STANDARD",
       price: "$49.99",
       designCount: "2 Design Concept",
       revisions: "10 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
+      category: "podcast",
     },
     {
-      id: 3,
+      id: 7,
       name: "ADVANCE",
       price: "$99.99",
       designCount: "3 Design Concept",
       revisions: "20 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "podcast",
     },
     {
-      id: 4,
+      id: 8,
       name: "PREMIUM",
       price: "$149.99",
       designCount: "3 Design Concept",
       revisions: "Unlimited Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "podcast",
     },
   ];
   return (
@@ -63,6 +68,7 @@ function Podcast() {
                 resolution={t.resolution}
                 size={t.size}
                 id={t.id}
+                category={t.category}
                 other={t.other}
               />
             </div>

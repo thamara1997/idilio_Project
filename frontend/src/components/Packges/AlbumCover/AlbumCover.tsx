@@ -1,3 +1,4 @@
+import { packageDetails } from "data/package";
 import React from "react";
 import PackageCard from "../PackageCard";
 
@@ -11,6 +12,7 @@ const Album = () => {
       revisions: "5 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
+      category: "Album Cover",
     },
     {
       id: 2,
@@ -20,6 +22,7 @@ const Album = () => {
       revisions: "10 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
+      category: "Album Cover",
     },
     {
       id: 3,
@@ -29,6 +32,7 @@ const Album = () => {
       revisions: "20 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "Album Cover",
     },
     {
       id: 4,
@@ -38,6 +42,7 @@ const Album = () => {
       revisions: "Unlimited Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "Album Cover",
     },
   ];
   return (

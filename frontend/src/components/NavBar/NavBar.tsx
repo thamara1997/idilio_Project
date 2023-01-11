@@ -3,19 +3,16 @@ import logo from "assets/logo.png";
 import avatar from "assets/avatar.jpg";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
-import Register from "components/Register/Register";
-import { useState } from "react";
-import Login from "components/Login/Login";
 
 const NavBar = () => {
-  const [showMyModal, setShowMyModal] = useState(false);
-  const handleOnClose = () => setShowMyModal(false);
-  const [showMyModal2, setShowMyModal2] = useState(false);
-  const handleOnClose2 = () => setShowMyModal2(false);
+  // const [showMyModal, setShowMyModal] = useState(false);
+  // const handleOnClose = () => setShowMyModal(false);
+  // const [showMyModal2, setShowMyModal2] = useState(false);
+  // const handleOnClose2 = () => setShowMyModal2(false);
   return (
     <div>
-      <Register onClose={handleOnClose} visible={showMyModal} />
-      <Login onClose={handleOnClose2} visible={showMyModal2} />
+      {/* <Register onClose={handleOnClose} visible={showMyModal} />
+      <Login onClose={handleOnClose2} visible={showMyModal2} /> */}
       <div className="flex justify-between w-full h-[70px] bg-black pt-3">
         {/* Logo  */}
         <div className="w-[60px] h-[60px] ml-5">
@@ -87,22 +84,33 @@ const NavBar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="hover:bg-black focus:bg-[#FEC850]" to="#">
-                    Setting
+                  <Link
+                    className="hover:bg-black focus:bg-[#FEC850]"
+                    to={routeNames.ProfileSetup}
+                  >
+                    Profile Setup
                   </Link>
                 </li>
                 <li>
-                  <Link className="hover:bg-black focus:bg-[#FEC850]" to="#">
-                    <button onClick={() => setShowMyModal2(true)}>
+                  <Link
+                    className="hover:bg-black focus:bg-[#FEC850]"
+                    to={routeNames.Login}
+                  >
+                    {/* <button onClick={() => setShowMyModal2(true)}>
                       Log In
-                    </button>
+                    </button> */}
+                    <button>Log In</button>
                   </Link>
                 </li>
                 <li>
-                  <Link className="hover:bg-black focus:bg-[#FEC850] " to="#">
-                    <button onClick={() => setShowMyModal(true)}>
+                  <Link
+                    className="hover:bg-black focus:bg-[#FEC850] "
+                    to={routeNames.Register}
+                  >
+                    {/* <button onClick={() => setShowMyModal(true)}>
                       Register
-                    </button>
+                    </button> */}
+                    <button>Register</button>
                   </Link>
                 </li>
               </ul>

@@ -2,8 +2,8 @@
 import React from "react";
 import Facebook from "assets/Facebook.png";
 import Insta from "assets/Insta.png";
-import Twitter from "assets/Twitter.png";
 import LinkedIn from "assets/Linkedin.png";
+import Twitter from "assets/Twitter.png";
 import Whatsapp from "assets/Whatsapp.png";
 
 const Footer = () => {

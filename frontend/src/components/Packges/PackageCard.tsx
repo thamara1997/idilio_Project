@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { routeNames } from "routes/route";
+
 const PackageCard = ({
   name,
   price,
@@ -7,6 +11,7 @@ const PackageCard = ({
   size,
   other,
   id,
+  category,
 }: any) => {
   return (
     <div>
@@ -25,13 +30,13 @@ const PackageCard = ({
           <h6> {other} </h6>
         </div>
         <div className="absolute w-full mx-auto bottom-4 ">
-          <button className="btn1 text-[12px] ">ORDER NOW</button>
-          {/* <Link
+          {/* <button className="btn1 text-[12px] ">ORDER NOW</button> */}
+          <Link
             to={routeNames.NDesignDetails.replace(":id", id)}
             className="btn1"
           >
             OrderNow
-          </Link> */}
+          </Link>
         </div>
       </div>
     </div>

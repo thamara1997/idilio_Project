@@ -4,40 +4,44 @@ import PackageCard from "../PackageCard";
 const CompanyLogo = () => {
   const packcard = [
     {
-      id: 1,
+      id: 21,
       name: "BASIC",
       price: "$29.99",
       designCount: "1 Design Concept",
       revisions: "5 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
+      category: "companylogo",
     },
     {
-      id: 2,
+      id: 22,
       name: "STANDARD",
       price: "$49.99",
       designCount: "2 Design Concept",
       revisions: "10 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
+      category: "companylogo",
     },
     {
-      id: 3,
+      id: 23,
       name: "ADVANCE",
       price: "$99.99",
       designCount: "3 Design Concept",
       revisions: "20 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "companylogo",
     },
     {
-      id: 4,
+      id: 24,
       name: "PREMIUM",
       price: "$149.99",
       designCount: "3 Design Concept",
       revisions: "Unlimited Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "companylogo",
     },
   ];
   return (
@@ -64,6 +68,7 @@ const CompanyLogo = () => {
                 id={t.id}
                 size={t.size}
                 other={t.other}
+                category={t.category}
               />
             </div>
           ))}

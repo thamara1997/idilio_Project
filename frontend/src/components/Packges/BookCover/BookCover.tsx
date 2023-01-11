@@ -4,40 +4,44 @@ import PackageCard from "../PackageCard";
 const BookCover = () => {
   const packcard = [
     {
-      id: 1,
+      id: 9,
       name: "BASIC",
       price: "$29.99",
       designCount: "1 Design Concept",
       revisions: "5 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
+      category: "bookcover",
     },
     {
-      id: 2,
+      id: 10,
       name: "STANDARD",
       price: "$49.99",
       designCount: "2 Design Concept",
       revisions: "10 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
+      category: "bookcover",
     },
     {
-      id: 3,
+      id: 11,
       name: "ADVANCE",
       price: "$99.99",
       designCount: "3 Design Concept",
       revisions: "20 Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "bookcover",
     },
     {
-      id: 4,
+      id: 12,
       name: "PREMIUM",
       price: "$149.99",
       designCount: "3 Design Concept",
       revisions: "Unlimited Revisions",
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
+      category: "bookcover",
     },
   ];
   return (
@@ -63,6 +67,7 @@ const BookCover = () => {
                 resolution={t.resolution}
                 size={t.size}
                 id={t.id}
+                category={t.category}
                 other={t.other}
               />
             </div>

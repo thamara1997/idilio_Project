@@ -15,6 +15,9 @@ import RDesignDetails from "Pages/RDesignDetails/RDesignDetails";
 import Requirement from "Pages/Requirement/Requirement";
 import Login from "components/Login/Login";
 import Register from "components/Register/Register";
+import ProfileSetup from "Pages/ProfileSetup/ProfileSetup";
+import Progress from "Pages/Progress/Progress";
+import Requirement2 from "Pages/Requirement/Requirement2";
 
 function App() {
   return (
@@ -93,6 +96,16 @@ function App() {
             }
           />
           <Route
+            path={routeNames.ProfileSetup}
+            element={
+              <>
+                <NavBar />
+                <ProfileSetup />
+                <Footer />
+              </>
+            }
+          />
+          <Route
             path={routeNames.RDesignDetails}
             element={
               <>
@@ -108,6 +121,26 @@ function App() {
               <>
                 <NavBar />
                 <Requirement />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path={routeNames.NDesignDetails}
+            element={
+              <>
+                <NavBar />
+                <Requirement2 />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path={routeNames.Progress}
+            element={
+              <>
+                <NavBar />
+                <Progress />
                 <Footer />
               </>
             }

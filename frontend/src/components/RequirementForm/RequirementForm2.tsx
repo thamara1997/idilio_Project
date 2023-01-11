@@ -4,7 +4,7 @@ import { HiOutlineSave } from "react-icons/hi";
 import { routeNames } from "routes/route";
 import { Link } from "react-router-dom";
 
-const RequirementForm = ({ title, id2, name, price, category }: any) => {
+const RequirementForm = ({ id, name, category }: any) => {
   const sigPad = useRef<any>();
   let data = "";
 
@@ -35,19 +35,11 @@ const RequirementForm = ({ title, id2, name, price, category }: any) => {
         <form className="flex-col m-8 w-[60%] uppercase">
           <label className="flex mb-4">
             <span className="flex w-[20%] font-bold">Order Id</span>
-            <div className="w-[80%] flex font-normal">: {id2}</div>
-          </label>
-          <label className="flex mb-4">
-            <span className="flex w-[20%] font-bold">Title</span>
-            <div className="w-[80%] flex font-normal">: {title}</div>
+            <div className="w-[80%] flex font-normal">: {id}</div>
           </label>
           <label className="flex mb-4">
             <span className="flex w-[20%] font-bold">Designer Name</span>
             <div className="w-[80%] flex font-normal">: {name}</div>
-          </label>
-          <label className="flex mb-4">
-            <span className="flex w-[20%] font-bold">Amount</span>
-            <div className="w-[80%] flex font-normal">: {price}</div>
           </label>
           <label className="flex mb-4">
             <span className="flex w-[20%] font-bold">Category</span>
@@ -102,7 +94,7 @@ const RequirementForm = ({ title, id2, name, price, category }: any) => {
               className="flex w-[80%] text-[14px] bg-[#272727] file-input file-input-bordered"
             />
           </label>
-          <Link to={routeNames.Progress.replace(":id", id2)}>
+          <Link to={routeNames.Progress.replace(":id", id)}>
             <input type="button" value="SUBMIT" className="w-full my-8 btn2" />
           </Link>
         </form>

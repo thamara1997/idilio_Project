@@ -1,11 +1,11 @@
 import registering from "assets/Companylogo.jpg";
 import { Link } from "react-router-dom";
+import { routeNames } from "routes/route";
 
-const Register = ({ visible, onClose }: any) => {
-  if (!visible) return null;
+const Register = ({}) => {
   return (
     <div>
-      <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
+      <div className="fixed inset-0 z-30 flex items-center justify-center bg-black backdrop-blur-sm">
         <div className="text-white bg-black rounded-2xl w-[1300px] h-[700px] border-[0.5px] border-sm border-[#fec750c1]">
           <div className="absolute">
             <img
@@ -23,14 +23,14 @@ const Register = ({ visible, onClose }: any) => {
                   </h1>
                   <h6 className="relative top-9 text-[12px] font-light">
                     If You Already a member
-                    <Link className="text-[#fec750] m-2" to={""}>
-                      Sign in
+                    <Link className="text-[#fec750] m-2" to={routeNames.Login}>
+                      Log In
                     </Link>
                   </h6>
                 </div>
-                <button className="flex" onClick={onClose}>
-                  X
-                </button>
+                <Link to={routeNames.Overview}>
+                  <button className="flex">X</button>
+                </Link>
               </div>
             </div>
             {/* Form Registration */}
