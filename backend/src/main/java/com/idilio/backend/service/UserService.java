@@ -1,7 +1,9 @@
 package com.idilio.backend.service;
 
+import com.idilio.backend.dto.LoginDTO;
 import com.idilio.backend.dto.UserDTO;
 import com.idilio.backend.entity.User;
+import com.idilio.backend.repository.LoginRepo;
 import com.idilio.backend.repository.UserRepo;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -17,9 +19,14 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
     @Autowired
+    private LoginService logins;
+    @Autowired
     private ModelMapper modelMapper;
 
     public UserDTO saveUser(UserDTO userDTO){
+        LoginDTO a=logins.saveLogin(userDTO.getLogin());
+        a=logins.getAllLogin().get(0);
+        userDTO.setLogin(a);
         userRepo.save(modelMapper.map(userDTO, User.class));
         return userDTO;
     }

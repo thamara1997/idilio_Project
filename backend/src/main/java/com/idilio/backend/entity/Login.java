@@ -1,18 +1,24 @@
 package com.idilio.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Login {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="login_id")
     private int loginId;
+    @Column(name="email")
     private String email;
+    @Column(name="password")
     private String password;
+
+    @OneToOne(mappedBy = "login",cascade = CascadeType.MERGE)
+    private User user;
 }

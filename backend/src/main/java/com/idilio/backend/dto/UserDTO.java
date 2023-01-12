@@ -1,8 +1,7 @@
 package com.idilio.backend.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.idilio.backend.entity.Login;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -14,6 +13,7 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String country;
-    private String role;
+    private String isAdmin;
     private Timestamp lastLogIn;
+    private LoginDTO login;
 }
