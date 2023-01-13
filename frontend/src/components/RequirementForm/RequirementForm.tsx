@@ -64,9 +64,9 @@ const RequirementForm = ({ title, id2, name, price, category }: any) => {
 
           <label className="flex mb-4">
             <span className="flex w-[20%] font-bold">Requirements </span>
-            <input
-              type="textarea"
-              className="h-[15rem] w-[80%] text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
+            <textarea
+              // type="textarea"
+              className=" w-[80%] text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent p-4 mb-7"
               placeholder="Type your project name here"
             />
           </label>
