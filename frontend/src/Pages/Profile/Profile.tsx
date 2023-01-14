@@ -82,7 +82,7 @@ const Profile = () => {
       <div className="flex w-[80%] mx-auto mt-10 justify-center  items-center">
         <div className="w-[30%] text-center">
           {card.map((t: any, i: number) => (
-            <div id="item1" className="w-full carousel-item" key={i}>
+            <div id="item1" className="w-full" key={i}>
               <ProfileCard name={t.name} role={t.role} />
             </div>
           ))}
