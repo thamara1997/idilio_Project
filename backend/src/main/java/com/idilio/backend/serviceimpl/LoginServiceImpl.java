@@ -23,6 +23,18 @@ public class LoginServiceImpl implements LoginService {
     private Common common = new Common();
 
     @Override
+    public List<LoginDTO> getAllLogin() {
+        try{
+            List<Login> list = loginrepo.findAll();
+            return modelMapper.map(list, new TypeToken<List<LoginDTO>>(){}.getType());
+//            return list;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+    @Override
     public Boolean validateEmail(String email){
         boolean valid=false;
         try{
@@ -90,18 +102,7 @@ public class LoginServiceImpl implements LoginService {
         return null;
     }
 
-    @Override
-    public List<LoginDTO> getAllLogin() {
-        try{
-            List<Login> list = loginrepo.findAll();
-            return modelMapper.map(list, new TypeToken<List<LoginDTO>>(){}.getType());
-//            return list;
-        }
-        catch (Exception e){
-            System.out.println(e.toString());
-            return null;
-        }
-    }
+
 
 
 }
