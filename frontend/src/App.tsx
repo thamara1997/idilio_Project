@@ -1,5 +1,6 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { routeNames } from "routes/route";
 
 import Community from "Pages/Community/Community";
 import JoinUs from "Pages/JoinUs/JoinUs";
@@ -10,7 +11,6 @@ import SayHello from "Pages/SayHello/SayHello";
 import Overview from "Pages/Overview/Overview";
 import NavBar from "components/NavBar/NavBar";
 import Footer from "components/Footer/Footer";
-import { routeNames } from "routes/route";
 import RDesignDetails from "Pages/RDesignDetails/RDesignDetails";
 import Requirement from "Pages/Requirement/Requirement";
 import Login from "components/Login/Login";
