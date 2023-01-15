@@ -7,6 +7,7 @@ import lombok.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name="User")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,22 +15,27 @@ import java.sql.Timestamp;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="user_id")
+    @Column(name="userId")
     private int userId;
-    @Column(name = "first_name")
+    @Column(name = "firstName")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "lastName")
     private String lastName;
     @Column(name = "country")
     private String country;
-    @Column(name = "is_admin")
+    @Column(name = "fbURL")
+    private String fbURL;
+    @Column(name = "instaURL")
+    private String instaURL;
+    @Column(name = "linkedinURL")
+    private String linkedinURL;
+    @Column(name = "isAdmin")
     private String isAdmin;
-    @Column(name = "last_login")
+    @Column(name = "lastLogin")
     private Timestamp lastLogIn;
 
-    //Login login_id
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "login_id",referencedColumnName = "login_id")
-    @JsonIgnoreProperties("user")
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "loginId",referencedColumnName = "loginId")
     private Login login;
+
 }
