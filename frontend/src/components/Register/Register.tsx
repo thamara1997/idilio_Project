@@ -1,8 +1,15 @@
 import registering from "assets/Companylogo.jpg";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
+import { useForm } from "react-hook-form";
+import React, { useRef } from "react";
 
-const Register = ({}) => {
+const Register = () => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data: any): void => {
+    console.log(data);
+  };
+
   return (
     <div>
       <div className="fixed inset-0 z-30 flex items-center justify-center bg-black backdrop-blur-sm">
@@ -34,12 +41,14 @@ const Register = ({}) => {
               </div>
             </div>
             {/* Form Registration */}
-            <form className="flex-col m-8">
+            <form className="flex-col m-8" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex-row">
                 <label>
                   <span className="m-1 font-light">Email</span>
                   <input
-                    type="text"
+                    type="email"
+                    name="email"
+                    ref={register}
                     className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
                     placeholder="example@gmail.com"
                   />
@@ -48,6 +57,7 @@ const Register = ({}) => {
                   <span className="m-1 font-light">Password</span>
                   <input
                     type="Password"
+                    name="password"
                     className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
                   />
                 </label>
@@ -55,6 +65,7 @@ const Register = ({}) => {
                   <span className="m-1 font-light">Confirm Password</span>
                   <input
                     type="Password"
+                    name="confirmpassword"
                     className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
                   />
                 </label>
@@ -74,7 +85,11 @@ const Register = ({}) => {
                   </div>
                 </label>
                 <label>
-                  <input type="checkbox" className="bg-white checkbox" />
+                  <input
+                    type="checkbox"
+                    name="confirm"
+                    className="bg-white checkbox"
+                  />
                   <span className="flex text-[12px] font-light">
                     Yes, I want emails with visual inspiration, special offers
                     and more.
