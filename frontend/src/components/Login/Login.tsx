@@ -1,8 +1,20 @@
 import registering from "assets/Companylogo.jpg";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+  });
+
+  const onSubmit = (data: any) => console.log(data);
+
+  // console.log(errors);
   return (
     <div>
       <div className="fixed inset-0 z-30 flex items-center justify-center bg-black backdrop-blur-sm">
@@ -37,27 +49,54 @@ const Login = () => {
               </div>
             </div>
             {/* Form Registration */}
-            <form className="flex-row justify-between m-8">
+            <form
+              className="flex-row justify-between m-8"
+              onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off"
+            >
               <div className="flex-row mt-[100px]">
                 <label>
                   <span className="m-1 font-light">Email</span>
                   <input
                     type="text"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
                     placeholder="example@gmail.com"
+                    {...register("email", {
+                      required: "Email is Required...",
+                      pattern: {
+                        value:
+                          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        message: "Email must be valid",
+                      },
+                    })}
                   />
+                  <p className="flex-col m-1 text-xs text-red-600">
+                    <>{errors.email?.message}</>
+                  </p>
                 </label>
                 <label>
                   <span className="m-1 font-light">Password</span>
                   <input
                     type="Password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                    {...register("password", {
+                      required: "Password is Required...",
+                      pattern: {
+                        value:
+                          /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                        message:
+                          "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+                      },
+                    })}
                   />
+                  <p className="flex-col m-1 text-xs text-red-600">
+                    <>{errors.password?.message}</>
+                  </p>
                 </label>
               </div>
               <div className="flex mt-[5px] content-center">
                 <input
-                  type="button"
+                  type="Submit"
                   value="Log In"
                   className="w-full mt-8 btn2"
                 />

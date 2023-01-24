@@ -2,13 +2,21 @@ import registering from "assets/Companylogo.jpg";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { useForm } from "react-hook-form";
-import React, { useRef } from "react";
 
 const Register = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any): void => {
-    console.log(data);
-  };
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+  });
+
+  const onSubmit = (data: any) => console.log(data);
+
+  // console.log(errors);
 
   return (
     <div>
@@ -41,41 +49,77 @@ const Register = () => {
               </div>
             </div>
             {/* Form Registration */}
-            <form className="flex-col m-8" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              className="flex-col m-8"
+              onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off"
+            >
               <div className="flex-row">
                 <label>
                   <span className="m-1 font-light">Email</span>
                   <input
                     type="email"
-                    name="email"
-                    ref={register}
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
+                    // ref={register}
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
                     placeholder="example@gmail.com"
+                    {...register("email", {
+                      required: "Email is Required...",
+                      pattern: {
+                        value:
+                          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        message: "Email must be valid",
+                      },
+                    })}
                   />
+                  <p className="flex-col m-1 text-xs text-red-600">
+                    <>{errors.email?.message}</>
+                  </p>
                 </label>
                 <label>
                   <span className="m-1 font-light">Password</span>
                   <input
                     type="Password"
-                    name="password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                    {...register("password", {
+                      required: "Password is Required...",
+                      pattern: {
+                        value:
+                          /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                        message:
+                          "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+                      },
+                    })}
+                    placeholder="Password"
                   />
+                  <p className="flex-col m-1 text-xs text-red-600">
+                    <>{errors.password?.message}</>
+                  </p>
                 </label>
                 <label>
                   <span className="m-1 font-light">Confirm Password</span>
                   <input
                     type="Password"
-                    name="confirmpassword"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-7"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                    {...register("password_repeat", { required: true })}
+                    placeholder="Re Enter Password"
                   />
+                  {watch("password_repeat") !== watch("password") &&
+                  getValues("password_repeat") ? (
+                    <p className="flex-col m-1 text-xs text-red-600">
+                      Password Not Match
+                    </p>
+                  ) : null}
                 </label>
                 <label>
                   <span className="m-1 font-light">Country</span>
-                  <div className="">
-                    <select className="w-full select  bg-transparent text-center rounded-xl border-[0.5px] border-[#fec7505d] font-light h-[2.5rem] mb-7">
-                      <option disabled selected>
-                        Country
-                      </option>
+                  <div>
+                    <select
+                      className="w-full select  bg-transparent text-center rounded-xl border-[0.5px] border-[#fec7505d] font-light h-[2.5rem] mb-3"
+                      {...register("country", {
+                        required: "Country is Required...",
+                      })}
+                    >
+                      <option value="">Select Your Country</option>
                       <option>Sri Lanka</option>
                       <option>England</option>
                       <option>USA</option>
@@ -83,21 +127,29 @@ const Register = () => {
                       <option>Australia</option>
                     </select>
                   </div>
+                  <p className="flex-col m-1 text-xs text-red-600">
+                    <>{errors.country?.message}</>
+                  </p>
                 </label>
                 <label>
                   <input
                     type="checkbox"
-                    name="confirm"
                     className="bg-white checkbox"
+                    {...register("check", {
+                      required: "Have to tick this...",
+                    })}
                   />
                   <span className="flex text-[12px] font-light">
                     Yes, I want emails with visual inspiration, special offers
                     and more.
                   </span>
+                  <p className="flex-col m-1 text-xs text-red-600">
+                    <>{errors.check?.message}</>
+                  </p>
                 </label>
               </div>
               <input
-                type="button"
+                type="Submit"
                 value="Register"
                 className="w-full mt-8 btn2"
               />
