@@ -4,11 +4,13 @@ import com.idilio.backend.common.Common;
 import com.idilio.backend.dto.LoginDTO;
 import com.idilio.backend.dto.UserFullDTO;
 import com.idilio.backend.entity.Login;
+import com.idilio.backend.entity.User;
 import com.idilio.backend.repository.LoginRepo;
 import com.idilio.backend.service.LoginService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +23,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private ModelMapper modelMapper;
     private Common common = new Common();
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<LoginDTO> getAllLogin() {
@@ -53,13 +58,17 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
-    @Override
-    public LoginDTO addLogin(UserFullDTO userdata) throws NoSuchAlgorithmException {
+    //@Override
+    public LoginDTO addLogin(UserFullDTO userdata, User user) throws NoSuchAlgorithmException {
         try{
-            LoginDTO ldto = new LoginDTO(userdata.getEmail(),userdata.getPassword());
-            String hashedPW = common.encryptPassword(ldto.getPassword());
+            String hashedPW = passwordEncoder.encode(userdata.getPassword());
+            Login ldto = new Login();
+            ldto.setEmail(userdata.getEmail());
             ldto.setPassword(hashedPW);
-            Login l = loginrepo.save(modelMapper.map(ldto,Login.class));
+            ldto.setUser(user);
+
+            //ldto.setPassword(hashedPW);
+            Login l = loginrepo.save(ldto);
 
             return modelMapper.map(l, new TypeToken<LoginDTO>(){}.getType());
         }

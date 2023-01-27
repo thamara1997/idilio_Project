@@ -3,10 +3,17 @@ package com.idilio.backend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
+@Data
+@Builder
 @Table(name="User")
 @Getter
 @Setter
@@ -29,13 +36,17 @@ public class User {
     private String instaURL;
     @Column(name = "linkedinURL")
     private String linkedinURL;
-    @Column(name = "isAdmin")
-    private String isAdmin;
     @Column(name = "lastLogin")
     private Timestamp lastLogIn;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "loginId",referencedColumnName = "loginId")
+    @Enumerated(EnumType.STRING)
+    @Column(name="role")
+    private Role role;
+
+
+    @OneToOne(mappedBy = "user")
     private Login login;
+
+
 
 }

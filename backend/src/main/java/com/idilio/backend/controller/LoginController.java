@@ -52,21 +52,21 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/addlogin")
-    public ResponseEntity<?> addLogin(@RequestBody UserFullDTO userdata)throws NoSuchAlgorithmException {
-        Map<String, Object> map = new LinkedHashMap<String, Object>();
-        LoginDTO ldto = loginService.addLogin(userdata);
-        if(ldto != null){
-            map.put("status",1);
-            map.put("data",ldto);
-            return new ResponseEntity<>(map, HttpStatus.OK);
-        }else{
-            map.clear();
-            map.put("status",0);
-            map.put("message","Login Not Found");
-            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
-        }
-    }
+//    @PostMapping("/addlogin")
+//    public ResponseEntity<?> addLogin(@RequestBody UserFullDTO userdata)throws NoSuchAlgorithmException {
+//        Map<String, Object> map = new LinkedHashMap<String, Object>();
+//        LoginDTO ldto = loginService.addLogin(userdata);
+//        if(ldto != null){
+//            map.put("status",1);
+//            map.put("data",ldto);
+//            return new ResponseEntity<>(map, HttpStatus.OK);
+//        }else{
+//            map.clear();
+//            map.put("status",0);
+//            map.put("message","Login Not Found");
+//            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     @PutMapping("/updatepassword")
     public ResponseEntity<?> updatePassword(@RequestBody LoginDTO logindata)throws NoSuchAlgorithmException {

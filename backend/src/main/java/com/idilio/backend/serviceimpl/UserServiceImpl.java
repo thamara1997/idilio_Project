@@ -4,6 +4,7 @@ import com.idilio.backend.dto.LoginDTO;
 import com.idilio.backend.dto.UserDTO;
 import com.idilio.backend.dto.UserFullDTO;
 import com.idilio.backend.entity.Login;
+import com.idilio.backend.entity.Role;
 import com.idilio.backend.entity.User;
 import com.idilio.backend.repository.UserRepo;
 import com.idilio.backend.service.UserService;
@@ -22,7 +23,6 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
     @Autowired
     private ModelMapper modelMapper;
-
     @Autowired
     private LoginServiceImpl loginServiceImpl;
 
@@ -45,12 +45,22 @@ public class UserServiceImpl implements UserService {
             boolean valid = loginServiceImpl.validateEmail(userdata.getEmail());
 
             if(valid){
-                LoginDTO ldto = loginServiceImpl.addLogin(userdata);
-                Login l = modelMapper.map(ldto, Login.class);
+                //LoginDTO ldto = loginServiceImpl.addLogin(userdata);
+                //Login l = modelMapper.map(ldto, Login.class);
 
-                User u = modelMapper.map(userdata, User.class);
-                u.setLogin(l);
+                User u = new User();
+                u.setFirstName(userdata.getFirstName());
+                u.setLastName(userdata.getLastName());
+                u.setFbURL(userdata.getFbURL());
+                u.setInstaURL(userdata.getInstaURL());
+                u.setInstaURL(userdata.getLinkedinURL());
+                u.setRole(Role.USER);
+
+                //u.setLogin(l);
                 User us = userRepo.save(u);
+
+                LoginDTO ldto = loginServiceImpl.addLogin(userdata, us);
+
                 return modelMapper.map(us, new TypeToken<UserDTO>(){}.getType());
             }else{
                 return null;

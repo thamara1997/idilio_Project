@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface LoginRepo extends JpaRepository<Login,Integer> {
     @Transactional
@@ -19,4 +21,7 @@ public interface LoginRepo extends JpaRepository<Login,Integer> {
 
     @Query(value = "SELECT * FROM idilio.login WHERE login_id = ?1", nativeQuery = true)
     Login getLoginDetailsById(int loginId);
+
+    @Query(value = "SELECT * FROM idilio.login WHERE email=?1 LIMIT 1", nativeQuery = true)
+    Optional<Login> findByEmail(String email);
 }

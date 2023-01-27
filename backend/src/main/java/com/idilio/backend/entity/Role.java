@@ -1,2 +1,6 @@
-package com.idilio.backend.entity;public enum Role {
+package com.idilio.backend.entity;
+
+public enum Role {
+    ADMIN,
+    USER,
 }

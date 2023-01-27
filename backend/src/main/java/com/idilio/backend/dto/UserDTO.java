@@ -17,5 +17,5 @@ public class UserDTO {
     private String linkedinURL;
     private String isAdmin;
     private Timestamp lastLogIn;
-    private int loginId;
+    //private int loginId;
 }

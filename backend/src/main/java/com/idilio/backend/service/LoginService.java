@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface LoginService {
-    LoginDTO addLogin(UserFullDTO userdata) throws NoSuchAlgorithmException;
+    //LoginDTO addLogin(UserFullDTO userdata) throws NoSuchAlgorithmException;
     LoginDTO updatePassword(LoginDTO logindata) throws NoSuchAlgorithmException;
 
     LoginDTO getLoginById(int loginid);

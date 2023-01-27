@@ -2,6 +2,7 @@ import registering from "assets/Companylogo.jpg";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { useForm } from "react-hook-form";
+import { country } from "data/country";
 
 const Register = () => {
   const {
@@ -13,6 +14,11 @@ const Register = () => {
   } = useForm({
     mode: "all",
   });
+
+  const countries = country;
+  console.log(countries);
+
+  // let optionItems = obj.map((item: any) => <option key={item}>{item}</option>);
 
   const onSubmit = (data: any) => console.log(data);
 
@@ -119,12 +125,12 @@ const Register = () => {
                         required: "Country is Required...",
                       })}
                     >
-                      <option value="">Select Your Country</option>
-                      <option>Sri Lanka</option>
-                      <option>England</option>
-                      <option>USA</option>
-                      <option>India</option>
-                      <option>Australia</option>
+                      <option value="" disabled selected>
+                        Select Country
+                      </option>
+                      {countries.map((c: any) => (
+                        <option value={c.value}>{c.label}</option>
+                      ))}
                     </select>
                   </div>
                   <p className="flex-col m-1 text-xs text-red-600">
