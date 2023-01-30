@@ -28,7 +28,7 @@ public class Login implements UserDetails{
     @Column(name="password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 

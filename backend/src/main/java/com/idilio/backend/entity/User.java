@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="userId")
     private int userId;
     @Column(name = "firstName")
@@ -44,9 +44,11 @@ public class User {
     private Role role;
 
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Login login;
 
 
+    @OneToOne(mappedBy = "user",cascade = CascadeType.MERGE)
+    private Designer designer;
 
 }

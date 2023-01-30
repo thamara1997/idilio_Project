@@ -84,7 +84,7 @@ public class LoginServiceImpl implements LoginService {
             LoginDTO ldto = getLoginById(logindata.getLoginId());
 
             if(ldto != null){
-                String hashedPW = common.encryptPassword(logindata.getPassword());
+                String hashedPW = passwordEncoder.encode(logindata.getPassword());
                 loginrepo.updatePassword(hashedPW,logindata.getLoginId());
                 return getLoginById(logindata.getLoginId());
             }

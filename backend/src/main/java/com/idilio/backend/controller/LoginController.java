@@ -47,7 +47,7 @@ public class LoginController {
         }else{
             map.clear();
             map.put("status",0);
-            map.put("message","Login List Not Found");
+            map.put("message","Login id Not Found");
             return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
         }
     }

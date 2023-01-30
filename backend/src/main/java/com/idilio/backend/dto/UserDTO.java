@@ -1,5 +1,6 @@
 package com.idilio.backend.dto;
 
+import com.idilio.backend.entity.Role;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -15,7 +16,6 @@ public class UserDTO {
     private String fbURL;
     private String instaURL;
     private String linkedinURL;
-    private String isAdmin;
+    private Role role;
     private Timestamp lastLogIn;
-    //private int loginId;
 }
