@@ -5,7 +5,7 @@ export const cardDetails = [
     price: "10$",
     link: `resourcedesign/details/`,
     title: "Title 1",
-    Category: "AlBUM COVER ",
+    Category: "AlBUM COVER",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
     reviews: [`review 1`, `review 2`, `review 3`],
@@ -16,7 +16,7 @@ export const cardDetails = [
     price: "20$",
     link: `resourcedesign/details/`,
     title: "Title 2",
-    Category: "AlBUM COVER ",
+    Category: "BOOK COVER",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
     reviews: [`review 1`, `review 2`, `review 3`],
@@ -27,7 +27,7 @@ export const cardDetails = [
     price: "40$",
     link: `resourcedesign/details/`,
     title: "Title 3",
-    Category: "AlBUM COVER ",
+    Category: "FLYER",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
     reviews: [`review 1`, `review 2`, `review 3`],
@@ -38,7 +38,7 @@ export const cardDetails = [
     price: "10$",
     link: `resourcedesign/details/`,
     title: "Title 4",
-    Category: "PODCAST COVER ",
+    Category: "COMPANY LOGO",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
     reviews: [`review 1`, `review 2`, `review 3`],
@@ -49,7 +49,7 @@ export const cardDetails = [
     price: "50$",
     link: `resourcedesign/details/`,
     title: "Title 5",
-    Category: "ALBUM COVER ",
+    Category: "MASCOT LOGO",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
     reviews: [`review 1`, `review 2`, `review 3`],
@@ -60,7 +60,7 @@ export const cardDetails = [
     price: "30$",
     link: `resourcedesign/details/`,
     title: "Title 6",
-    Category: "PODCAST COVER ",
+    Category: "PODCAST COVER",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
     reviews: [`review 1`, `review 2`, `review 3`],

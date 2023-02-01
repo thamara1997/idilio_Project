@@ -17,6 +17,13 @@ const ResourceDesign = () => {
     reviews: any;
   }
 
+  const priceRanges = [
+    { label: "All", range: [0, 100] },
+    { label: "$0 - $20", range: [0, 20] },
+    { label: "$20 - $60", range: [20, 60] },
+    { label: "$60 - $100", range: [60, 100] },
+  ];
+
   const cards: Card[] = cardDetails;
 
   console.log(cards);
@@ -27,10 +34,11 @@ const ResourceDesign = () => {
 
   const filteredCards = cards.filter(
     (card) =>
-      card.title.toLowerCase().includes(filter1.toLowerCase()) ||
-      card.price.toLowerCase().includes(filter2.toLowerCase()) ||
+      card.title.toLowerCase().includes(filter1.toLowerCase()) &&
+      card.price.toLowerCase().includes(filter2.toLowerCase()) &&
       card.Category.toLowerCase().includes(filter3.toLowerCase())
   );
+
   return (
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>
@@ -58,11 +66,10 @@ const ResourceDesign = () => {
             value={filter3}
             onChange={(e) => setFilter3(e.target.value)}
           >
-            <option disabled selected>
-              Category
-            </option>
+            <option>Category</option>
             <option>ALBUM COVER</option>
-            <option>FLYERS</option>
+            <option>PODCAST COVER</option>
+            <option>FLYER</option>
             <option>COMPANY LOGO</option>
             <option>BOOK COVER</option>
             <option>MASCOT LOGO</option>
