@@ -1,5 +1,6 @@
 package com.idilio.backend.dto;
 
+import com.idilio.backend.entity.Designer;
 import com.idilio.backend.entity.Role;
 import lombok.*;
 
@@ -18,4 +19,5 @@ public class UserDTO {
     private String linkedinURL;
     private Role role;
     private Timestamp lastLogIn;
+    private DesignerDTO designer;
 }

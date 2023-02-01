@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name="Designer")
 @Getter
@@ -30,5 +32,7 @@ public class Designer {
     @JoinColumn(name="userId",referencedColumnName = "userId")
     private User user;
 
+    @OneToMany(mappedBy = "designer", cascade = CascadeType.REMOVE)
+    private List<Resources> resources;
 
 }

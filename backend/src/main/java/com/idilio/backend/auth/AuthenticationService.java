@@ -41,7 +41,7 @@ public class AuthenticationService {
             var user = modelMapper.map(userdata, Login.class);
 
             var jwtToken = jwtService.generateToken(user);
-            System.out.println(jwtToken);
+            //System.out.println(jwtToken);
             return  AuthenticationResponse.builder()
                     .token(jwtToken)
                     .user(userDTO)
