@@ -41,4 +41,7 @@ public class Resources {
     @JoinColumn(name="designerId" , referencedColumnName = "designerId")
     private Designer designer;
 
+    @OneToMany(mappedBy = "resources",cascade = CascadeType.REMOVE)
+    private List<ResourceOrder> resourceOrders;
+
 }
