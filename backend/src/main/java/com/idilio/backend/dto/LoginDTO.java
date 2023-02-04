@@ -1,14 +1,12 @@
 package com.idilio.backend.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 public class LoginDTO {
     private int loginId;
     private String email;

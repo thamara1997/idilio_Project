@@ -1,15 +1,13 @@
 package com.idilio.backend.dto;
 
 import com.idilio.backend.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 public class DesignerDTO {
     private int designerId;
     private int orderCount;

@@ -35,4 +35,7 @@ public class Designer {
     @OneToMany(mappedBy = "designer", cascade = CascadeType.REMOVE)
     private List<Resources> resources;
 
+    @OneToMany(mappedBy = "designer", cascade = CascadeType.REMOVE)
+    private List<NewOrder> newOrders;
+
 }
