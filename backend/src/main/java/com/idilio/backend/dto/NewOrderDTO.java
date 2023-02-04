@@ -1,19 +1,19 @@
 package com.idilio.backend.dto;
 
-import com.idilio.backend.entity.Resources;
 import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Builder
 @Setter
 @Data
-public class ResourceOrderDTO {
-    private int resourceOrderId;
+public class NewOrderDTO {
+    private int newOrderId;
     private String projectName;
     private String reqDescription;
     private String reqDraw;
     private String attachments;
-    private int resourceId;
+    private String review;
+    private int rate;
+    private int designerId;
 }

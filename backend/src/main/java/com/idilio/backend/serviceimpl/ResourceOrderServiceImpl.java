@@ -22,14 +22,22 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
     private ModelMapper modelMapper;
 
 
-    public ResourceOrderDTO convertToDTO(ResourceOrder resourceOrder){
-        ResourceOrderDTO newResourceOrder=new ResourceOrderDTO();
-        newResourceOrder.setResourceOrderId(resourceOrder.getResourceOrderId());
-        newResourceOrder.setProjectName(resourceOrder.getProjectName());
-        newResourceOrder.setReqDescription(resourceOrder.getReqDescription());
-        newResourceOrder.setReqDraw(resourceOrder.getReqDraw());
-        newResourceOrder.setAttachments(resourceOrder.getAttachments());
-        newResourceOrder.setResourceId(resourceOrder.getResources().getResourceId());
+    public ResourceOrderDTO convertToDTO(ResourceOrder r){
+        ResourceOrderDTO newResourceOrder=ResourceOrderDTO
+                .builder()
+                .resourceOrderId(r.getResourceOrderId())
+                .attachments(r.getAttachments())
+                .reqDraw(r.getReqDraw())
+                .reqDescription(r.getReqDescription())
+                .projectName(r.getProjectName())
+                .resourceId(r.getResources().getResourceId())
+                .build();
+//        newResourceOrder.setResourceOrderId(resourceOrder.getResourceOrderId());
+//        newResourceOrder.setProjectName(resourceOrder.getProjectName());
+//        newResourceOrder.setReqDescription(resourceOrder.getReqDescription());
+//        newResourceOrder.setReqDraw(resourceOrder.getReqDraw());
+//        newResourceOrder.setAttachments(resourceOrder.getAttachments());
+//        newResourceOrder.setResourceId(resourceOrder.getResources().getResourceId());
 
         return  newResourceOrder;
     }
