@@ -15,5 +15,7 @@ public class ResourceOrderDTO {
     private String reqDescription;
     private String reqDraw;
     private String attachments;
-    private int resourceId;
+    private int rate;
+    private String review;
+    private int resourcesResourceId;
 }

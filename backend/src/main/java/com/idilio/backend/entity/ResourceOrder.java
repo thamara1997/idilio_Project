@@ -29,6 +29,12 @@ public class ResourceOrder {
     @Column(name="attachments")
     private String attachments;
 
+    @Column(name="rate")
+    private int rate;
+
+    @Column(name="review")
+    private String review;
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="resourceId",referencedColumnName = "resourceId")
