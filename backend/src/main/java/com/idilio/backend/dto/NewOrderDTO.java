@@ -16,4 +16,8 @@ public class NewOrderDTO {
     private String review;
     private int rate;
     private int designerId;
+    private int packageId;
+    private int progressId;
+    private int paymentId;
+
 }

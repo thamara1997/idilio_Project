@@ -18,4 +18,7 @@ public class ResourceOrderDTO {
     private int rate;
     private String review;
     private int resourcesResourceId;
+    private int progressId;
+    private int paymentId;
+
 }

@@ -40,4 +40,14 @@ public class ResourceOrder {
     @JoinColumn(name="resourceId",referencedColumnName = "resourceId")
     private Resources resources;
 
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="progressId" , referencedColumnName = "progressId")
+    private Progress progress;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name="paymentId",referencedColumnName = "paymentId")
+    private Payment payment;
+
 }

@@ -1,15 +1,8 @@
 package com.idilio.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Data

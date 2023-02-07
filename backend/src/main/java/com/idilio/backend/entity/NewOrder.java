@@ -42,4 +42,19 @@ public class NewOrder {
     @JoinColumn(name="designerId" , referencedColumnName = "designerId")
     private Designer designer;
 
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="packageId" , referencedColumnName = "packageId")
+    private Package aPackage;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="progressId" , referencedColumnName = "progressId")
+    private Progress progress;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name="paymentId",referencedColumnName = "paymentId")
+    private Payment payment;
+
 }
