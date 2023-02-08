@@ -3,6 +3,7 @@ package com.idilio.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data
@@ -43,5 +44,9 @@ public class User {
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.MERGE)
     private Designer designer;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    private List<UsersOrders> usersOrders;
+
 
 }

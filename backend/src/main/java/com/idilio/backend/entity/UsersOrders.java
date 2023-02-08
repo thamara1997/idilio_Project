@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ResOrder")
+@Table(name = "UsersOrders")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResOrder {
+public class UsersOrders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resOrderId")
-    private int resOrderId;
+    @Column(name = "usersOrdersId")
+    private int usersOrdersId;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)

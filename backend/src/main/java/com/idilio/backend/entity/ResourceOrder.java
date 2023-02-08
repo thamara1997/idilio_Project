@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -49,5 +51,8 @@ public class ResourceOrder {
     @OneToOne
     @JoinColumn(name="paymentId",referencedColumnName = "paymentId")
     private Payment payment;
+
+    @OneToMany(mappedBy = "resourceOrder", cascade = CascadeType.MERGE)
+    private List<UsersOrders> usersOrders;
 
 }
