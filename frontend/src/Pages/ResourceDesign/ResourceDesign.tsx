@@ -26,7 +26,7 @@ const ResourceDesign = () => {
 
   const cards: Card[] = cardDetails;
 
-  console.log(cards);
+  // console.log(cards);
 
   const [filter1, setFilter1] = useState("");
   const [filter2, setFilter2] = useState("");
@@ -34,10 +34,12 @@ const ResourceDesign = () => {
 
   const filteredCards = cards.filter(
     (card) =>
-      card.title.toLowerCase().includes(filter1.toLowerCase()) &&
-      card.price.toLowerCase().includes(filter2.toLowerCase()) &&
+      card.title.toLowerCase().includes(filter1.toLowerCase()) &
+      card.price.toLowerCase().includes(filter2.toLowerCase()) &
       card.Category.toLowerCase().includes(filter3.toLowerCase())
   );
+
+  console.log(filteredCards);
 
   return (
     <div className="text-center">
@@ -66,7 +68,7 @@ const ResourceDesign = () => {
             value={filter3}
             onChange={(e) => setFilter3(e.target.value)}
           >
-            <option>Category</option>
+            <option value="">Category</option>
             <option>ALBUM COVER</option>
             <option>PODCAST COVER</option>
             <option>FLYER</option>
@@ -81,9 +83,7 @@ const ResourceDesign = () => {
             value={filter2}
             onChange={(e) => setFilter2(e.target.value)}
           >
-            <option disabled selected>
-              Cost
-            </option>
+            <option value="">Cost</option>
             <option>10</option>
             <option>20</option>
             <option>30</option>
