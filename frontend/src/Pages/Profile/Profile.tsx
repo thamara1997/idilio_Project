@@ -1,11 +1,28 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import OrderCard from "components/OrderCard/OrderCard";
 import ProfileCard from "components/ProfileCard/ProfileCard";
+import React, { useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  // validate user
+  const [user, setuser] = React.useState<any>();
+
+  useEffect(() => {
+    setTimeout(() => {
+      let logged = localStorage.getItem("loggedUser");
+      if (logged) {
+        setuser(JSON.parse(logged));
+      } else {
+        setuser(null);
+        navigate(routeNames.Login);
+      }
+    }, 1000);
+  }, [localStorage.getItem("loggedUser")]);
+
   const card = [
     {
       name: "Darshana Thamara",

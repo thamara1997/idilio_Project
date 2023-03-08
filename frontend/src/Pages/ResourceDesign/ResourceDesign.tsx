@@ -1,11 +1,30 @@
 import ArtCard from "components/ArtCard/ArtCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { cardDetails } from "data/data";
+import ResourcesService from "Services/ResourcesService";
 
 const ResourceDesign = () => {
+  useEffect(() => {
+    // ResourcesService.getResource().then((res: any) => {
+    //   console.log(res);
+    //   // if (res.data.status == 1) {
+    //   //   // setServices(res.data.data);
+    //   //   console.log(res.data);
+    //   //   return;
+    //   // } else {
+    //   //   console.log("not found");
+    //   // }
+    // });
+    const res = ResourcesService.getResource();
+    console.log(res);
+  }, []);
+  
+
+  // ResourcesService.getResource()
+
   interface Card {
     id: any;
     name: any;
@@ -39,7 +58,7 @@ const ResourceDesign = () => {
       card.Category.toLowerCase().includes(filter3.toLowerCase())
   );
 
-  console.log(filteredCards);
+  //console.log(filteredCards);
 
   return (
     <div className="text-center">

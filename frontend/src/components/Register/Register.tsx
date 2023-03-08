@@ -1,8 +1,11 @@
 import registering from "assets/Companylogo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { useForm } from "react-hook-form";
 import { country } from "data/country";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import AuthenticationServices from "Services/AuthenticationServices";
 
 const Register = () => {
   const {
@@ -15,14 +18,50 @@ const Register = () => {
     mode: "all",
   });
 
+  //country list
   const countries = country;
-  console.log(countries);
+  // console.log(countries);
 
-  // let optionItems = obj.map((item: any) => <option key={item}>{item}</option>);
+  //navigate
+  const navigate = useNavigate();
 
-  const onSubmit = (data: any) => console.log(data);
+  //if already has logged user
+  const logged = localStorage.getItem("loggedUser");
+  useEffect(() => {
+    if (logged) {
+      navigate(routeNames.Overview);
+    }
+  }, []);
 
-  // console.log(errors);
+  const onSubmit = async (data: any) => {
+    const result = await AuthenticationServices.Register(data);
+    console.log(result.data.user);
+
+    if (result.data.user != null) {
+      console.log(result.data.user);
+
+      //redirect to login page
+      localStorage.setItem(
+        "loggedUser",
+        JSON.stringify({
+          userId: result.data.user.userId,
+          firstName: result.data.user.firstName,
+          lastName: result.data.user.lastName,
+          lastLogin: result.data.user.lastLogIn,
+          country: result.data.user.country,
+          fbURL: result.data.user.fbURL,
+          instaURL: result.data.user.instaURL,
+          linkedinURL: result.data.user.linkedinURL,
+        })
+      );
+      toast.success("Register Successful");
+      navigate(routeNames.Overview);
+      navigate(0);
+      return;
+    } else {
+      toast.error("Registration Failed");
+    }
+  };
 
   return (
     <div>
@@ -56,17 +95,53 @@ const Register = () => {
             </div>
             {/* Form Registration */}
             <form
-              className="flex-col m-8"
+              className="flex-col m-8 "
               onSubmit={handleSubmit(onSubmit)}
               autoComplete="off"
             >
               <div className="flex-row">
+                <div className="flex justify-between">
+                  <label>
+                    <span className="font-light ">First Name</span>
+                    <input
+                      type="text"
+                      // ref={register}
+                      className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
+                      placeholder="example@gmail.com"
+                      {...register("firstName", {
+                        required: true,
+                      })}
+                    />
+                    {errors.firstName && (
+                      <p className="flex-col m-1 text-xs text-red-600">
+                        First Name is required
+                      </p>
+                    )}
+                  </label>
+                  <label>
+                    <span className="m-1 font-light">Last Name</span>
+                    <input
+                      type="text"
+                      // ref={register}
+                      className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
+                      placeholder="example@gmail.com"
+                      {...register("lastName", {
+                        required: true,
+                      })}
+                    />
+                    {errors.lastName && (
+                      <p className="flex-col m-1 text-xs text-red-600">
+                        Last Name is required
+                      </p>
+                    )}
+                  </label>
+                </div>
                 <label>
                   <span className="m-1 font-light">Email</span>
                   <input
                     type="email"
                     // ref={register}
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
                     placeholder="example@gmail.com"
                     {...register("email", {
                       required: "Email is Required...",
@@ -85,7 +160,7 @@ const Register = () => {
                   <span className="m-1 font-light">Password</span>
                   <input
                     type="Password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
                     {...register("password", {
                       required: "Password is Required...",
                       pattern: {
@@ -105,7 +180,7 @@ const Register = () => {
                   <span className="m-1 font-light">Confirm Password</span>
                   <input
                     type="Password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
                     {...register("password_repeat", { required: true })}
                     placeholder="Re Enter Password"
                   />
@@ -157,7 +232,7 @@ const Register = () => {
               <input
                 type="Submit"
                 value="Register"
-                className="w-full mt-8 btn2"
+                className="w-full mt-4 btn2"
               />
             </form>
           </div>

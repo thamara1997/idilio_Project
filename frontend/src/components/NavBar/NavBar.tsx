@@ -5,14 +5,8 @@ import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 
 const NavBar = () => {
-  // const [showMyModal, setShowMyModal] = useState(false);
-  // const handleOnClose = () => setShowMyModal(false);
-  // const [showMyModal2, setShowMyModal2] = useState(false);
-  // const handleOnClose2 = () => setShowMyModal2(false);
   return (
     <div>
-      {/* <Register onClose={handleOnClose} visible={showMyModal} />
-      <Login onClose={handleOnClose2} visible={showMyModal2} /> */}
       <div className="flex justify-between w-full h-[70px] bg-black pt-3">
         {/* Logo  */}
         <div className="w-[60px] h-[60px] ml-5">
@@ -96,9 +90,6 @@ const NavBar = () => {
                     className="hover:bg-black focus:bg-[#FEC850]"
                     to={routeNames.Login}
                   >
-                    {/* <button onClick={() => setShowMyModal2(true)}>
-                      Log In
-                    </button> */}
                     <button>Log In</button>
                   </Link>
                 </li>
@@ -107,9 +98,6 @@ const NavBar = () => {
                     className="hover:bg-black focus:bg-[#FEC850] "
                     to={routeNames.Register}
                   >
-                    {/* <button onClick={() => setShowMyModal(true)}>
-                      Register
-                    </button> */}
                     <button>Register</button>
                   </Link>
                 </li>

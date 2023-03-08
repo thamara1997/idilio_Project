@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import { routeNames } from "routes/route";
 
@@ -18,8 +19,38 @@ import Register from "components/Register/Register";
 import ProfileSetup from "Pages/ProfileSetup/ProfileSetup";
 import Progress from "Pages/Progress/Progress";
 import Requirement2 from "Pages/Requirement/Requirement2";
+import NavBar2 from "components/NavBar/NavBar2";
 
 function App() {
+  const [user, setUser] = useState<{
+    userId: string;
+    firstName: string;
+    lastName: string;
+    lastLogin: string;
+    country: string;
+    role: string;
+    fbURL: string;
+    instaURL: string;
+    linkedinURL: string;
+    designer: string;
+  } | null>(null);
+
+  useEffect(() => {
+    // Check local storage for user details
+    const storedUser = localStorage.getItem("loggedUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Remove user details from local storage and reset state
+    localStorage.removeItem("loggedUser");
+    setUser(null);
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -28,7 +59,8 @@ function App() {
             path={routeNames.Overview}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
+                {/* <NavBar /> */}
                 <Overview />
                 <Footer />
               </>
@@ -38,7 +70,7 @@ function App() {
             path={routeNames.JoinUs}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <JoinUs />
                 <Footer />
               </>
@@ -48,7 +80,7 @@ function App() {
             path={routeNames.NewDesign}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <NewDesign />
                 <Footer />
               </>
@@ -58,7 +90,7 @@ function App() {
             path={routeNames.ResourceDesign}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <ResourceDesign />
                 <Footer />
               </>
@@ -69,7 +101,7 @@ function App() {
             path={routeNames.Community}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <Community />
                 <Footer />
               </>
@@ -79,7 +111,7 @@ function App() {
             path={routeNames.SayHello}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <SayHello />
                 <Footer />
               </>
@@ -89,7 +121,7 @@ function App() {
             path={routeNames.Profile}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <Profile />
                 <Footer />
               </>
@@ -99,7 +131,7 @@ function App() {
             path={routeNames.ProfileSetup}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <ProfileSetup />
                 <Footer />
               </>
@@ -109,7 +141,7 @@ function App() {
             path={routeNames.RDesignDetails}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <RDesignDetails />
                 <Footer />
               </>
@@ -119,7 +151,7 @@ function App() {
             path={routeNames.Requirement}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <Requirement />
                 <Footer />
               </>
@@ -129,7 +161,7 @@ function App() {
             path={routeNames.NDesignDetails}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <Requirement2 />
                 <Footer />
               </>
@@ -139,7 +171,7 @@ function App() {
             path={routeNames.Progress}
             element={
               <>
-                <NavBar />
+                <NavBar2 user={user} onLogout={handleLogout} />
                 <Progress />
                 <Footer />
               </>

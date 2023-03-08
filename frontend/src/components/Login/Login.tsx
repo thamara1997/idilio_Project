@@ -1,7 +1,11 @@
 import registering from "assets/Companylogo.jpg";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 import { routeNames } from "routes/route";
+import AuthenticationServices from "Services/AuthenticationServices";
 
 const Login = () => {
   const {
@@ -12,7 +16,49 @@ const Login = () => {
     mode: "all",
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  //navigate
+  const navigate = useNavigate();
+
+  //if already has logged user
+  const logged = localStorage.getItem("loggedUser");
+  useEffect(() => {
+    if (logged) {
+      navigate(routeNames.Overview);
+    }
+  }, []);
+
+  //redirected to the overview page again
+  const onSubmit = async (data: any) => {
+    const result = await AuthenticationServices.loginRequest(data);
+
+    if (result.data.user) {
+      console.log(result.data.user);
+
+      localStorage.setItem(
+        "loggedUser",
+        JSON.stringify({
+          userId: result.data.user.userId,
+          firstName: result.data.user.firstName,
+          lastName: result.data.user.lastName,
+          lastLogin: result.data.user.lastLogIn,
+          country: result.data.user.country,
+          role: result.data.user.role,
+          fbURL: result.data.user.fbURL,
+          instaURL: result.data.user.instaURL,
+          linkedinURL: result.data.user.linkedinURL,
+          designer: result.data.user.designer,
+        })
+      );
+      toast.success("Login Successful");
+      navigate(routeNames.Overview);
+      navigate(0);
+      return;
+    } else {
+      // toast.error(result.data.user.message);
+      toast.error("Bad Credentials");
+      console.log("User Not Found");
+    }
+  };
 
   // console.log(errors);
   return (
@@ -111,6 +157,7 @@ const Login = () => {
                 </h6>
               </div>
             </form>
+            <ToastContainer />
           </div>
         </div>
       </div>
