@@ -18,20 +18,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="userId")
     private int userId;
+
     @Column(name = "firstName")
     private String firstName;
+
     @Column(name = "lastName")
     private String lastName;
+
     @Column(name = "country")
     private String country;
-    @Column(name = "fbURL")
-    private String fbURL;
-    @Column(name = "instaURL")
-    private String instaURL;
-    @Column(name = "linkedinURL")
-    private String linkedinURL;
+
     @Column(name = "lastLogin")
     private Timestamp lastLogIn;
+
+    @Column(name = "profile")
+    private String profile;
 
     @Enumerated(EnumType.STRING)
     @Column(name="role")
@@ -41,6 +42,8 @@ public class User {
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Login login;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    private List<NewOrder> newOrders;
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.MERGE)
     private Designer designer;

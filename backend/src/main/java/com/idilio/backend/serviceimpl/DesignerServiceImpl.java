@@ -79,7 +79,7 @@ public class DesignerServiceImpl implements DesignerService {
         try{
             UserDTO validuser = userServiceImpl.getUserById(designerDTO.getUserId());
             if(validuser!=null){
-                designerRepo.updateDesigner(designerDTO.getOrderCount(),designerDTO.getLevel(),designerDTO.getDesignerId());
+                designerRepo.updateDesigner(designerDTO.getOrderCount(),designerDTO.getLevel(),designerDTO.getFbURL(),designerDTO.getInstaURL(),designerDTO.getLinkedinURL(),designerDTO.getCv(),designerDTO.isApproved(),designerDTO.getDesignerId());
                 return getDesignerById(designerDTO.getDesignerId());
             }
             else{

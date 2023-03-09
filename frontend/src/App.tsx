@@ -20,20 +20,10 @@ import ProfileSetup from "Pages/ProfileSetup/ProfileSetup";
 import Progress from "Pages/Progress/Progress";
 import Requirement2 from "Pages/Requirement/Requirement2";
 import NavBar2 from "components/NavBar/NavBar2";
+import { user } from "Types/User";
 
 function App() {
-  const [user, setUser] = useState<{
-    userId: string;
-    firstName: string;
-    lastName: string;
-    lastLogin: string;
-    country: string;
-    role: string;
-    fbURL: string;
-    instaURL: string;
-    linkedinURL: string;
-    designer: string;
-  } | null>(null);
+  const [user, setUser] = useState<user>(null);
 
   useEffect(() => {
     // Check local storage for user details

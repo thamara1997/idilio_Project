@@ -52,9 +52,7 @@ public class UserServiceImpl implements UserService {
                 u.setFirstName(userdata.getFirstName());
                 u.setLastName(userdata.getLastName());
                 u.setCountry(userdata.getCountry());
-                u.setFbURL(userdata.getFbURL());
-                u.setInstaURL(userdata.getInstaURL());
-                u.setLinkedinURL(userdata.getLinkedinURL());
+                u.setProfile(userdata.getProfile());
                 u.setRole(Role.USER);
 
                 //u.setLogin(l);
@@ -97,7 +95,7 @@ public class UserServiceImpl implements UserService {
            UserDTO validUser = getUserById(userdata.getUserId());
 
            if(validUser != null){
-               userRepo.updateUser(userdata.getFirstName(),userdata.getLastName(),userdata.getCountry(),userdata.getFbURL(),userdata.getInstaURL(),userdata.getLinkedinURL(),userdata.getUserId());
+               userRepo.updateUser(userdata.getFirstName(),userdata.getLastName(),userdata.getCountry(),userdata.getProfile(),userdata.getUserId());
                return getUserById(userdata.getUserId());
 
            }

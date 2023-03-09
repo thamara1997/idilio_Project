@@ -1,11 +1,13 @@
 import registering from "assets/Companylogo.jpg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { routeNames } from "routes/route";
 import AuthenticationServices from "Services/AuthenticationServices";
+
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const {
@@ -15,6 +17,16 @@ const Login = () => {
   } = useForm({
     mode: "all",
   });
+
+  // show password
+  const [showPw, setShowPw] = useState<boolean>(false);
+  const handleClickShowPw = () => {
+    if (showPw) {
+      setShowPw(false);
+    } else {
+      setShowPw(true);
+    }
+  };
 
   //navigate
   const navigate = useNavigate();
@@ -43,9 +55,7 @@ const Login = () => {
           lastLogin: result.data.user.lastLogIn,
           country: result.data.user.country,
           role: result.data.user.role,
-          fbURL: result.data.user.fbURL,
-          instaURL: result.data.user.instaURL,
-          linkedinURL: result.data.user.linkedinURL,
+          profile: result.data.user.profile,
           designer: result.data.user.designer,
         })
       );
@@ -123,7 +133,7 @@ const Login = () => {
                 <label>
                   <span className="m-1 font-light">Password</span>
                   <input
-                    type="Password"
+                    type={showPw ? "text" : "Password"}
                     className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
                     {...register("password", {
                       required: "Password is Required...",
@@ -135,6 +145,9 @@ const Login = () => {
                       },
                     })}
                   />
+                  <h1 id="clear" className="showPw" onClick={handleClickShowPw}>
+                    {showPw ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </h1>
                   <p className="flex-col m-1 text-xs text-red-600">
                     <>{errors.password?.message}</>
                   </p>

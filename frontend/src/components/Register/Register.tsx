@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { useForm } from "react-hook-form";
 import { country } from "data/country";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AuthenticationServices from "Services/AuthenticationServices";
+
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Register = () => {
   const {
@@ -17,6 +19,16 @@ const Register = () => {
   } = useForm({
     mode: "all",
   });
+
+  // show password
+  const [showPw, setShowPw] = useState<boolean>(false);
+  const handleClickShowPw = () => {
+    if (showPw) {
+      setShowPw(false);
+    } else {
+      setShowPw(true);
+    }
+  };
 
   //country list
   const countries = country;
@@ -49,9 +61,7 @@ const Register = () => {
           lastName: result.data.user.lastName,
           lastLogin: result.data.user.lastLogIn,
           country: result.data.user.country,
-          fbURL: result.data.user.fbURL,
-          instaURL: result.data.user.instaURL,
-          linkedinURL: result.data.user.linkedinURL,
+          profile: result.data.user.profile,
         })
       );
       toast.success("Register Successful");
@@ -100,14 +110,14 @@ const Register = () => {
               autoComplete="off"
             >
               <div className="flex-row">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <label>
                     <span className="font-light ">First Name</span>
                     <input
                       type="text"
                       // ref={register}
                       className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
-                      placeholder="example@gmail.com"
+                      placeholder="First Name"
                       {...register("firstName", {
                         required: true,
                       })}
@@ -124,7 +134,7 @@ const Register = () => {
                       type="text"
                       // ref={register}
                       className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
-                      placeholder="example@gmail.com"
+                      placeholder="Last Name"
                       {...register("lastName", {
                         required: true,
                       })}
@@ -156,41 +166,62 @@ const Register = () => {
                     <>{errors.email?.message}</>
                   </p>
                 </label>
-                <label>
-                  <span className="m-1 font-light">Password</span>
-                  <input
-                    type="Password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
-                    {...register("password", {
-                      required: "Password is Required...",
-                      pattern: {
-                        value:
-                          /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
-                        message:
-                          "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
-                      },
-                    })}
-                    placeholder="Password"
-                  />
-                  <p className="flex-col m-1 text-xs text-red-600">
-                    <>{errors.password?.message}</>
-                  </p>
-                </label>
-                <label>
-                  <span className="m-1 font-light">Confirm Password</span>
-                  <input
-                    type="Password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
-                    {...register("password_repeat", { required: true })}
-                    placeholder="Re Enter Password"
-                  />
-                  {watch("password_repeat") !== watch("password") &&
-                  getValues("password_repeat") ? (
+                <div className="flex justify-between gap-4">
+                  <label className="w-[95%]">
+                    <span className="m-1 font-light">Password</span>
+                    <input
+                      type={showPw ? "text" : "Password"}
+                      className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
+                      {...register("password", {
+                        required: "Password is Required...",
+                        pattern: {
+                          value:
+                            /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                          message:
+                            "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+                        },
+                      })}
+                      placeholder="Password"
+                    />
                     <p className="flex-col m-1 text-xs text-red-600">
-                      Password Not Match
+                      <>{errors.password?.message}</>
                     </p>
-                  ) : null}
-                </label>
+                  </label>
+
+                  <h1
+                    id="clear"
+                    className="mt-10 showPw"
+                    onClick={handleClickShowPw}
+                  >
+                    {showPw ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </h1>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <label className="w-[95%]">
+                    <span className="m-1 font-light">Confirm Password</span>
+                    <input
+                      type={showPw ? "text" : "Password"}
+                      className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-1"
+                      {...register("password_repeat", { required: true })}
+                      placeholder="Re Enter Password"
+                    />
+                    {watch("password_repeat") !== watch("password") &&
+                    getValues("password_repeat") ? (
+                      <p className="flex-col m-1 text-xs text-red-600">
+                        Password Not Match
+                      </p>
+                    ) : null}
+                  </label>
+
+                  <h1
+                    id="clear"
+                    className="mt-10 showPw"
+                    onClick={handleClickShowPw}
+                  >
+                    {showPw ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </h1>
+                </div>
+
                 <label>
                   <span className="m-1 font-light">Country</span>
                   <div>

@@ -51,6 +51,11 @@ public class NewOrder {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="userId" , referencedColumnName = "userID")
+    private User user;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="progressId" , referencedColumnName = "progressId")
     private Progress progress;
 
