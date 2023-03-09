@@ -19,7 +19,7 @@ import Register from "components/Register/Register";
 import ProfileSetup from "Pages/ProfileSetup/ProfileSetup";
 import Progress from "Pages/Progress/Progress";
 import Requirement2 from "Pages/Requirement/Requirement2";
-import NavBar2 from "components/NavBar/NavBar2";
+import NavBar2 from "components/NavBar/NavBar";
 import { user } from "Types/User";
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
             path={routeNames.Overview}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 {/* <NavBar /> */}
                 <Overview />
                 <Footer />
@@ -60,7 +60,7 @@ function App() {
             path={routeNames.JoinUs}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <JoinUs />
                 <Footer />
               </>
@@ -70,7 +70,7 @@ function App() {
             path={routeNames.NewDesign}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <NewDesign />
                 <Footer />
               </>
@@ -80,7 +80,7 @@ function App() {
             path={routeNames.ResourceDesign}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <ResourceDesign />
                 <Footer />
               </>
@@ -91,7 +91,7 @@ function App() {
             path={routeNames.Community}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <Community />
                 <Footer />
               </>
@@ -101,7 +101,7 @@ function App() {
             path={routeNames.SayHello}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <SayHello />
                 <Footer />
               </>
@@ -111,7 +111,7 @@ function App() {
             path={routeNames.Profile}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <Profile />
                 <Footer />
               </>
@@ -121,7 +121,7 @@ function App() {
             path={routeNames.ProfileSetup}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <ProfileSetup />
                 <Footer />
               </>
@@ -131,7 +131,7 @@ function App() {
             path={routeNames.RDesignDetails}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <RDesignDetails />
                 <Footer />
               </>
@@ -141,7 +141,7 @@ function App() {
             path={routeNames.Requirement}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <Requirement />
                 <Footer />
               </>
@@ -151,7 +151,7 @@ function App() {
             path={routeNames.NDesignDetails}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <Requirement2 />
                 <Footer />
               </>
@@ -161,7 +161,7 @@ function App() {
             path={routeNames.Progress}
             element={
               <>
-                <NavBar2 user={user} onLogout={handleLogout} />
+                <NavBar user={user} onLogout={handleLogout} />
                 <Progress />
                 <Footer />
               </>
