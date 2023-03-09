@@ -3,20 +3,20 @@ import logo from "assets/logo.png";
 import avatar from "assets/avatar.jpg";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
+import { user } from "Types/User";
 
 interface NavBarProps {
-  user: {
-    userId: string;
-    firstName: string;
-    lastName: string;
-    lastLogin: string;
-    country: string;
-    role: string;
-    fbURL: string;
-    instaURL: string;
-    linkedinURL: string;
-    designer: string;
-  } | null;
+  // user: {
+  //   userId: string;
+  //   firstName: string;
+  //   lastName: string;
+  //   lastLogin: string;
+  //   country: string;
+  //   role: string;
+  //   profile: string;
+  //   designer: string;
+  // } | null;
+  user: any;
   onLogout: () => void;
 }
 
