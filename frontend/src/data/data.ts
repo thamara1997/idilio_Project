@@ -2,7 +2,7 @@ export const cardDetails = [
   {
     id: 0,
     name: "Darshana Thamara",
-    price: "10$",
+    amount: "10$",
     link: `resourcedesign/details/`,
     title: "Title 1",
     Category: "AlBUM COVER",
@@ -13,7 +13,7 @@ export const cardDetails = [
   {
     id: 1,
     name: "Chamith Viduranga",
-    price: "20$",
+    amount: "20$",
     link: `resourcedesign/details/`,
     title: "Title 2",
     Category: "BOOK COVER",
@@ -24,7 +24,7 @@ export const cardDetails = [
   {
     id: 2,
     name: "Viranga Jayawardana",
-    price: "40$",
+    amount: "40$",
     link: `resourcedesign/details/`,
     title: "Title 3",
     Category: "FLYER",
@@ -35,7 +35,7 @@ export const cardDetails = [
   {
     id: 3,
     name: "Ushan Malshika",
-    price: "10$",
+    amount: "10$",
     link: `resourcedesign/details/`,
     title: "Title 4",
     Category: "COMPANY LOGO",
@@ -46,7 +46,7 @@ export const cardDetails = [
   {
     id: 4,
     name: "Manula Gunawardana",
-    price: "50$",
+    amount: "50$",
     link: `resourcedesign/details/`,
     title: "Title 5",
     Category: "MASCOT LOGO",
@@ -57,7 +57,7 @@ export const cardDetails = [
   {
     id: 5,
     name: "Thaveesha Yanith",
-    price: "30$",
+    amount: "30$",
     link: `resourcedesign/details/`,
     title: "Title 6",
     Category: "PODCAST COVER",

@@ -8,6 +8,8 @@ const RDesignDetails = () => {
 
   let iid: number = Number(id);
 
+  console.log(iid);
+
   const details = cardDetails[iid];
 
   const review = [
@@ -45,7 +47,7 @@ const RDesignDetails = () => {
           title={details.title}
           description={details.description}
           name={details.name}
-          price={details.price}
+          price={details.amount}
           reviews={details.reviews}
           id2={details.id}
         />

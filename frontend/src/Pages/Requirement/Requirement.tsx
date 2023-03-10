@@ -17,7 +17,7 @@ const Requirement = () => {
         <RequirementForm
           title={details.title}
           name={details.name}
-          price={details.price}
+          price={details.amount}
           id2={details.id}
           category={details.Category}
         />

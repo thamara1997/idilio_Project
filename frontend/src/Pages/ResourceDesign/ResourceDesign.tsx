@@ -5,60 +5,44 @@ import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { cardDetails } from "data/data";
 import ResourcesService from "Services/ResourcesService";
+import { Resource } from "Types/Resources";
 
 const ResourceDesign = () => {
+  const [resources, setResources] = useState<Array<Resource>>();
+  const [cards, setCards] = useState<Array<Resource>>();
+
   useEffect(() => {
-    // ResourcesService.getResource().then((res: any) => {
-    //   console.log(res);
-    //   // if (res.data.status == 1) {
-    //   //   // setServices(res.data.data);
-    //   //   console.log(res.data);
-    //   //   return;
-    //   // } else {
-    //   //   console.log("not found");
-    //   // }
-    // });
-    const res = ResourcesService.getResource();
-    console.log(res);
+    ResourcesService.getAllResource().then((res: any) => {
+      if (res.data.status === 1) {
+        setResources(res.data.data);
+        setCards(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
   }, []);
-  
-
-  // ResourcesService.getResource()
-
-  interface Card {
-    id: any;
-    name: any;
-    price: any;
-    link: any;
-    title: any;
-    Category: any;
-    description: any;
-    reviews: any;
-  }
-
-  const priceRanges = [
-    { label: "All", range: [0, 100] },
-    { label: "$0 - $20", range: [0, 20] },
-    { label: "$20 - $60", range: [20, 60] },
-    { label: "$60 - $100", range: [60, 100] },
-  ];
-
-  const cards: Card[] = cardDetails;
-
-  // console.log(cards);
 
   const [filter1, setFilter1] = useState("");
   const [filter2, setFilter2] = useState("");
   const [filter3, setFilter3] = useState("");
 
-  const filteredCards = cards.filter(
-    (card) =>
-      card.title.toLowerCase().includes(filter1.toLowerCase()) &
-      card.price.toLowerCase().includes(filter2.toLowerCase()) &
-      card.Category.toLowerCase().includes(filter3.toLowerCase())
-  );
+  useEffect(() => {
+    const filteredCards = resources?.filter(
+      (card) =>
+        card.title.toLowerCase().includes(filter1.toLowerCase()) &
+        card.amount.toString().includes(filter2) &
+        card.category.toLowerCase().includes(filter3.toLowerCase())
+    );
+    setCards(filteredCards);
+    if (filter1 == "" && filter2 == "" && filter3 == "") {
+      setCards(resources);
+    }
+  }, [filter1, filter2, filter3]);
 
-  //console.log(filteredCards);
+  console.log(cards);
+  // console.log(filter2);
+  // console.log(typeof (cards[0]));
 
   return (
     <div className="text-center">
@@ -115,10 +99,10 @@ const ResourceDesign = () => {
 
       <div className="flex justify-center items-center text-center mb-[100px]">
         <div className="mt-[80px] grid grid-cols-1 gap-[60px] mx-auto md:grid-cols-3">
-          {filteredCards.map((t: any, i: number) => (
+          {cards?.map((t: any, i: number) => (
             <div id="item1" className="w-full carousel-item" key={i}>
-              <Link to={routeNames.RDesignDetails.replace(":id", i.toString())}>
-                <ArtCard name={t.name} price={t.price} />
+              <Link to={routeNames.RDesignDetails.replace(":id", t.resourceId)}>
+                <ArtCard details={t} />
               </Link>
             </div>
           ))}

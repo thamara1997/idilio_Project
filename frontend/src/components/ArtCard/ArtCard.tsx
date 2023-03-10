@@ -2,7 +2,7 @@ import React from "react";
 import Artwork from "assets/art.jpg";
 import avatar from "assets/avatar.jpg";
 
-const ArtCard = ({ name, price }: any) => {
+const ArtCard = ({ details }: any) => {
   return (
     <div>
       <div className="relative w-[320px] h-[400px] border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black ">
@@ -17,11 +17,13 @@ const ArtCard = ({ name, price }: any) => {
           />
         </div>
         <h4 className="absolute w-full mx-auto top-[330px] text-[12px] font-semibold">
-          {name}
+          {details.title}
         </h4>
-        <h4 className="absolute w-full mx-auto top-[350px] text-[20px] text-[#fec850] font-bold">
-          {price}
-        </h4>
+        <div>
+          <h4 className="absolute w-full mx-auto top-[350px] text-[20px] text-[#fec850] font-bold">
+            ${details.amount}
+          </h4>
+        </div>
       </div>
     </div>
   );
