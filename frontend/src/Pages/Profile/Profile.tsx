@@ -1,27 +1,28 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import OrderCard from "components/OrderCard/OrderCard";
 import ProfileCard from "components/ProfileCard/ProfileCard";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
+import { user } from "Types/User";
 
 const Profile = () => {
   const navigate = useNavigate();
-  // validate user
-  const [user, setuser] = React.useState<any>();
+
+  const [user, setUser] = useState<user>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      let logged = localStorage.getItem("loggedUser");
-      if (logged) {
-        setuser(JSON.parse(logged));
-      } else {
-        setuser(null);
-        navigate(routeNames.Login);
-      }
-    }, 1000);
-  }, [localStorage.getItem("loggedUser")]);
+    // Check local storage for user details
+    const storedUser = localStorage.getItem("loggedUser");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null);
+    }
+  }, []);
+
+  // console.log(user?.designer.level);
 
   const card = [
     {
@@ -98,11 +99,12 @@ const Profile = () => {
     <div>
       <div className="flex w-[80%] mx-auto mt-10 justify-center  items-center">
         <div className="w-[30%] text-center">
-          {card.map((t: any, i: number) => (
-            <div id="item1" className="w-full" key={i}>
-              <ProfileCard name={t.name} role={t.role} />
-            </div>
-          ))}
+          <ProfileCard
+            firstName={user?.firstName}
+            lastName={user?.lastName}
+            role={user?.role}
+            level={user?.designer.level}
+          />
         </div>
         <div className="w-[70%] p-5 h-[350px] bg-[#171717ce] rounded-xl flex-row">
           <h1 className="text-start">Order Queue</h1>
@@ -126,7 +128,7 @@ const Profile = () => {
           {mycardDetails.map((t: any, i: number) => (
             <div id="item1" className="w-full carousel-item" key={i}>
               <Link to={routeNames.RDesignDetails.replace(":id", i.toString())}>
-                <ArtCard name={t.name} price={t.price} />
+                {/* <ArtCard name={t.name} price={t.price} /> */}
               </Link>
             </div>
           ))}

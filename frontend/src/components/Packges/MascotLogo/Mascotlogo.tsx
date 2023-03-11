@@ -12,6 +12,7 @@ const Mascotlogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
       category: "mascotlogo",
+      source: "No Source File",
     },
     {
       id: 18,
@@ -22,6 +23,7 @@ const Mascotlogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
       category: "mascotlogo",
+      source: "No Source File",
     },
     {
       id: 19,
@@ -32,6 +34,7 @@ const Mascotlogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "mascotlogo",
+      source: "Source File",
     },
     {
       id: 20,
@@ -42,6 +45,7 @@ const Mascotlogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "mascotlogo",
+      source: "Source File",
     },
   ];
   return (
@@ -67,7 +71,7 @@ const Mascotlogo = () => {
                 id={t.id}
                 resolution={t.resolution}
                 size={t.size}
-                other={t.other}
+                source={t.source}
                 category={t.category}
               />
             </div>

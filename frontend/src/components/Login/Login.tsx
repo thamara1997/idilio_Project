@@ -130,28 +130,35 @@ const Login = () => {
                     <>{errors.email?.message}</>
                   </p>
                 </label>
-                <label>
-                  <span className="m-1 font-light">Password</span>
-                  <input
-                    type={showPw ? "text" : "Password"}
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
-                    {...register("password", {
-                      required: "Password is Required...",
-                      pattern: {
-                        value:
-                          /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
-                        message:
-                          "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
-                      },
-                    })}
-                  />
-                  <h1 id="clear" className="showPw" onClick={handleClickShowPw}>
+                <div className="flex justify-between gap-4">
+                  <label className="w-[95%]">
+                    <span className="m-1 font-light">Password</span>
+                    <input
+                      type={showPw ? "text" : "Password"}
+                      className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                      {...register("password", {
+                        required: "Password is Required...",
+                        pattern: {
+                          value:
+                            /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                          message:
+                            "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+                        },
+                      })}
+                    />
+
+                    <p className="flex-col m-1 text-xs text-red-600">
+                      <>{errors.password?.message}</>
+                    </p>
+                  </label>
+                  <h1
+                    id="clear"
+                    className="mt-10 showPw"
+                    onClick={handleClickShowPw}
+                  >
                     {showPw ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                   </h1>
-                  <p className="flex-col m-1 text-xs text-red-600">
-                    <>{errors.password?.message}</>
-                  </p>
-                </label>
+                </div>
               </div>
               <div className="flex mt-[5px] content-center">
                 <input

@@ -6,5 +6,5 @@ export type user = {
   country: string;
   role: string;
   profile: string;
-  designer: string;
+  designer: any;
 } | null;

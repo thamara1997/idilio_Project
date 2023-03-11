@@ -5,23 +5,15 @@ axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
 const getAllResource = async () => {
   return http.get<any>(`/api/v1/resources/getallresources`);
-  // console.log(response.data);
-  // var config = {
-  //   method: "get",
-  //   url: "http://localhost:8080/api/v1/resources/getallresources",
-  // };
-  // axios(config)
-  //   .then(function (response) {
-  //     console.log(response.data);
-  //     return response.data;
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
+};
+
+const getResourceById = async (id: any) => {
+  return http.get<any>(`/api/v1/resources/getresourcebyid/${id}`);
 };
 
 const ResourcesService = {
   getAllResource,
+  getResourceById,
 };
 
 export default ResourcesService;

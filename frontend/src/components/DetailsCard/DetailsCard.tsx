@@ -1,26 +1,37 @@
 /* eslint-disable array-callback-return */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Art from "assets/AlbumCover.jpg";
 import Avatar from "assets/avatar.jpg";
 import { routeNames } from "routes/route";
 import { Link } from "react-router-dom";
+import ResourcesService from "Services/ResourcesService";
+import DesignerService from "Services/DesignerService";
 
 const DetailsCard = ({
   title,
   description,
-  name,
-  price,
-  reviews,
-  id2,
+  resourceId,
+  amount,
+  designer,
 }: any) => {
-  console.log(reviews);
+  const iid: number = Number(designer);
+  const iid2 = iid.toString();
+  const id = parseInt(iid2);
+
+  const [designers, setDesigner] = useState<any>();
 
   useEffect(() => {
-    // eslint-disable-next-line array-callback-return
-    reviews.map((r: any, i: number) => {
-      console.log(r);
+    DesignerService.getDesignerById(id).then((res: any) => {
+      console.log(res);
+      if (res.data.status === 1) {
+        setDesigner(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
     });
-  }, [reviews]);
+  }, []);
 
   return (
     <div className="px-[150px] mt-[20px] flex justify-evenly text-center gap-[50px] ">
@@ -45,13 +56,15 @@ const DetailsCard = ({
               src={Avatar}
               alt=""
             />
-            <h4 className="flex ml-5 mt-2 text-[15px] font-semibold">{name}</h4>
+            <h4 className="flex ml-5 mt-2 text-[15px] font-semibold">
+              Designer Id : {designer}
+            </h4>
           </div>
 
           <div className="flex flex-row">
-            <h1 className="text-white mr-8 text-[25px]">{price}</h1>
+            <h1 className="text-white mr-8 text-[25px]">${amount}</h1>
             <Link
-              to={routeNames.Requirement.replace(":id", id2)}
+              to={routeNames.Requirement.replace(":id", resourceId)}
               className="btn1"
             >
               OrderNow
@@ -59,9 +72,9 @@ const DetailsCard = ({
           </div>
         </div>
 
-        {reviews.map((r: any, i: number) => {
+        {/* {reviews.map((r: any, i: number) => {
           <h1 className="text-white mr-8 text-[25px]">{r}</h1>;
-        })}
+        })} */}
       </div>
     </div>
   );

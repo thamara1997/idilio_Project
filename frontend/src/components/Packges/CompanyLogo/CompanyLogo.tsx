@@ -12,6 +12,7 @@ const CompanyLogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
       category: "companylogo",
+      source: "No Source File",
     },
     {
       id: 22,
@@ -22,6 +23,7 @@ const CompanyLogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
       category: "companylogo",
+      source: "No Source File",
     },
     {
       id: 23,
@@ -32,6 +34,7 @@ const CompanyLogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "companylogo",
+      source: "Source File",
     },
     {
       id: 24,
@@ -42,6 +45,7 @@ const CompanyLogo = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "companylogo",
+      source: "Source File",
     },
   ];
   return (
@@ -67,7 +71,7 @@ const CompanyLogo = () => {
                 resolution={t.resolution}
                 id={t.id}
                 size={t.size}
-                other={t.other}
+                source={t.source}
                 category={t.category}
               />
             </div>

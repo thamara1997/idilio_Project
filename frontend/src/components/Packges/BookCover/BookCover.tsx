@@ -12,6 +12,7 @@ const BookCover = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
       category: "bookcover",
+      source: "No Source File",
     },
     {
       id: 10,
@@ -22,6 +23,7 @@ const BookCover = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
       category: "bookcover",
+      source: "No Source File",
     },
     {
       id: 11,
@@ -32,6 +34,7 @@ const BookCover = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "bookcover",
+      source: "Source File",
     },
     {
       id: 12,
@@ -42,6 +45,7 @@ const BookCover = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "bookcover",
+      source: "Source File",
     },
   ];
   return (
@@ -68,7 +72,7 @@ const BookCover = () => {
                 size={t.size}
                 id={t.id}
                 category={t.category}
-                other={t.other}
+                source={t.source}
               />
             </div>
           ))}
