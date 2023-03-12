@@ -2,6 +2,7 @@ package com.idilio.backend.controller;
 
 import com.idilio.backend.dto.DesignerDTO;
 import com.idilio.backend.dto.ResourcesDTO;
+import com.idilio.backend.entity.Designer;
 import com.idilio.backend.repository.ResourcesRepo;
 import com.idilio.backend.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,23 @@ public class ResourceController {
         Map<String, Object> map = new LinkedHashMap<>();
         List<ResourcesDTO> resourcesList = resourceService.getAllResources();
         if(!resourcesList.isEmpty()){
+            map.put("status",1);
+            map.put("data",resourcesList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","Resources List Not Found");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getresourcesbydesignerid/{designerId}")
+    public ResponseEntity<?> getResourcesByDesignerId(@PathVariable Integer designerId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ResourcesDTO> resourcesList = resourceService.getResourcesByDesignerId(designerId);
+        if(resourcesList != null){
             map.put("status",1);
             map.put("data",resourcesList);
             return new ResponseEntity<>(map, HttpStatus.OK);

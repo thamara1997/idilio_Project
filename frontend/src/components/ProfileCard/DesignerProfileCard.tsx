@@ -4,7 +4,7 @@ import Facebook from "assets/Facebook.png";
 import Insta from "assets/Insta.png";
 import LinkedIn from "assets/Linkedin.png";
 
-const ProfileCard = ({ firstName, lastName, role, level }: any) => {
+const DesignerProfileCard = ({ firstName, lastName, role, level }: any) => {
   return (
     <div>
       <div>
@@ -12,6 +12,9 @@ const ProfileCard = ({ firstName, lastName, role, level }: any) => {
           <div className="absolute mx-[30px] top-[25px] hover:border-1 hover:border-white">
             <img src={Avatar} alt="" className="rounded-[50%]" />
           </div>
+          <h4 className="absolute w-full mx-auto top-[225px] text-[8px] text-[#fec850] font-light uppercase">
+            Level {level} Designer
+          </h4>
           <h4 className="absolute w-full mx-auto top-[240px] text-[12px] font-semibold">
             {firstName} {lastName}
           </h4>
@@ -36,4 +39,4 @@ const ProfileCard = ({ firstName, lastName, role, level }: any) => {
   );
 };
 
-export default ProfileCard;
+export default DesignerProfileCard;

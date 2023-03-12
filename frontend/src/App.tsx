@@ -19,7 +19,6 @@ import Register from "components/Register/Register";
 import ProfileSetup from "Pages/ProfileSetup/ProfileSetup";
 import Progress from "Pages/Progress/Progress";
 import Requirement2 from "Pages/Requirement/Requirement2";
-import NavBar2 from "components/NavBar/NavBar";
 import { user } from "Types/User";
 
 function App() {
@@ -50,7 +49,6 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                {/* <NavBar /> */}
                 <Overview />
                 <Footer />
               </>
@@ -112,7 +110,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <Profile />
+                <Profile user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }

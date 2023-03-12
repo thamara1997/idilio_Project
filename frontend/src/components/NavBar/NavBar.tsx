@@ -6,16 +6,6 @@ import { routeNames } from "routes/route";
 import { user } from "Types/User";
 
 interface NavBarProps {
-  // user: {
-  //   userId: string;
-  //   firstName: string;
-  //   lastName: string;
-  //   lastLogin: string;
-  //   country: string;
-  //   role: string;
-  //   profile: string;
-  //   designer: string;
-  // } | null;
   user: any;
   onLogout: () => void;
 }

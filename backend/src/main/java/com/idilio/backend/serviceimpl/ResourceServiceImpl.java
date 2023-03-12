@@ -1,8 +1,6 @@
 package com.idilio.backend.serviceimpl;
 
-import com.idilio.backend.dto.DesignerDTO;
 import com.idilio.backend.dto.ResourcesDTO;
-import com.idilio.backend.dto.UserDTO;
 import com.idilio.backend.entity.Designer;
 import com.idilio.backend.entity.Resources;
 import com.idilio.backend.repository.DesignerRepo;
@@ -13,7 +11,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.EventListener;
 import java.util.List;
 
 @Service
@@ -103,4 +100,18 @@ public class ResourceServiceImpl implements ResourceService {
             return null;
         }
     }
+
+    @Override
+    public List<ResourcesDTO> getResourcesByDesignerId(Integer designerId) {
+        try{
+            List<Resources> list = (List<Resources>) resourcesRepo.getResourcesByDesignerId(designerId);
+            return modelMapper.map(list, new TypeToken<List<ResourcesDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+
 }

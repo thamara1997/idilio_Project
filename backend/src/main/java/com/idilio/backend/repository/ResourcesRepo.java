@@ -18,4 +18,7 @@ public interface ResourcesRepo extends JpaRepository<Resources,Integer> {
     @Query("select r from Resources r where r.resourceId = ?1")
     Resources getResourceById(int resourceId);
 
+    @Query("select r from Resources r where r.designer = ?1")
+    Resources getResourcesByDesignerId(Integer designerId);
+
 }
