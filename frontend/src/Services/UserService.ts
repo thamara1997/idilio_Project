@@ -3,16 +3,12 @@ import http from "utils/http-common";
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
-const getDesignerById = async (id: Number) => {
-  return http.get<any>(`/api/v1/designer/getdesignerbyid/${id}`);
-};
-
 //updateuser
-const UpdateDesigner = async (data: any) => {
+const Update = async (data: any) => {
   try {
     const response = await axios({
       method: "put",
-      url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/user/updatedesigner`,
+      url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/user/updateuser`,
       data: data,
       headers: { "Content-Type": "application/json; charset=utf-8" },
     });
@@ -23,9 +19,13 @@ const UpdateDesigner = async (data: any) => {
   }
 };
 
-const DesignerService = {
-  UpdateDesigner,
-  getDesignerById,
+const getUserByUserId = async (userId: any) => {
+  return await http.get<any>(`/api/v1/user/getuserbyid/${userId}`);
 };
 
-export default DesignerService;
+const UserService = {
+  Update,
+  getUserByUserId,
+};
+
+export default UserService;

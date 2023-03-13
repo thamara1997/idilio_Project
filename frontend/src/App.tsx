@@ -120,7 +120,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <ProfileSetup />
+                <ProfileSetup user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }

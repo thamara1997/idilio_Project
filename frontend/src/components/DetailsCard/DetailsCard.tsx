@@ -4,7 +4,6 @@ import Art from "assets/AlbumCover.jpg";
 import Avatar from "assets/avatar.jpg";
 import { routeNames } from "routes/route";
 import { Link } from "react-router-dom";
-import ResourcesService from "Services/ResourcesService";
 import DesignerService from "Services/DesignerService";
 
 const DetailsCard = ({
