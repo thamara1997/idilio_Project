@@ -102,9 +102,10 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<ResourcesDTO> getResourcesByDesignerId(Integer designerId) {
+    public List<ResourcesDTO> getResourcesByDesignerId(int designerId) {
         try{
-            List<Resources> list = (List<Resources>) resourcesRepo.getResourcesByDesignerId(designerId);
+            List<Resources> list =  resourcesRepo.getResourcesByDesignerId(designerId);
+            System.out.println(list.get(0).getResourceId());
             return modelMapper.map(list, new TypeToken<List<ResourcesDTO>>(){}.getType());
         }
         catch(Exception e){

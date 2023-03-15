@@ -17,6 +17,6 @@ public interface ResourceService {
 
     ResourcesDTO getResourceById(int resourceId);
 
-    List<ResourcesDTO> getResourcesByDesignerId(Integer designerId);
+    List<ResourcesDTO> getResourcesByDesignerId(int designerId);
 
 }

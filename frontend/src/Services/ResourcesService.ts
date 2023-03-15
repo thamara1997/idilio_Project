@@ -11,9 +11,16 @@ const getResourceById = async (id: any) => {
   return http.get<any>(`/api/v1/resources/getresourcebyid/${id}`);
 };
 
+const getResourceByDesignerId = async (designerId: any) => {
+  return http.get<any>(
+    `/api/v1/resources/getresourcesbydesignerid/${designerId}`
+  );
+};
+
 const ResourcesService = {
   getAllResource,
   getResourceById,
+  getResourceByDesignerId,
 };
 
 export default ResourcesService;

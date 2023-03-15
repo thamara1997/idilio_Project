@@ -3,9 +3,11 @@ import OrderCard from "components/OrderCard/OrderCard";
 import PlacedOrderCard from "components/OrderCard/PlacedOrderCard";
 import DesignerProfileCard from "components/ProfileCard/DesignerProfileCard";
 import ProfileCard from "components/ProfileCard/ProfileCard";
+import { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
+import ResourcesService from "Services/ResourcesService";
 
 interface ProfileProps {
   user: any;
@@ -15,69 +17,27 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
   const navigate = useNavigate();
 
-  const ordercard = [
-    {
-      type: "R",
-      OrderId: 1,
-      price: "$50",
-    },
-    {
-      type: "N",
-      OrderId: 3,
-      price: "$99",
-    },
-    {
-      type: "R",
-      OrderId: 4,
-      price: "$40",
-    },
-    {
-      type: "N",
-      OrderId: 2,
-      price: "$20",
-    },
-    {
-      type: "R",
-      OrderId: 8,
-      price: "$30",
-    },
-  ];
+  const [resources, setResources] = useState<any>();
 
-  const mycardDetails = [
-    {
-      id: 0,
-      name: "Darshana Thamara",
-      price: "10$",
-      link: `resourcedesign/details/`,
-      title: "Title 1",
-      Category: "AlBUM COVER ",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
-      reviews: [`review 1`, `review 2`, `review 3`],
-    },
-    {
-      id: 4,
-      name: "Darshana Thamara",
-      price: "40$",
-      link: `resourcedesign/details/`,
-      title: "Title 1",
-      Category: "AlBUM COVER ",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
-      reviews: [`review 1`, `review 2`, `review 3`],
-    },
-    {
-      id: 7,
-      name: "Darshana Thamara",
-      price: "50$",
-      link: `resourcedesign/details/`,
-      title: "Title 1",
-      Category: "AlBUM COVER ",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
-      reviews: [`review 1`, `review 2`, `review 3`],
-    },
-  ];
+  useEffect(() => {
+    if (!user?.designer.designerId) {
+      return;
+    }
+
+    ResourcesService.getResourceByDesignerId(user.designer.designerId)
+      .then((res: any) => {
+        if (res.data.status === 1) {
+          setResources(res.data.data);
+          console.log(res.data.data);
+        } else {
+          console.log("not found");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        // handle the error or navigate to an error page
+      });
+  }, [user?.designer.designerId]);
 
   if (!user) {
     navigate(0);
@@ -170,21 +130,21 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
               </h1>
 
               <h1 className="mt-8 text-center uppercase text-[15px]">
-                Total : 3
+                Total : {resources.length}
               </h1>
             </div>
 
             <div className="flex justify-center items-center text-center mb-[100px]">
               <div className="mt-[60px] grid grid-cols-1 gap-[75px] mx-auto md:grid-cols-3">
-                {mycardDetails.map((t: any, i: number) => (
+                {resources?.map((t: any, i: number) => (
                   <div id="item1" className="w-full carousel-item" key={i}>
                     <Link
                       to={routeNames.RDesignDetails.replace(
                         ":id",
-                        i.toString()
+                        t.resourceId
                       )}
                     >
-                      {/* <ArtCard name={t.name} price={t.price} /> */}
+                      <ArtCard details={t} />
                     </Link>
                   </div>
                 ))}
@@ -200,3 +160,67 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
 };
 
 export default Profile;
+
+const ordercard = [
+  {
+    type: "R",
+    OrderId: 1,
+    price: "$50",
+  },
+  {
+    type: "N",
+    OrderId: 3,
+    price: "$99",
+  },
+  {
+    type: "R",
+    OrderId: 4,
+    price: "$40",
+  },
+  {
+    type: "N",
+    OrderId: 2,
+    price: "$20",
+  },
+  {
+    type: "R",
+    OrderId: 8,
+    price: "$30",
+  },
+];
+
+const mycardDetails = [
+  {
+    id: 0,
+    name: "Darshana Thamara",
+    price: "10$",
+    link: `resourcedesign/details/`,
+    title: "Title 1",
+    Category: "AlBUM COVER ",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
+    reviews: [`review 1`, `review 2`, `review 3`],
+  },
+  {
+    id: 4,
+    name: "Darshana Thamara",
+    price: "40$",
+    link: `resourcedesign/details/`,
+    title: "Title 1",
+    Category: "AlBUM COVER ",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
+    reviews: [`review 1`, `review 2`, `review 3`],
+  },
+  {
+    id: 7,
+    name: "Darshana Thamara",
+    price: "50$",
+    link: `resourcedesign/details/`,
+    title: "Title 1",
+    Category: "AlBUM COVER ",
+    description:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
+    reviews: [`review 1`, `review 2`, `review 3`],
+  },
+];

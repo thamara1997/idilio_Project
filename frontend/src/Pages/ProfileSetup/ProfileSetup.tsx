@@ -105,6 +105,12 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
     // }
   };
 
+  if (!user) {
+    navigate(0);
+    navigate(routeNames.Overview);
+    return null;
+  }
+
   return (
     <div>
       {/* profile details */}

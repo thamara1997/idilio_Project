@@ -11,9 +11,9 @@ const getPackageById = async (id: any) => {
   return http.get<any>(`/api/v1/package/getpackagebyid/${id}`);
 };
 
-const ResourcesService = {
+const PackageService = {
   getAllPackages,
   getPackageById,
 };
 
-export default ResourcesService;
+export default PackageService;
