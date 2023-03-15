@@ -4,7 +4,7 @@ export type user = {
   lastName: string;
   lastLogin: string;
   country: string;
-  role: string;
+  role: any;
   profile: string;
   designer: any;
 } | null;

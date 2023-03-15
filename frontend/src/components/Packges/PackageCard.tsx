@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 import PackageServices from "Services/PackageServices";
 
@@ -30,6 +30,21 @@ const PackageCard = ({
     });
   }, []);
 
+  const navigate = useNavigate();
+
+  const handleOrderNowClick = () => {
+    // Check if there is a logged-in user in local storage
+    const loggedInUser = localStorage.getItem("loggedUser");
+
+    if (loggedInUser) {
+      // Navigate to requirement page
+      navigate(routeNames.NDesignDetails.replace(":id", id));
+    } else {
+      // Navigate to login page
+      navigate(routeNames.Login);
+    }
+  };
+
   return (
     <div>
       <div className="relative  w-[280px] h-[580px] bg-[#17171797] rounded-xl hover:bg-[#000000cf] hover:border-[0.1px] hover:border-[#fec75064]">
@@ -50,12 +65,9 @@ const PackageCard = ({
         </div>
         <div className="absolute w-full mx-auto bottom-4 ">
           {/* <button className="btn1 text-[12px] ">ORDER NOW</button> */}
-          <Link
-            to={routeNames.NDesignDetails.replace(":id", id)}
-            className="btn1"
-          >
+          <button className="btn1" onClick={handleOrderNowClick}>
             OrderNow
-          </Link>
+          </button>
         </div>
       </div>
     </div>

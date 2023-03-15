@@ -18,7 +18,6 @@ const RDesignDetails = () => {
 
   useEffect(() => {
     ResourcesService.getResourceById(iid).then((res: any) => {
-      console.log(res);
       if (res.data.status === 1) {
         setResources(res.data.data);
         console.log(res.data.data);
@@ -29,7 +28,7 @@ const RDesignDetails = () => {
     });
   }, []);
 
-  // console.log(review);
+  // console.log(typeof resources?.data.data);
 
   return (
     <div>

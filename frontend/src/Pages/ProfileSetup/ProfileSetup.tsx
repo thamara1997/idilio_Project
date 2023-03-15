@@ -9,6 +9,8 @@ import { routeNames } from "routes/route";
 import { useNavigate } from "react-router-dom";
 import UserService from "Services/UserService";
 import DesignerService from "Services/DesignerService";
+import { useState } from "react";
+import MyModal from "components/MyModel/MyModal";
 
 interface ProfileUpdateProps {
   user: any;
@@ -26,6 +28,16 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
 
   const navigate = useNavigate();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   // const onSubmit = (data: any) => {
   //   console.log("Updated value:", data);
   //   localStorage.setItem("value", data.value);
@@ -42,19 +54,19 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
     };
     console.log(updatedUser);
 
-    const updatedDesigner: any = {
-      designerId: user.designer.designerId,
-      orderCount: user.designer.orderCount,
-      level: user.designer.level,
-      fbURL: data.fbURL,
-      instaURL: data.instaURL,
-      linkedinURL: data.linkedinURL,
-      cv: user.designer.cv,
-      approved: user.designer.approved,
-      userId: user.userId,
-    };
+    // const updatedDesigner: any = {
+    //   designerId: user.designer.designerId,
+    //   orderCount: user.designer.orderCount,
+    //   level: user.designer.level,
+    //   fbURL: data.fbURL,
+    //   instaURL: data.instaURL,
+    //   linkedinURL: data.linkedinURL,
+    //   cv: user.designer.cv,
+    //   approved: user.designer.approved,
+    //   userId: user.userId,
+    // };
 
-    console.log(updatedDesigner);
+    // console.log(updatedDesigner);
 
     const result = await UserService.Update(updatedUser);
     if (result.data.status === 1) {
@@ -212,9 +224,16 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
             className="w-full mt-8 btn2"
           />
           <input
-            type="submit"
+            type="button"
             value="Delete Account"
-            className="w-full mt-8 bg-red-600 btn2"
+            className="w-full mt-8 bg-red-600 btn2 "
+            onClick={handleModalOpen}
+          />
+          <MyModal
+            isOpen={isModalOpen}
+            onClose={handleModalClose}
+            title="Delete Account"
+            description="Are you sure you want to delete account from IDILIO group.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia delectus eos nobis iure quae vero libero repellendus saepe perspiciatis eaque error "
           />
         </div>
       </form>
