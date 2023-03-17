@@ -14,6 +14,7 @@
     "dotenv": "^16.0.3",
     "http-util": "^0.1.4",
     "react": "^18.2.0",
+    "react-avatar-edit": "^1.2.0",
     "react-axios": "^2.0.6",
     "react-dev-utils": "^12.0.1",
     "react-dom": "^18.2.0",

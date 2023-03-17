@@ -130,7 +130,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
               </h1>
 
               <h1 className="mt-8 text-center uppercase text-[15px]">
-                Total : {resources.length}
+                Total : {resources?.length}
               </h1>
             </div>
 

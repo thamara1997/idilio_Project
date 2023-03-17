@@ -1,6 +1,5 @@
 import DetailsCard from "components/DetailsCard/DetailsCard";
 import { useParams } from "react-router-dom";
-import { cardDetails } from "data/data";
 import ReviewCard from "components/ReviewCard/ReviewCard";
 import { useEffect, useState } from "react";
 import ResourcesService from "Services/ResourcesService";
@@ -11,8 +10,6 @@ const RDesignDetails = () => {
   let iid: number = Number(id);
 
   console.log(iid);
-
-  // const details = cardDetails[iid];
 
   const [resources, setResources] = useState<any>();
 
@@ -28,12 +25,9 @@ const RDesignDetails = () => {
     });
   }, []);
 
-  // console.log(typeof resources?.data.data);
-
   return (
     <div>
       <div id="item1" className="w-full">
-        {/* {resources && ( */}
         <DetailsCard
           title={resources?.title}
           description={resources?.description}
@@ -41,7 +35,6 @@ const RDesignDetails = () => {
           amount={resources?.amount}
           designer={resources?.designerId}
         />
-        {/* )} */}
       </div>
       <div>
         <h6 className="text-center uppercase mt-9">Reviews For the art</h6>

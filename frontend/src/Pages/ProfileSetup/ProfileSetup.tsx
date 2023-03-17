@@ -1,30 +1,33 @@
 import Facebook from "assets/Facebook.png";
 import Insta from "assets/Insta.png";
 import LinkedIn from "assets/Linkedin.png";
-import Avatar from "assets/avatar.jpg";
+// import Avatar from "assets/avatar.jpg";
 import { RiImageAddLine } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { routeNames } from "routes/route";
 import { useNavigate } from "react-router-dom";
 import UserService from "Services/UserService";
-import DesignerService from "Services/DesignerService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyModal from "components/MyModel/MyModal";
+import FileUploadServices from "Services/FileUploadServices";
+
+import Avatar from "react-avatar-edit";
 
 interface ProfileUpdateProps {
   user: any;
   onLogout: () => void;
 }
 
-const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+const ProfileSetup: React.FC<ProfileUpdateProps> = ({
+  user,
+  onLogout,
+}: any) => {
+  const { register, handleSubmit } = useForm({
     mode: "all",
   });
+
+  let iid: number = Number(user?.userId);
 
   const navigate = useNavigate();
 
@@ -38,11 +41,6 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
     setIsModalOpen(false);
   };
 
-  // const onSubmit = (data: any) => {
-  //   console.log("Updated value:", data);
-  //   localStorage.setItem("value", data.value);
-  // };
-
   const onSubmit = async (data: any) => {
     // console.log(data);
     const updatedUser: any = {
@@ -54,20 +52,6 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
     };
     console.log(updatedUser);
 
-    // const updatedDesigner: any = {
-    //   designerId: user.designer.designerId,
-    //   orderCount: user.designer.orderCount,
-    //   level: user.designer.level,
-    //   fbURL: data.fbURL,
-    //   instaURL: data.instaURL,
-    //   linkedinURL: data.linkedinURL,
-    //   cv: user.designer.cv,
-    //   approved: user.designer.approved,
-    //   userId: user.userId,
-    // };
-
-    // console.log(updatedDesigner);
-
     const result = await UserService.Update(updatedUser);
     if (result.data.status === 1) {
       const newUser = await UserService.getUserByUserId(user.userId);
@@ -75,34 +59,59 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
         localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
         toast.success("Profile Updated");
         navigate(routeNames.ProfileSetup);
-        navigate(0);
       }
     } else {
       console.log("Update fail");
     }
+  };
 
-    // const result2 = await DesignerService.UpdateDesigner(updatedDesigner);
-    // if (result2.data.status === 1) {
-    //   localStorage.setItem(
-    //     "loggedUser2",
-    //     JSON.stringify({
-    //       designerId: result2.data.user?.designer.designerId,
-    //       orderCount: result2.data.user?.designer.orderCount,
-    //       level: result2.data.user?.designer.level,
-    //       fbURL: result2.data.data.fbURL,
-    //       instaURL: result2.data.data.instaURL,
-    //       linkedinURL: result2.data.data.linkedinURL,
-    //       cv: result2.data.user?.designer.cv,
-    //       approved: result2.data.user?.designer.approved,
-    //       userId: result2.data.user?.designer.userId,
-    //     })
-    //   );
-    //   toast.success("Profile Updated");
-    //   // navigate(routeNames.ProfileSetup);
-    //   // navigate(0);
-    // } else {
-    //   console.log("faild");
-    // }
+  const [propic, setPropic] = useState<any>("");
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await FileUploadServices.getProfilePicture(iid);
+        if (res.status === 200) {
+          setPropic(
+            `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${iid}`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [iid]);
+
+  const [src, setSrc] = useState<any>();
+  const [preview, setPreview] = useState(null);
+
+  function onClose() {
+    setPreview(null);
+  }
+  function onCrop(pv: any) {
+    setPreview(pv);
+  }
+  function onBeforeFileLoad(elem: any) {
+    if (elem.target.files[0].size > 7168000) {
+      alert("File is too big!");
+      elem.target.value = "";
+    }
+  }
+
+  const handlePropic = () => {
+    if (preview) {
+      const file = FileUploadServices.convertBase64ToFile(preview, "aa.png");
+
+      let formData = new FormData();
+      formData.append("file", file);
+
+      FileUploadServices.uploadProfilePicture(iid, formData);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } else {
+      console.log("Null");
+    }
   };
 
   if (!user) {
@@ -119,21 +128,43 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({ user, onLogout }) => {
         onSubmit={handleSubmit(onSubmit)}
         autoComplete="off"
       >
-        <div className="flex relative mx-auto w-[270px] h-[270px] justify-center">
+        <div className="flex relative mx-auto w-[270px] h-[270px] justify-center items-center text-center">
           <div className="">
-            <img
-              src={Avatar}
+            {/* <img
+              src="{Avatar}"
               alt=""
               className="flex rounded-[50%] p-1 border-[0.5px] border-[#fec850] hover:opacity-40 hover:bg-black"
+            /> */}
+            <Avatar
+              width={250}
+              height={250}
+              onCrop={onCrop}
+              onClose={onClose}
+              onBeforeFileLoad={onBeforeFileLoad}
+              src={src}
+              exportQuality={1}
+              shadingOpacity={0.6}
+              exportAsSquare
+              exportSize={2000}
             />
+
+            {/* {preview && <img src={preview} alt="" />}
+            <img src={preview} alt="" /> */}
 
             <span className="absolute top-[130px] left-[125px] text-[20px] ">
               <RiImageAddLine />
             </span>
-            <input
+            {/* <input
               type="file"
               className="absolute opacity-0 top-[120px] left-[120px]"
-            />
+            /> */}
+            <button
+              type="submit"
+              onClick={handlePropic}
+              className="inline-flex justify-center mt-2 btn2"
+            >
+              Update Profile Picture
+            </button>
           </div>
         </div>
 

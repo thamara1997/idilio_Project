@@ -23,7 +23,6 @@ import { user } from "Types/User";
 
 function App() {
   const [user, setUser] = useState<user>(null);
-
   useEffect(() => {
     // Check local storage for user details
     const storedUser = localStorage.getItem("loggedUser");
@@ -121,6 +120,7 @@ function App() {
               <>
                 <NavBar user={user} onLogout={handleLogout} />
                 <ProfileSetup user={user} onLogout={handleLogout} />
+
                 <Footer />
               </>
             }
