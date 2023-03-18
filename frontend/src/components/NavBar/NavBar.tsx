@@ -4,6 +4,9 @@ import avatar from "assets/avatar.jpg";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
 import { user } from "Types/User";
+import { useEffect, useState } from "react";
+import FileUploadServices from "Services/FileUploadServices";
+import Avatar from "react-avatar-edit";
 
 interface NavBarProps {
   user: any;
@@ -11,6 +14,21 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ user, onLogout }) => {
+  //get profile picture
+  const [propic, setPropic] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getProfilePicture(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setPropic(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${user?.userId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [user]);
   return (
     <div>
       <div className="flex justify-between w-full h-[70px] bg-black pt-3">
@@ -68,11 +86,24 @@ const NavBar: React.FC<NavBarProps> = ({ user, onLogout }) => {
                 <div className="dropdown dropdown-end">
                   <label tabIndex={0} className="">
                     <div>
-                      <img
+                      {/* <img
                         className="w-10 h-10 rounded-full"
                         src={avatar}
                         alt=""
-                      />
+                      /> */}
+                      {propic != "" && user ? (
+                        <>
+                          <img
+                            src={propic}
+                            className={"w-10 h-10 rounded-full"}
+                            alt=""
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <Avatar width={10} height={10} />{" "}
+                        </>
+                      )}
                       <span className="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                     </div>
                   </label>

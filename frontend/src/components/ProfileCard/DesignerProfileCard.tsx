@@ -1,10 +1,15 @@
 import React from "react";
-import Avatar from "assets/avatar.jpg";
 import Facebook from "assets/Facebook.png";
 import Insta from "assets/Insta.png";
 import LinkedIn from "assets/Linkedin.png";
 
-const DesignerProfileCard = ({ firstName, lastName, role, level }: any) => {
+const DesignerProfileCard = ({
+  firstName,
+  lastName,
+  role,
+  level,
+  Avatar,
+}: any) => {
   return (
     <div>
       <div>

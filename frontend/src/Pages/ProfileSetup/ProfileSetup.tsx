@@ -27,9 +27,54 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
     mode: "all",
   });
 
+  const navigate = useNavigate();
   let iid: number = Number(user?.userId);
 
-  const navigate = useNavigate();
+  const [propic, setPropic] = useState<any>("");
+
+  useEffect(() => {
+    FileUploadServices.getProfilePicture(iid).then((res: any) => {
+      if (res.status === 200) {
+        setPropic(res);
+        console.log(res);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, [iid]);
+
+  const [src, setSrc] = useState<any>();
+  const [preview, setPreview] = useState(null);
+
+  function onClose() {
+    setPreview(null);
+  }
+  function onCrop(pv: any) {
+    setPreview(pv);
+  }
+  function onBeforeFileLoad(elem: any) {
+    if (elem.target.files[0].size > 7168000) {
+      alert("File is too big!");
+      elem.target.value = "";
+    }
+  }
+
+  const handlePropic = () => {
+    if (preview) {
+      const file = FileUploadServices.convertBase64ToFile(preview, "aa.png");
+
+      let formData = new FormData();
+      formData.append("file", file);
+
+      FileUploadServices.uploadProfilePicture(iid, formData);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } else {
+      console.log("Null");
+    }
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -65,57 +110,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
     }
   };
 
-  const [propic, setPropic] = useState<any>("");
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await FileUploadServices.getProfilePicture(iid);
-        if (res.status === 200) {
-          setPropic(
-            `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${iid}`
-          );
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
-  }, [iid]);
-
-  const [src, setSrc] = useState<any>();
-  const [preview, setPreview] = useState(null);
-
-  function onClose() {
-    setPreview(null);
-  }
-  function onCrop(pv: any) {
-    setPreview(pv);
-  }
-  function onBeforeFileLoad(elem: any) {
-    if (elem.target.files[0].size > 7168000) {
-      alert("File is too big!");
-      elem.target.value = "";
-    }
-  }
-
-  const handlePropic = () => {
-    if (preview) {
-      const file = FileUploadServices.convertBase64ToFile(preview, "aa.png");
-
-      let formData = new FormData();
-      formData.append("file", file);
-
-      FileUploadServices.uploadProfilePicture(iid, formData);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } else {
-      console.log("Null");
-    }
-  };
-
   if (!user) {
-    navigate(0);
     navigate(routeNames.Overview);
     return null;
   }
@@ -150,6 +145,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
 
             {/* {preview && <img src={preview} alt="" />}
             <img src={preview} alt="" /> */}
+            <img src={propic} alt="" />
 
             <span className="absolute top-[130px] left-[125px] text-[20px] ">
               <RiImageAddLine />

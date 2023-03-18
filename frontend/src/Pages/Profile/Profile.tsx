@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
+import FileUploadServices from "Services/FileUploadServices";
 import ResourcesService from "Services/ResourcesService";
 
 interface ProfileProps {
@@ -24,23 +25,39 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
       return;
     }
 
-    ResourcesService.getResourceByDesignerId(user.designer.designerId)
-      .then((res: any) => {
-        if (res.data.status === 1) {
-          setResources(res.data.data);
-          console.log(res.data.data);
-        } else {
-          console.log("not found");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        // handle the error or navigate to an error page
-      });
-  }, [user?.designer.designerId]);
+    if (user?.designer.designerId != null) {
+      ResourcesService.getResourceByDesignerId(user?.designer.designerId)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setResources(res.data.data);
+            console.log(res.data.data);
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          // handle the error or navigate to an error page
+        });
+    }
+  }, []);
+
+  const [propic, setPropic] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getProfilePicture(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setPropic(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${user?.userId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [user]);
 
   if (!user) {
-    navigate(0);
     navigate(routeNames.Overview);
     return null;
   }
@@ -56,6 +73,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                 lastName={user?.lastName}
                 role={user?.role}
                 level={user?.designer.level}
+                Avatar={propic}
               />
             </>
           ) : (
@@ -64,6 +82,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                 firstName={user?.firstName}
                 lastName={user?.lastName}
                 role={user?.role}
+                Avatar={propic}
               />
             </>
           )}

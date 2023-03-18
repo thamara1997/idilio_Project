@@ -5,9 +5,7 @@ axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
 //get profile pic by id
 const getProfilePicture = async (userId: any) => {
-  return http.get<any>(
-    `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${userId}`
-  );
+  return http.get<any>(`/api/v1/upload/profilePic/${userId}`);
 };
 
 // convert Base64 string to file
