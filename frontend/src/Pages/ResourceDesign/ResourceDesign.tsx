@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { routeNames } from "routes/route";
-import { cardDetails } from "data/data";
 import ResourcesService from "Services/ResourcesService";
 import { Resource } from "Types/Resources";
 
@@ -41,8 +40,6 @@ const ResourceDesign = () => {
   }, [filter1, filter2, filter3]);
 
   console.log(cards);
-  // console.log(filter2);
-  // console.log(typeof (cards[0]));
 
   return (
     <div className="text-center">

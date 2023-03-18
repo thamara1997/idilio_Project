@@ -6,6 +6,7 @@ import { routeNames } from "routes/route";
 import { Link, useNavigate } from "react-router-dom";
 import DesignerService from "Services/DesignerService";
 import UserService from "Services/UserService";
+import FileUploadServices from "Services/FileUploadServices";
 
 const DetailsCard = ({
   title,
@@ -86,6 +87,21 @@ const DetailsCard = ({
     }
   };
 
+  const [propic, setPropic] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getProfilePicture(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setPropic(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${user?.userId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [user]);
+
   return (
     <div className="px-[150px] mt-[20px] flex justify-evenly text-center gap-[50px] ">
       <div className=" w-[550px] h-[550px] m-[40px] content-center">
@@ -106,7 +122,7 @@ const DetailsCard = ({
           <div className="flex flex-row mt-[70px]">
             <img
               className="inline w-[40px] h-[40px] rounded-full mb-[20px]"
-              src={Avatar}
+              src={propic}
               alt=""
             />
             <h4 className="flex ml-5 mt-2 text-[15px] font-semibold">
