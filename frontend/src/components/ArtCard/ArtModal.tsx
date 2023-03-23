@@ -3,12 +3,16 @@ import Avatar from "react-avatar-edit";
 import { useForm } from "react-hook-form";
 import { RiImageAddLine } from "react-icons/ri";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
+import FileUploadServices from "Services/FileUploadServices";
+import ResourcesService from "Services/ResourcesService";
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   primaryButtonText?: string;
   secondaryButtonText?: string;
+  designerId: any;
 };
 const customStyles = {
   overlay: {
@@ -29,7 +33,7 @@ type FormData = {
   description: string;
   amount: string;
   category: string;
-  searchtags: string;
+  searchTags: string;
   artAvatar: any;
 };
 
@@ -40,26 +44,59 @@ const ArtModal: React.FC<ModalProps> = ({
   onClose,
   primaryButtonText = "Continue",
   secondaryButtonText = "Cancel",
+  designerId,
 }) => {
+  //   console.log(designerId);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-
-  const handleNextButtonClick = (data: FormData) => {
-    setFormSubmitted(true);
-    console.log(data);
-  };
-
-  const handleSaveButtonClick = () => {
-    console.log(preview);
-  };
-
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [src, setSrc] = useState<any>();
   const [preview, setPreview] = useState(null);
   const [artpic, setArtpic] = useState<any>("");
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [resource, setResource] = useState<any>();
+
+  // const handleNextButtonClick = (data: FormData) => {
+  //   const formDataWithDesignerId = { ...data, designerId };
+  //   setFormSubmitted(true);
+  //   console.log(formDataWithDesignerId);
+  // };
+
+  const handleNextButtonClick = async (data: any) => {
+    const formDataWithDesignerId = { ...data, designerId };
+    const result = await ResourcesService.addResource(formDataWithDesignerId);
+    console.log(result.data?.resource);
+    setFormSubmitted(true);
+    if (formSubmitted == true) {
+      toast.success("Resource Added Upload Your Art");
+      setResource(result.data.resources);
+      return;
+    } else {
+      toast.error("Resource added Failed");
+    }
+  };
+
+  const handleSaveButtonClick = () => {
+    if (preview) {
+      const file = FileUploadServices.convertBase64ToFile(preview, "aa.png");
+
+      let formData = new FormData();
+      formData.append("file", file);
+
+      FileUploadServices.uploadResourceArt(resource?.resourceId, formData);
+      setTimeout(() => {
+        // window.location.reload();
+      }, 500);
+    } else {
+      console.log("Null");
+    }
+  };
+
+  // const handleSaveButtonClick = () => {
+  //   console.log(preview);
+  // };
 
   function onClose2() {
     setPreview(null);
@@ -85,7 +122,13 @@ const ArtModal: React.FC<ModalProps> = ({
       <div className="px-8 py-8 bg-black border-[0.1px] border-[#ffb8204a] rounded-[30px] flex flex-col items-center mt-7">
         {formSubmitted ? (
           <>
-            <label className="flex mb-4 text-center">Art File</label>
+            <label className="flex mb-4 text-center">
+              Upload Art File Here
+            </label>
+            <p className="flex mb-4 font-light text-[10px] text-center">
+              Please Crop Your Mock-Up and Adjust it to focus area this save
+              square file{" "}
+            </p>
             <Avatar
               {...register("artAvatar")}
               width={250}
@@ -101,7 +144,7 @@ const ArtModal: React.FC<ModalProps> = ({
             />
             <img src={artpic} alt="" />
 
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-6">
               <button
                 className="px-4 py-2 mr-2 text-black bg-[#FEC850] rounded-md hover:bg-[#fd2020] focus:outline-none focus:bg-indigo-600"
                 onClick={handleSaveButtonClick}
@@ -202,11 +245,11 @@ const ArtModal: React.FC<ModalProps> = ({
                 type="text"
                 className=" h-[2.4rem] w-full text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-5 "
                 placeholder=" Enter 3 search tags with separated commas"
-                {...register("searchtags", {
+                {...register("searchTags", {
                   required: true,
                 })}
               />
-              {errors.searchtags && (
+              {errors.searchTags && (
                 <p className="flex-row w-full m-1 text-xs text-red-600 ">
                   Enter 3 search tags with separated commas
                 </p>

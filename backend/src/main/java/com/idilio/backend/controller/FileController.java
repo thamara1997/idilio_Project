@@ -82,4 +82,18 @@ public class FileController {
         return LoadFile(fileName, fileDir, request);
     }
 
+    @PostMapping("/uploadresourceart/{resourceId}")
+    public ResponseEntity<FileResponse> ResourceArt(@RequestParam("file") MultipartFile file, @PathVariable int resourceId){
+        String imgName = Integer.toString(resourceId) + ".jpg";
+        String uploadDir = "resourceArt";
+        return uploadFile(file, imgName,"resourceArt", uploadDir);
+    }
+
+    @GetMapping("/resourceArt/{resourceId}")
+    public ResponseEntity<Resource> downloadResourceArt(@PathVariable int resourceId, HttpServletRequest request){
+        String fileName = Integer.toString(resourceId)+".jpg";
+        String fileDir = "resourceArt";
+        return LoadFile(fileName, fileDir, request);
+    }
+
 }

@@ -5,6 +5,7 @@ import PlacedOrderCard from "components/OrderCard/PlacedOrderCard";
 import DesignerProfileCard from "components/ProfileCard/DesignerProfileCard";
 import ProfileCard from "components/ProfileCard/ProfileCard";
 import { useEffect, useState } from "react";
+import { RiImageAddLine } from "react-icons/ri";
 
 import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
@@ -51,7 +52,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
           // handle the error or navigate to an error page
         });
     }
-  }, [user?.designer.designerId]);
+  }, [user?.designer?.designerId]);
 
   const [propic, setPropic] = useState<any>("");
   useEffect(() => {
@@ -178,9 +179,19 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                     </Link>
                   </div>
                 ))}
-                <div className="flex w-[320px] h-[400px] border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black text-center">
-                  <button onClick={handleModalOpen}>hello</button>
-                  <ArtModal isOpen={isModalOpen} onClose={handleModalClose} />
+                <div className="relative flex w-[320px] h-[400px] border-dashed border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black text-center opacity-80">
+                  <button
+                    onClick={handleModalOpen}
+                    className="absolute left-[25px] top-[25px] w-[270px] h-[270px] rounded-lg border-dashed border-[0.3px] border-white text-center"
+                  >
+                    <RiImageAddLine className="absolute left-[125px] top-[100px] text-center" />
+                    Add Resource
+                  </button>
+                  <ArtModal
+                    isOpen={isModalOpen}
+                    onClose={handleModalClose}
+                    designerId={user?.designer?.designerId}
+                  />
                 </div>
               </div>
             </div>
@@ -220,41 +231,5 @@ const ordercard = [
     type: "R",
     OrderId: 8,
     price: "$30",
-  },
-];
-
-const mycardDetails = [
-  {
-    id: 0,
-    name: "Darshana Thamara",
-    price: "10$",
-    link: `resourcedesign/details/`,
-    title: "Title 1",
-    Category: "AlBUM COVER ",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
-    reviews: [`review 1`, `review 2`, `review 3`],
-  },
-  {
-    id: 4,
-    name: "Darshana Thamara",
-    price: "40$",
-    link: `resourcedesign/details/`,
-    title: "Title 1",
-    Category: "AlBUM COVER ",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
-    reviews: [`review 1`, `review 2`, `review 3`],
-  },
-  {
-    id: 7,
-    name: "Darshana Thamara",
-    price: "50$",
-    link: `resourcedesign/details/`,
-    title: "Title 1",
-    Category: "AlBUM COVER ",
-    description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartmentLorem ipsum dolor sit, amet consectetur adipisicing elit. Quo iste, sapiente quos ab odit assumenda quaerat voluptate, explicabo error laboriosam, alias similique perspiciatis pariatur odio sed. Minus numquam ut ducimus!MdLocalFireDepartment",
-    reviews: [`review 1`, `review 2`, `review 3`],
   },
 ];

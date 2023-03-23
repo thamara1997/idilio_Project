@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Artwork from "assets/art.jpg";
 import UserService from "Services/UserService";
 import DesignerService from "Services/DesignerService";
 import FileUploadServices from "Services/FileUploadServices";
 
-const ArtCard = ({ details, Avatar }: any) => {
-  const id = details.designerId;
+const ArtCard = ({ details }: any) => {
+  const id = details?.designerId;
 
   const [designers, setDesigner] = useState<any>();
   const [user, setUser] = useState<any>();
@@ -58,11 +57,26 @@ const ArtCard = ({ details, Avatar }: any) => {
     });
   }, [user]);
 
+  const [art, setArt] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getResourceArt(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setArt(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceArt/${details.resourceId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [details.resourceId]);
+
   return (
     <div>
       <div className="relative w-[320px] h-[400px] border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black ">
         <div className="absolute left-[25px] top-[25px] w-[270px] h-[270px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white">
-          <img src={Artwork} alt="" className="rounded-lg" />
+          <img src={art} alt="" className="rounded-lg" />
         </div>
         <div className="absolute right-[140px] top-[280px]">
           <img
@@ -71,7 +85,7 @@ const ArtCard = ({ details, Avatar }: any) => {
             alt=""
           />
         </div>
-        <h4 className="absolute w-full mx-auto top-[330px] text-[12px] font-semibold">
+        <h4 className="absolute w-full mx-auto top-[330px] text-[12px] font-semibold uppercase">
           {details.title}
         </h4>
         <div>

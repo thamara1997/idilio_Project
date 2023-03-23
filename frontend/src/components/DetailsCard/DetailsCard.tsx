@@ -100,13 +100,30 @@ const DetailsCard = ({
         // setPropic(res.status);
       }
     });
-  }, [user]);
+  }, [user?.userId]);
+
+  // console.log(typeof resourceId);
+
+  const [art, setArt] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getResourceArt(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setArt(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceArt/${resourceId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [resourceId]);
 
   return (
     <div className="px-[150px] mt-[20px] flex justify-evenly text-center gap-[50px] ">
       <div className=" w-[550px] h-[550px] m-[40px] content-center">
         <img
-          src={Art}
+          src={art}
           alt=""
           className="object-cover h-[550px] rounded-xl border-[#fec7507a] border-[0.3px]  hover:border-1 hover:border-white"
         />

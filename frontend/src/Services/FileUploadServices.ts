@@ -8,6 +8,11 @@ const getProfilePicture = async (userId: any) => {
   return http.get<any>(`/api/v1/upload/profilePic/${userId}`);
 };
 
+//get resource art by id
+const getResourceArt = async (resourceId: any) => {
+  return http.get<any>(`/api/v1/upload/resourceArt/${resourceId}`);
+};
+
 // convert Base64 string to file
 const convertBase64ToFile = (base64String: any, filename: any) => {
   const arr = base64String.split(",");
@@ -33,10 +38,24 @@ const uploadProfilePicture = async (userId: any, formData: any) => {
   return response;
 };
 
+// upload profile picture
+const uploadResourceArt = async (resourceId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceart/${resourceId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
 const FileUploadServices = {
   getProfilePicture,
   convertBase64ToFile,
   uploadProfilePicture,
+  getResourceArt,
+  uploadResourceArt,
 };
 
 export default FileUploadServices;

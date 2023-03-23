@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { BiEraser } from "react-icons/bi";
 
 import Artwork from "assets/art.jpg";
+import FileUploadServices from "Services/FileUploadServices";
 
 const RequirementForm = ({
   title,
@@ -38,6 +39,20 @@ const RequirementForm = ({
     sigPad.current?.clear();
   }
 
+  const [art, setArt] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getResourceArt(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setArt(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceArt/${resourceId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [resourceId]);
   return (
     <div>
       <div className="p-8 text-center uppercase">Requirements</div>
@@ -81,7 +96,7 @@ const RequirementForm = ({
               </label>
             </div>
             <div className=" bg-white w-[200px] h-[200px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white">
-              <img src={Artwork} alt="" className="rounded-lg" />
+              <img src={art} alt="" className="rounded-lg" />
             </div>
           </div>
           <label className="flex mb-4">

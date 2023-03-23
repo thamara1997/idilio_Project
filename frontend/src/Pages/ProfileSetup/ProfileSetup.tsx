@@ -1,7 +1,6 @@
 import Facebook from "assets/Facebook.png";
 import Insta from "assets/Insta.png";
 import LinkedIn from "assets/Linkedin.png";
-// import Avatar from "assets/avatar.jpg";
 import { RiImageAddLine } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -125,11 +124,6 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
       >
         <div className="flex relative mx-auto w-[270px] h-[270px] justify-center items-center text-center">
           <div className="">
-            {/* <img
-              src="{Avatar}"
-              alt=""
-              className="flex rounded-[50%] p-1 border-[0.5px] border-[#fec850] hover:opacity-40 hover:bg-black"
-            /> */}
             <Avatar
               width={250}
               height={250}

@@ -17,10 +17,24 @@ const getResourceByDesignerId = async (designerId: any) => {
   );
 };
 
+//register
+const addResource = async (data: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/resources/addresource`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  console.log(response);
+  return response;
+};
+
 const ResourcesService = {
   getAllResource,
   getResourceById,
   getResourceByDesignerId,
+  addResource,
 };
 
 export default ResourcesService;
