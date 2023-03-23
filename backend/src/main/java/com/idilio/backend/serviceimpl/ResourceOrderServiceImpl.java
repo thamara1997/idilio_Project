@@ -1,10 +1,7 @@
 package com.idilio.backend.serviceimpl;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.idilio.backend.dto.NewOrderDTO;
 import com.idilio.backend.dto.ResourceOrderDTO;
-import com.idilio.backend.entity.Designer;
-import com.idilio.backend.entity.NewOrder;
+import com.idilio.backend.dto.ResourceOrderFullDTO;
 import com.idilio.backend.entity.ResourceOrder;
 import com.idilio.backend.entity.Resources;
 import com.idilio.backend.repository.ResourceOrderRepo;
@@ -15,8 +12,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,10 +27,10 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
     private ResourcesRepo resourcesRepo;
 
     @Override
-    public List<ResourceOrderDTO> getAllResourceOrders() {
+    public List<ResourceOrderFullDTO> getAllResourceOrders() {
         try{
             List<ResourceOrder> list = resourceOrderRepo.findAll();
-            return modelMapper.map(list, new TypeToken<List<ResourceOrderDTO>>(){}.getType());
+            return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
         }
         catch (Exception e){
             System.out.println(e.toString());
@@ -75,7 +70,7 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
     }
 
     @Override
-    public ResourceOrderDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO) {
+    public ResourceOrderFullDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO) {
         try{
             Resources resources = resourcesRepo.getResourceById(resourceOrderDTO.getResourcesResourceId());
 
@@ -93,11 +88,11 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
     }
 
     @Override
-    public ResourceOrderDTO getResourceOrderById(int resourceOrderId) {
+    public ResourceOrderFullDTO getResourceOrderById(int resourceOrderId) {
         try{
             ResourceOrder resourceOrder = resourceOrderRepo.getReferenceById(resourceOrderId);
             if(resourceOrder!=null){
-                return modelMapper.map(resourceOrder, new TypeToken<ResourceOrderDTO>(){}.getType());
+                return modelMapper.map(resourceOrder, new TypeToken<ResourceOrderFullDTO>(){}.getType());
             }
             else{
                 return null;

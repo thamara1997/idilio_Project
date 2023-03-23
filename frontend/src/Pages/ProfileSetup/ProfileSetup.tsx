@@ -150,10 +150,6 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
             <span className="absolute top-[130px] left-[125px] text-[20px] ">
               <RiImageAddLine />
             </span>
-            {/* <input
-              type="file"
-              className="absolute opacity-0 top-[120px] left-[120px]"
-            /> */}
             <button
               type="submit"
               onClick={handlePropic}

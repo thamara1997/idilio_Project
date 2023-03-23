@@ -2,6 +2,7 @@ package com.idilio.backend.controller;
 
 import com.idilio.backend.dto.NewOrderDTO;
 import com.idilio.backend.dto.ResourceOrderDTO;
+import com.idilio.backend.dto.ResourceOrderFullDTO;
 import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.repository.ResourceOrderRepo;
 import com.idilio.backend.service.ResourceOrderService;
@@ -23,11 +24,12 @@ public class ResourceOrderController {
 
     @Autowired
     private ResourceOrderRepo resourceOrderRepo;
+    private Object resourceOrderFullDTO;
 
     @GetMapping("/getallresourceorders")
     public ResponseEntity<?> getAllResourceOrders(){
         Map<String, Object> map = new LinkedHashMap<>();
-        List<ResourceOrderDTO> resourcesOrderList = resourceOrderService.getAllResourceOrders();
+        List<ResourceOrderFullDTO> resourcesOrderList = resourceOrderService.getAllResourceOrders();
         if(!resourcesOrderList.isEmpty()){
             map.put("status",1);
             map.put("data",resourcesOrderList);
@@ -61,7 +63,7 @@ public class ResourceOrderController {
     @PutMapping("/updateresourceorder")
     public ResponseEntity<?> updateNewOrder(@RequestBody ResourceOrderDTO resourceOrderDTO){
         Map<String, Object> map = new LinkedHashMap<>();
-        ResourceOrderDTO resourceOrderDTO1 = resourceOrderService.updateResourceOrder(resourceOrderDTO);
+        ResourceOrderFullDTO resourceOrderDTO1 = resourceOrderService.updateResourceOrder(resourceOrderDTO);
         if(resourceOrderDTO1 != null){
             map.put("status",1);
             map.put("data",resourceOrderDTO1);
@@ -78,7 +80,7 @@ public class ResourceOrderController {
     @GetMapping("/getresourceorderbyid/{resourceOrderId}")
     public ResponseEntity<?> getResourceOrderById(@PathVariable int resourceOrderId){
         Map<String, Object> map = new LinkedHashMap<>();
-        ResourceOrderDTO resourceOrderDTO = resourceOrderService.getResourceOrderById(resourceOrderId);
+        ResourceOrderFullDTO resourceOrderDTO = resourceOrderService.getResourceOrderById(resourceOrderId);
         if(resourceOrderDTO != null){
             map.put("status",1);
             map.put("data",resourceOrderDTO);

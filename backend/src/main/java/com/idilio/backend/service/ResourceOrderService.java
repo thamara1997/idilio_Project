@@ -1,17 +1,18 @@
 package com.idilio.backend.service;
 
 import com.idilio.backend.dto.ResourceOrderDTO;
+import com.idilio.backend.dto.ResourceOrderFullDTO;
 
 import java.util.List;
 
 public interface ResourceOrderService {
-    List<ResourceOrderDTO> getAllResourceOrders();
+    List<ResourceOrderFullDTO> getAllResourceOrders();
 
     ResourceOrderDTO addResourceOrder (ResourceOrderDTO resourceOrderDTO);
 
     boolean deleteResourceOrder(int resourceOrderId);
 
-    ResourceOrderDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO);
+    ResourceOrderFullDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO);
 
-    ResourceOrderDTO getResourceOrderById(int resourceOrderId);
+    ResourceOrderFullDTO getResourceOrderById(int resourceOrderId);
 }

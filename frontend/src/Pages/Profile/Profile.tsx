@@ -1,4 +1,5 @@
 import ArtCard from "components/ArtCard/ArtCard";
+import ArtModal from "components/ArtCard/ArtModal";
 import OrderCard from "components/OrderCard/OrderCard";
 import PlacedOrderCard from "components/OrderCard/PlacedOrderCard";
 import DesignerProfileCard from "components/ProfileCard/DesignerProfileCard";
@@ -16,12 +17,22 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   const navigate = useNavigate();
 
   const [resources, setResources] = useState<any>();
 
   useEffect(() => {
-    if (!user?.designer.designerId) {
+    if (!user?.designer?.designerId) {
       return;
     }
 
@@ -40,13 +51,13 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
           // handle the error or navigate to an error page
         });
     }
-  }, []);
+  }, [user?.designer.designerId]);
 
   const [propic, setPropic] = useState<any>("");
   useEffect(() => {
     FileUploadServices.getProfilePicture(1).then((res: any) => {
       // console.log(res);
-      if (res.status == 200) {
+      if (res.status === 200) {
         setPropic(
           `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${user?.userId}`
         );
@@ -163,10 +174,14 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                         t.resourceId
                       )}
                     >
-                      <ArtCard details={t} />
+                      <ArtCard details={t} Avatar={propic} />
                     </Link>
                   </div>
                 ))}
+                <div className="flex w-[320px] h-[400px] border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black text-center">
+                  <button onClick={handleModalOpen}>hello</button>
+                  <ArtModal isOpen={isModalOpen} onClose={handleModalClose} />
+                </div>
               </div>
             </div>
           </div>

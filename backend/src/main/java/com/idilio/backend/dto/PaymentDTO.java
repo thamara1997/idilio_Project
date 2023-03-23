@@ -13,4 +13,5 @@ public class PaymentDTO {
     private int paymentId;
     private double amount;
     private Timestamp paidDate;
+    private int resourceOrderId;
 }

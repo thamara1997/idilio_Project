@@ -48,8 +48,7 @@ public class ResourceOrder {
     private Progress progress;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name="paymentId",referencedColumnName = "paymentId")
+    @OneToOne(mappedBy = "resourceOrder",cascade = CascadeType.MERGE)
     private Payment payment;
 
     @OneToMany(mappedBy = "resourceOrder", cascade = CascadeType.MERGE)

@@ -1,5 +1,6 @@
 package com.idilio.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,9 @@ public class Payment {
     @OneToOne(mappedBy = "payment",cascade = CascadeType.MERGE)
     private NewOrder newOrder;
 
-    @OneToOne(mappedBy = "payment",cascade = CascadeType.MERGE)
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name="resourceOrderId",referencedColumnName = "resourceOrderId")
     private ResourceOrder resourceOrder;
 }

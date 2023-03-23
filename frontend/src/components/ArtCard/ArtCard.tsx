@@ -1,8 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Artwork from "assets/art.jpg";
-import avatar from "assets/avatar.jpg";
+import UserService from "Services/UserService";
+import DesignerService from "Services/DesignerService";
+import FileUploadServices from "Services/FileUploadServices";
 
-const ArtCard = ({ details }: any) => {
+const ArtCard = ({ details, Avatar }: any) => {
+  const id = details.designerId;
+
+  const [designers, setDesigner] = useState<any>();
+  const [user, setUser] = useState<any>();
+
+  useEffect(() => {
+    if (id) {
+      DesignerService.getDesignerById(id)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setDesigner(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (designers?.userId) {
+      UserService.getUserByUserId(designers?.userId)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setUser(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    }
+  }, [designers?.userId]);
+
+  const [propic, setPropic] = useState<any>("");
+  useEffect(() => {
+    FileUploadServices.getProfilePicture(1).then((res: any) => {
+      if (res.status === 200) {
+        setPropic(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/profilePic/${user?.userId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [user]);
+
   return (
     <div>
       <div className="relative w-[320px] h-[400px] border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black ">
@@ -12,7 +67,7 @@ const ArtCard = ({ details }: any) => {
         <div className="absolute right-[140px] top-[280px]">
           <img
             className="inline w-[40px] h-[40px] rounded-full mb-[20px]"
-            src={avatar}
+            src={propic}
             alt=""
           />
         </div>
