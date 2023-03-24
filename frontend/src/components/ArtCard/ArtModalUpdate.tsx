@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "react-avatar-edit";
 import { useForm } from "react-hook-form";
 import { RiImageAddLine } from "react-icons/ri";
@@ -13,6 +13,7 @@ type ModalProps = {
   primaryButtonText?: string;
   secondaryButtonText?: string;
   designerId: any;
+  details: any;
 };
 const customStyles = {
   overlay: {
@@ -29,43 +30,72 @@ const customStyles = {
 };
 
 type FormData = {
-  title: string;
-  description: string;
-  amount: string;
-  category: string;
-  searchTags: string;
+  title: any;
+  description: any;
+  amount: any;
+  category: any;
+  searchTags: any;
   artAvatar: any;
 };
 
 Modal.setAppElement("#root");
 
-const ArtModal: React.FC<ModalProps> = ({
+const ArtModalUpdate: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  primaryButtonText = "Continue",
+  primaryButtonText = "Update",
   secondaryButtonText = "Cancel",
   designerId,
+  details,
 }) => {
-  //   console.log(designerId);
+  console.log(details);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
+
+  const [details2, setDetails2] = useState(details);
+
+  useEffect(() => {
+    setDetails2(details);
+    setValue("amount", details?.amount);
+    setValue("category", details?.category);
+  }, [details, setValue]);
+
+  function handleAmountChange(event: any) {
+    const newValue = event.target.value;
+    setValue("amount", newValue);
+  }
+
+  function handleCategoryChange(event: any) {
+    const newValue = event.target.value;
+    setValue("category", newValue);
+  }
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [src, setSrc] = useState<any>();
   const [preview, setPreview] = useState(null);
   const [artpic, setArtpic] = useState<any>("");
-  const [resource, setResource] = useState<any>();
 
   const handleNextButtonClick = async (data: any) => {
-    const formDataWithDesignerId = { ...data, designerId };
-    const result = await ResourcesService.addResource(formDataWithDesignerId);
-    console.log(result.data?.resource);
+    // console.log(data);
+    const updatedResource: any = {
+      resourceId: details2?.resourceId,
+      title: data.title,
+      description: data.description,
+      amount: data.amount,
+      category: data.category,
+      searchTags: data.searchTags,
+      designerId: details2?.designerId,
+    };
+    // console.log(updatedResource);
+    const result = await ResourcesService.UpdateResource(updatedResource);
+    console.log(result.data);
     setFormSubmitted(true);
-    if (formSubmitted == true) {
+    if (formSubmitted === true) {
       toast.success("Resource Added Upload Your Art");
-      setResource(result.data.resources);
       return;
     } else {
       toast.error("Resource added Failed");
@@ -79,9 +109,10 @@ const ArtModal: React.FC<ModalProps> = ({
       let formData = new FormData();
       formData.append("file", file);
 
-      FileUploadServices.uploadResourceArt(resource?.resourceId, formData);
+      FileUploadServices.uploadResourceArt(details.resourceId, formData);
+      setFormSubmitted(false);
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 500);
     } else {
       console.log("Null");
@@ -160,39 +191,27 @@ const ArtModal: React.FC<ModalProps> = ({
                 type="text"
                 className=" h-[2.4rem] w-full text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-5 "
                 placeholder="Type your title here"
-                {...register("title", {
-                  required: true,
-                })}
+                defaultValue={details2?.title}
+                {...register("title")}
               />
-              {errors.title && (
-                <p className="flex-row w-full m-1 text-xs text-red-600 ">
-                  Title is required
-                </p>
-              )}
 
               <label className="flex mb-4">Description :</label>
               <textarea
                 className=" h-[2.4rem] w-full text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-5 "
                 placeholder="Paste your art description here"
-                {...register("description", {
-                  required: true,
-                })}
+                defaultValue={details?.description}
+                {...register("description")}
               />
-              {errors.description && (
-                <p className="flex-row w-full m-1 text-xs text-red-600 ">
-                  Description is required
-                </p>
-              )}
 
               <label className="flex mb-4">Amount :</label>
               <select
                 className=" h-[2.4rem] w-full text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-5 "
                 placeholder="Type your project name here"
-                {...register("amount", {
-                  required: true,
-                })}
+                defaultValue={details.amount}
+                {...register("amount", { required: true })}
+                onChange={handleAmountChange}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select Amount
                 </option>
                 <option>10</option>
@@ -210,11 +229,11 @@ const ArtModal: React.FC<ModalProps> = ({
               <select
                 className=" h-[2.4rem] w-full text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-5 "
                 placeholder="Select Your Art Category"
-                {...register("category", {
-                  required: true,
-                })}
+                defaultValue={details?.category}
+                {...register("category", { required: true })}
+                onChange={handleCategoryChange}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select Category
                 </option>
                 <option>ALBUM COVER</option>
@@ -235,9 +254,8 @@ const ArtModal: React.FC<ModalProps> = ({
                 type="text"
                 className=" h-[2.4rem] w-full text-[14px] rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-5 "
                 placeholder=" Enter 3 search tags with separated commas"
-                {...register("searchTags", {
-                  required: true,
-                })}
+                defaultValue={details?.searchTags}
+                {...register("searchTags")}
               />
               {errors.searchTags && (
                 <p className="flex-row w-full m-1 text-xs text-red-600 ">
@@ -264,4 +282,4 @@ const ArtModal: React.FC<ModalProps> = ({
   );
 };
 
-export default ArtModal;
+export default ArtModalUpdate;

@@ -17,7 +17,7 @@ const getResourceByDesignerId = async (designerId: any) => {
   );
 };
 
-//register
+//addresource
 const addResource = async (data: any) => {
   //console.log(data);
   const response = await axios({
@@ -30,11 +30,28 @@ const addResource = async (data: any) => {
   return response;
 };
 
+//updateresource
+const UpdateResource = async (data: any) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/resources/updateresource`,
+      data: data,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update user data");
+  }
+};
+
 const ResourcesService = {
   getAllResource,
   getResourceById,
   getResourceByDesignerId,
   addResource,
+  UpdateResource,
 };
 
 export default ResourcesService;

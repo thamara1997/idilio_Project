@@ -1,5 +1,6 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import ArtModal from "components/ArtCard/ArtModal";
+import ArtModalUpdate from "components/ArtCard/ArtModalUpdate";
 import OrderCard from "components/OrderCard/OrderCard";
 import PlacedOrderCard from "components/OrderCard/PlacedOrderCard";
 import DesignerProfileCard from "components/ProfileCard/DesignerProfileCard";
@@ -20,17 +21,20 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModalOpen = () => {
+  const handleModalOpen = (resource: any) => {
+    setSelectedResource(resource);
     setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+    window.location.reload();
   };
 
   const navigate = useNavigate();
 
   const [resources, setResources] = useState<any>();
+  const [selectedResource, setSelectedResource] = useState(null);
 
   useEffect(() => {
     if (!user?.designer?.designerId) {
@@ -167,18 +171,22 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
 
             <div className="flex justify-center items-center text-center mb-[100px]">
               <div className="mt-[60px] grid grid-cols-1 gap-[75px] mx-auto md:grid-cols-3">
-                {resources?.map((t: any, i: number) => (
+                {resources?.map((resource: any, i: number) => (
                   <div id="item1" className="w-full carousel-item" key={i}>
-                    <Link
-                      to={routeNames.RDesignDetails.replace(
-                        ":id",
-                        t.resourceId
-                      )}
-                    >
-                      <ArtCard details={t} Avatar={propic} />
-                    </Link>
+                    <button onClick={() => handleModalOpen(resource)}>
+                      <ArtCard details={resource} Avatar={propic} />
+                    </button>
                   </div>
                 ))}
+                {selectedResource && (
+                  <ArtModalUpdate
+                    isOpen={isModalOpen}
+                    onClose={handleModalClose}
+                    designerId={user?.designer?.designerId}
+                    details={selectedResource}
+                  />
+                )}
+
                 <div className="relative flex w-[320px] h-[400px] border-dashed border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black text-center opacity-80">
                   <button
                     onClick={handleModalOpen}
