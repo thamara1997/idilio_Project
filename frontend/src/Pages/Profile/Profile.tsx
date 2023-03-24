@@ -1,5 +1,4 @@
 import ArtCard from "components/ArtCard/ArtCard";
-import ArtModal from "components/ArtCard/ArtModal";
 import ArtModalUpdate from "components/ArtCard/ArtModalUpdate";
 import OrderCard from "components/OrderCard/OrderCard";
 import PlacedOrderCard from "components/OrderCard/PlacedOrderCard";
@@ -12,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 import FileUploadServices from "Services/FileUploadServices";
 import ResourcesService from "Services/ResourcesService";
+import AddResourceModal from "components/ArtCard/AddResourceModal";
 
 interface ProfileProps {
   user: any;
@@ -19,16 +19,21 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isArtModalOpen, setIsArtModalOpen] = useState(false);
+  const [isAddResourceModalOpen, setIsAddResourceModalOpen] = useState(false);
 
-  const handleModalOpen = (resource: any) => {
+  const handleArtModalOpen = (resource: any) => {
     setSelectedResource(resource);
-    setIsModalOpen(true);
+    setIsArtModalOpen(true);
+  };
+
+  const handleAddResourceModalOpen = () => {
+    setIsAddResourceModalOpen(true);
   };
 
   const handleModalClose = () => {
-    setIsModalOpen(false);
-    window.location.reload();
+    setIsArtModalOpen(false);
+    setIsAddResourceModalOpen(false);
   };
 
   const navigate = useNavigate();
@@ -173,14 +178,14 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
               <div className="mt-[60px] grid grid-cols-1 gap-[75px] mx-auto md:grid-cols-3">
                 {resources?.map((resource: any, i: number) => (
                   <div id="item1" className="w-full carousel-item" key={i}>
-                    <button onClick={() => handleModalOpen(resource)}>
+                    <button onClick={() => handleArtModalOpen(resource)}>
                       <ArtCard details={resource} Avatar={propic} />
                     </button>
                   </div>
                 ))}
                 {selectedResource && (
                   <ArtModalUpdate
-                    isOpen={isModalOpen}
+                    isOpen={isArtModalOpen}
                     onClose={handleModalClose}
                     designerId={user?.designer?.designerId}
                     details={selectedResource}
@@ -189,14 +194,14 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
 
                 <div className="relative flex w-[320px] h-[400px] border-dashed border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black text-center opacity-80">
                   <button
-                    onClick={handleModalOpen}
+                    onClick={handleAddResourceModalOpen}
                     className="absolute left-[25px] top-[25px] w-[270px] h-[270px] rounded-lg border-dashed border-[0.3px] border-white text-center"
                   >
                     <RiImageAddLine className="absolute left-[125px] top-[100px] text-center" />
                     Add Resource
                   </button>
-                  <ArtModal
-                    isOpen={isModalOpen}
+                  <AddResourceModal
+                    isOpen={isAddResourceModalOpen}
                     onClose={handleModalClose}
                     designerId={user?.designer?.designerId}
                   />

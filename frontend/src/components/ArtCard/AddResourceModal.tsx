@@ -39,7 +39,7 @@ type FormData = {
 
 Modal.setAppElement("#root");
 
-const ArtModal: React.FC<ModalProps> = ({
+const AddResourceModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   primaryButtonText = "Continue",
@@ -264,4 +264,4 @@ const ArtModal: React.FC<ModalProps> = ({
   );
 };
 
-export default ArtModal;
+export default AddResourceModal;
