@@ -1,19 +1,22 @@
 import RequirementForm from "components/RequirementForm/RequirementForm";
-import { cardDetails } from "data/data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DesignerService from "Services/DesignerService";
 import ResourcesService from "Services/ResourcesService";
 import UserService from "Services/UserService";
 
-const Requirement = () => {
+interface RequirementProps {
+  user: any;
+}
+
+const Requirement: React.FC<RequirementProps> = ({ user }) => {
   let { id } = useParams();
-  console.log(id);
+  //console.log(id);
 
   let iid: number = Number(id);
 
-  const details = cardDetails[iid];
-  console.log(details);
+  // const details = cardDetails[iid];
+  // console.log(details);
 
   const [resources, setResources] = useState<any>();
 
@@ -27,11 +30,11 @@ const Requirement = () => {
         console.log("not found");
       }
     });
-  }, []);
+  }, [iid]);
   const designerid = resources?.designerId;
 
   const [designers, setDesigner] = useState<any>();
-  const [user, setUser] = useState<any>();
+  const [designUser, setDesignUser] = useState<any>();
 
   useEffect(() => {
     if (id) {
@@ -39,14 +42,14 @@ const Requirement = () => {
         .then((res: any) => {
           if (res.data.status === 1) {
             setDesigner(res.data.data);
-            console.log(res.data.data);
+            //console.log(res.data.data);
             return;
           } else {
             console.log("not found");
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          //console.log(error);
         });
     }
   }, [designerid]);
@@ -56,7 +59,7 @@ const Requirement = () => {
       UserService.getUserByUserId(designers?.userId)
         .then((res: any) => {
           if (res.data.status === 1) {
-            setUser(res.data.data);
+            setDesignUser(res.data.data);
             console.log(res.data.data);
             return;
           } else {
@@ -74,10 +77,11 @@ const Requirement = () => {
       <div id="item1" className="w-full">
         <RequirementForm
           title={resources?.title}
-          name={resources?.designerId}
+          designerId={resources?.designerId}
           amount={resources?.amount}
           resourceId={resources?.resourceId}
           category={resources?.category}
+          designUser={designUser}
           user={user}
         />
       </div>

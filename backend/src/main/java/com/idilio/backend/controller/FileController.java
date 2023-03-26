@@ -96,4 +96,18 @@ public class FileController {
         return LoadFile(fileName, fileDir, request);
     }
 
+    @PostMapping("/uploadresourceorderdrawing/{resourceOrderId}")
+    public ResponseEntity<FileResponse> ResourceOrderDrawingUpload(@RequestParam("file") MultipartFile file, @PathVariable int resourceOrderId){
+        String imgName = Integer.toString(resourceOrderId) + ".jpg";
+        String uploadDir = "resourceOrderDrawing";
+        return uploadFile(file, imgName,"resourceOrderDrawing", uploadDir);
+    }
+
+    @GetMapping("/resourceorderdrawing/{resourceOrderId}")
+    public ResponseEntity<Resource> downloadResourceOrderDrawing(@PathVariable int resourceOrderId, HttpServletRequest request){
+        String fileName = Integer.toString(resourceOrderId)+".jpg";
+        String fileDir = "resourceOrderDrawing";
+        return LoadFile(fileName, fileDir, request);
+    }
+
 }

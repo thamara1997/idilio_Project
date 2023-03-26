@@ -34,6 +34,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
   const handleModalClose = () => {
     setIsArtModalOpen(false);
     setIsAddResourceModalOpen(false);
+    window.location.reload();
   };
 
   const navigate = useNavigate();

@@ -25,11 +25,11 @@ export enum routeNames {
   Mascotlogo1 = "/mascotlogo/:id/requirement",
   Companylogo1 = "/companylogo/:id/requirement",
 
-  NDesignDetails = "/newdesigndetails/:id",
+  NDesignDetails = "/newdesignrequirement/:id",
 
   //under new design
   RDesignDetails = "/resourcedesign/details/:id",
   Requirement = "/resourcedesign/details/:id/requirement",
 
-  Progress = "/resourcedesign/details/:id/progress",
+  Progress = "/resourcedesign/details/progress/:id",
 }

@@ -1,20 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import SignaturePad from "react-signature-canvas";
 import { routeNames } from "routes/route";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { BiEraser } from "react-icons/bi";
 
 import Artwork from "assets/art.jpg";
 import FileUploadServices from "Services/FileUploadServices";
+import ResourceOrderService from "Services/ResourceOrderService";
+import UsersOrdersServices from "Services/UsersOrdersServices";
 
 const RequirementForm = ({
   title,
   resourceId,
+  designerId,
   amount,
   category,
+  designUser,
   user,
 }: any) => {
+  // console.log(designUser);
   const sigPad = useRef<SignaturePad>(null);
   const [signatureData, setSignatureData] = useState<string>("");
 
@@ -23,11 +28,73 @@ const RequirementForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    // Save the signature data
-    setSignatureData(sigPad.current?.toDataURL() ?? "");
-    console.log(signatureData);
-    console.log(data);
+  // const onSubmit = (data: any) => {
+  //   // Save the signature data
+  //   setSignatureData(sigPad.current?.toDataURL() ?? "");
+  //   console.log(signatureData);
+  //   console.log(data);
+  // };
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: any) => {
+    const resourceOrderData: any = {
+      projectName: data.projectname,
+      reqDescription: data.requirements,
+      reqDraw: "uploaded",
+      attachments: "uploaded",
+      rate: 0,
+      review: null,
+      resourcesResourceId: resourceId,
+      progressId: 2,
+    };
+
+    console.log(resourceOrderData);
+
+    const result = await ResourceOrderService.addResourceOrder(
+      resourceOrderData
+    );
+
+    if (result.data.status === 1) {
+      // Add data to users orders table
+      const UsersOrdersData: any = {
+        resourceOrderId: result.data.data.resourceOrderId,
+        userId: user?.userId,
+      };
+
+      const result2 = await UsersOrdersServices.addUsersOrders(UsersOrdersData);
+      console.log(result2);
+
+      // Upload drawing for relevant ID
+      const signatureDataURL = sigPad.current?.toDataURL() ?? "";
+
+      setSignatureData(signatureDataURL);
+
+      if (signatureDataURL != null && signatureDataURL !== "") {
+        const file = FileUploadServices.convertBase64ToFile(
+          signatureDataURL,
+          "aa.png"
+        );
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        FileUploadServices.uploadResourceOrderDrawing(
+          result.data.data.resourceOrderId,
+          formData
+        );
+      } else {
+        console.log("No Drawing");
+      }
+
+      // Navigate to progress page
+      setTimeout(() => {
+        navigate(
+          routeNames.Progress.replace(":id", result.data.data.resourceOrderId)
+        );
+      }, 500);
+    } else {
+      console.log("Resource Order Not Added");
+    }
   };
 
   useEffect(() => {
@@ -43,7 +110,7 @@ const RequirementForm = ({
   useEffect(() => {
     FileUploadServices.getResourceArt(1).then((res: any) => {
       // console.log(res);
-      if (res.status == 200) {
+      if (res.status === 200) {
         setArt(
           `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceArt/${resourceId}`
         );
@@ -83,7 +150,7 @@ const RequirementForm = ({
               <label className="flex mb-4">
                 <span className="flex w-[30%] font-bold">Designer Name</span>
                 <div className="w-[70%] flex font-normal">
-                  : {user?.firstName} {user?.lastName}
+                  : {designUser?.firstName} {designUser?.lastName}
                 </div>
               </label>
               <label className="flex mb-4">
@@ -139,6 +206,12 @@ const RequirementForm = ({
 
           <label className="flex mb-4">
             <span className="w-[20%] font-bold">Drawing:</span>
+            <input
+              {...register("signature")}
+              className="hidden"
+              id="signature"
+              type="hidden"
+            />
             <SignaturePad
               ref={sigPad}
               canvasProps={{
@@ -166,13 +239,9 @@ const RequirementForm = ({
             />
           </label>
 
-          {/* <Link to={routeNames.Progress.replace(":id", resourceId)}> */}
-          <input type="hidden" name="signature" value={signatureData} />
-
           <button type="submit" className="w-full my-8 btn2">
             Submit Resource Order
           </button>
-          {/* </Link> */}
         </form>
       </div>
     </div>

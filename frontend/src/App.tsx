@@ -140,7 +140,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <Requirement />
+                <Requirement user={user} />
                 <Footer />
               </>
             }
