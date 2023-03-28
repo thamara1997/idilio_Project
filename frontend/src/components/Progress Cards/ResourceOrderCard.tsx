@@ -96,6 +96,7 @@ const ResourceOrderCard = (resourceOrder: any) => {
   console.log(resourceOrderId);
 
   const [draw, setDraw] = useState<any>("");
+  const [work, setWork] = useState<any>("");
   useEffect(() => {
     FileUploadServices.getResourceOrderDrawing(1).then((res: any) => {
       // console.log(res);
@@ -108,7 +109,32 @@ const ResourceOrderCard = (resourceOrder: any) => {
         // setPropic(res.status);
       }
     });
+    FileUploadServices.getResourceOrderWork(1).then((res2: any) => {
+      console.log(res2);
+      if (res2.status === 200) {
+        setWork(
+          `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceorderwork/${resourceOrderId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
   }, [resourceOrderId]);
+
+  // useEffect(() => {
+  //   FileUploadServices.getResourceOrderWork(1).then((res: any) => {
+  //     console.log(res);
+  //     if (res.status === 200) {
+  //       setWork(
+  //         `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceorderwork/${resourceOrderId}`
+  //       );
+  //       return;
+  //     } else {
+  //       // setPropic(res.status);
+  //     }
+  //   });
+  // }, [resourceOrderId]);
 
   return (
     <div className="w-[70%] mx-auto">
@@ -182,7 +208,9 @@ const ResourceOrderCard = (resourceOrder: any) => {
               </div>
             </div>
             <div>
-              <div className="w-[300px] h-[300px] bg-white border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white "></div>
+              <div className="w-[300px] h-[300px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white ">
+                <img src={work} alt="" className="rounded-lg" />
+              </div>
               <div className="flex justify-center mt-3">
                 <button className="w-full uppercase btn2">Upload Art</button>
               </div>

@@ -110,4 +110,17 @@ public class FileController {
         return LoadFile(fileName, fileDir, request);
     }
 
+    @PostMapping("/uploadresourceorderwork/{resourceOrderId}")
+    public ResponseEntity<FileResponse> ResourceOrderWorkUpload(@RequestParam("file") MultipartFile file, @PathVariable int resourceOrderId){
+        String imgName = Integer.toString(resourceOrderId) + ".jpg";
+        String uploadDir = "resourceOrderWork";
+        return uploadFile(file, imgName,"resourceOrderWork", uploadDir);
+    }
+
+    @GetMapping("/resourceorderwork/{resourceOrderId}")
+    public ResponseEntity<Resource> downloadResourceOrderWork(@PathVariable int resourceOrderId, HttpServletRequest request){
+        String fileName = Integer.toString(resourceOrderId)+".jpg";
+        String fileDir = "resourceOrderWork";
+        return LoadFile(fileName, fileDir, request);
+    }
 }

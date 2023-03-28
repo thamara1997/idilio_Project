@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ResourceOrderCard from "components/Progress Cards/ResourceOrderCard";
 import ResourceOrderService from "Services/ResourceOrderService";
+import ProgressBar from "components/Progress Cards/ProgressBar";
 
 const Progress = () => {
   let { id } = useParams();
@@ -33,7 +34,8 @@ const Progress = () => {
         impedit possimus minus eligendi nihil. Sequi, saepe repellat ea hic eos
         itaque.
       </div>
-      <div className="my-8 text-[#fec750] text-center uppercase font-medium text-[18px]">
+      <ProgressBar currentStep={3} />
+      <div className="mt-[80px] mb-[40px] text-[#fec750] text-center uppercase font-medium text-[18px]">
         Resource Order Progress
       </div>
 

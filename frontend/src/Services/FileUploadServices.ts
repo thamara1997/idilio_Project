@@ -20,6 +20,11 @@ const getResourceOrderDrawing = async (resourceOrderId: any) => {
   );
 };
 
+//get resource order drawing by id
+const getResourceOrderWork = async (resourceOrderId: any) => {
+  return http.get<any>(`/api/v1/upload/resourceorderwork/${resourceOrderId}`);
+};
+
 // convert Base64 string to file
 const convertBase64ToFile = (base64String: any, filename: any) => {
   const arr = base64String.split(",");
@@ -80,6 +85,7 @@ const FileUploadServices = {
   uploadResourceArt,
   uploadResourceOrderDrawing,
   getResourceOrderDrawing,
+  getResourceOrderWork,
 };
 
 export default FileUploadServices;
