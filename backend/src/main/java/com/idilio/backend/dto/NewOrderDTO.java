@@ -1,5 +1,6 @@
 package com.idilio.backend.dto;
 
+import com.idilio.backend.entity.Progress;
 import lombok.*;
 
 @NoArgsConstructor
@@ -18,6 +19,7 @@ public class NewOrderDTO {
     private int designerId;
     private int packageId;
     private int progressId;
-    private int paymentId;
+    private int userId;
+//    private int paymentId;
 
 }

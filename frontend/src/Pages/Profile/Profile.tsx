@@ -12,6 +12,7 @@ import { routeNames } from "routes/route";
 import FileUploadServices from "Services/FileUploadServices";
 import ResourcesService from "Services/ResourcesService";
 import AddResourceModal from "components/ArtCard/AddResourceModal";
+import UsersOrdersServices from "Services/UsersOrdersServices";
 
 interface ProfileProps {
   user: any;
@@ -42,6 +43,22 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
   const [resources, setResources] = useState<any>();
   const [selectedResource, setSelectedResource] = useState(null);
 
+  //get orders by user id
+  const [placedOrders, setPlacedOrders] = useState<any>([]);
+  const iid = user?.userId;
+  console.log(typeof iid);
+  useEffect(() => {
+    UsersOrdersServices.getOrdersByUserId(iid).then((res: any) => {
+      if (res.data.status === 1) {
+        setPlacedOrders(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, [iid]);
+
   useEffect(() => {
     if (!user?.designer?.designerId) {
       return;
@@ -58,7 +75,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
           }
         })
         .catch((error) => {
-          console.error(error);
+          //console.error(error);
           // handle the error or navigate to an error page
         });
     }
@@ -129,13 +146,17 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
             <div className="w-[70%] p-5 h-[350px] bg-[#171717ce] rounded-xl flex-row">
               <h1 className="text-start">Placed Orders</h1>
               <div className="text-center">
-                {ordercard.map((t: any, i: number) => (
+                {placedOrders.map((t: any, i: number) => (
                   <div id="item1" key={i}>
-                    <PlacedOrderCard
-                      type={t.type}
-                      OrderId={t.OrderId}
-                      price={t.price}
-                    />
+                    <Link
+                      to={routeNames.Progress.replace(":id", t.resourceOrderId)}
+                    >
+                      <PlacedOrderCard
+                        type={"R"}
+                        OrderId={t.resourceOrderId}
+                        price={t.price}
+                      />
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -146,13 +167,13 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
             <div className="w-[70%] p-5 h-[350px] bg-[#171717ce] rounded-xl flex-row">
               <h1 className="text-start">Placed Orders</h1>
               <div className="text-center">
-                {ordercard.map((t: any, i: number) => (
+                {placedOrders.map((t: any, i: number) => (
                   <div id="item1" key={i}>
-                    <PlacedOrderCard
-                      type={t.type}
-                      OrderId={t.OrderId}
-                      price={t.price}
-                    />
+                    <Link
+                      to={routeNames.Progress.replace(":id", t.resourceOrderId)}
+                    >
+                      <PlacedOrderCard type={"R"} OrderId={t.resourceOrderId} />
+                    </Link>
                   </div>
                 ))}
               </div>

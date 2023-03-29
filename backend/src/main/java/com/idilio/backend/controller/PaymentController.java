@@ -54,7 +54,7 @@ public class PaymentController {
     }
 
     @GetMapping("/getpaymentbyid/{paymentId}")
-    public ResponseEntity<?> getPackageById(@PathVariable int paymentId){
+    public ResponseEntity<?> getPaymentById(@PathVariable int paymentId){
         Map<String, Object> map = new LinkedHashMap<>();
         PaymentDTO paymentDTO = paymentService.getPaymentById(paymentId);
         if(paymentDTO != null){

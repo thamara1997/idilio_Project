@@ -90,4 +90,21 @@ public class UsersOrdersController {
             return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getordersbyuserid/{userId}")
+    public ResponseEntity<?> getOrdersByUserId(@PathVariable int userId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<UsersOrdersDTO> orderslist = usersOrdersService.getOrdersByUserId(userId);
+        if(orderslist !=null){
+            map.put("status",1);
+            map.put("data",orderslist);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","Orders Not Found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

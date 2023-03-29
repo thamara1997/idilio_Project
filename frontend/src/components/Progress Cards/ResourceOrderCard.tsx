@@ -122,20 +122,6 @@ const ResourceOrderCard = (resourceOrder: any) => {
     });
   }, [resourceOrderId]);
 
-  // useEffect(() => {
-  //   FileUploadServices.getResourceOrderWork(1).then((res: any) => {
-  //     console.log(res);
-  //     if (res.status === 200) {
-  //       setWork(
-  //         `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceorderwork/${resourceOrderId}`
-  //       );
-  //       return;
-  //     } else {
-  //       // setPropic(res.status);
-  //     }
-  //   });
-  // }, [resourceOrderId]);
-
   return (
     <div className="w-[70%] mx-auto">
       {/* Resource Order Details */}
@@ -215,6 +201,24 @@ const ResourceOrderCard = (resourceOrder: any) => {
                 <button className="w-full uppercase btn2">Upload Art</button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="px-[200px] my-8 text-center font-light text-[14px]">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
+          officiis quibusdam maiores modi sint quaerat,
+        </div>
+
+        {/* buttons fields */}
+        <div className="flex justify-between gap-6 mb-8 ">
+          <div className="flex justify-center w-full mt-3">
+            <button className="w-full uppercase btn3">Any Inconvenience</button>
+          </div>
+          <div className="flex justify-center w-full mt-3">
+            <button className="w-full uppercase btn3 ">Next Step</button>
+          </div>
+          <div className="flex justify-center w-full mt-3">
+            <button className="w-full uppercase btn3">Live Chat</button>
           </div>
         </div>
       </div>

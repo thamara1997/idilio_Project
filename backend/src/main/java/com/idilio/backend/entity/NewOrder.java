@@ -47,7 +47,7 @@ public class NewOrder {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="packageId" , referencedColumnName = "packageId")
-    private Package aPackage;
+    private Package myPackage;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -60,10 +60,7 @@ public class NewOrder {
     private Progress progress;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name="paymentId",referencedColumnName = "paymentId")
-    private Payment payment;
-
-
+    @OneToOne(mappedBy = "newOrder",cascade = CascadeType.MERGE)
+    private Payment2 payment2;
 
 }

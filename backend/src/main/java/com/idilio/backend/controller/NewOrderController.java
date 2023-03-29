@@ -1,6 +1,7 @@
 package com.idilio.backend.controller;
 
 import com.idilio.backend.dto.NewOrderDTO;
+import com.idilio.backend.dto.NewOrderFullDTO;
 import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.repository.NewOrderRepo;
 import com.idilio.backend.service.NewOrderService;
@@ -26,7 +27,7 @@ public class NewOrderController {
     @GetMapping("/getallneworders")
     public ResponseEntity<?> getAllNewOrders(){
         Map<String, Object> map = new LinkedHashMap<>();
-        List<NewOrderDTO> newOrderList = newOrderService.getAllNewOrders();
+        List<NewOrderFullDTO> newOrderList = newOrderService.getAllNewOrders();
         if(!newOrderList.isEmpty()){
             map.put("status",1);
             map.put("data",newOrderList);

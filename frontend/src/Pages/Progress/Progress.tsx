@@ -25,6 +25,9 @@ const Progress = () => {
     });
   }, [iid]);
 
+  const progressStep = resourceOrder.progressId;
+  // console.log(progressStep);
+
   return (
     <div>
       <div className="p-8 text-center uppercase">Progress</div>
@@ -34,7 +37,7 @@ const Progress = () => {
         impedit possimus minus eligendi nihil. Sequi, saepe repellat ea hic eos
         itaque.
       </div>
-      <ProgressBar currentStep={3} />
+      <ProgressBar currentStep={progressStep} />
       <div className="mt-[80px] mb-[40px] text-[#fec750] text-center uppercase font-medium text-[18px]">
         Resource Order Progress
       </div>

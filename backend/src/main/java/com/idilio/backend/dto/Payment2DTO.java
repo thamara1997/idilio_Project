@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Data
-public class PaymentDTO2 {
+public class Payment2DTO {
     private int payment2Id;
     private double amount;
     private Timestamp paidDate;

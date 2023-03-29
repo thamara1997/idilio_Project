@@ -29,6 +29,6 @@ public class Package {
     @Column(name="amount")
     private double amount;
 
-    @OneToMany(mappedBy = "aPackage", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "myPackage", cascade = CascadeType.MERGE)
     private List<NewOrder> newOrders;
 }

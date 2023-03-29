@@ -1,5 +1,6 @@
 package com.idilio.backend.service;
 
+import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.dto.UsersOrdersDTO;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface UsersOrdersService {
     boolean deleteUsersOrders(int usersOrdersId);
 
     UsersOrdersDTO getUsersOrdersById(int usersOrdersId);
+
+    List<UsersOrdersDTO> getOrdersByUserId(int userId);
 }

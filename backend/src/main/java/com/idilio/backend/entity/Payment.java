@@ -27,9 +27,6 @@ public class Payment {
     @Column(name="amount")
     private double amount;
 
-    @OneToOne(mappedBy = "payment",cascade = CascadeType.MERGE)
-    private NewOrder newOrder;
-
 
     @JsonIgnore
     @OneToOne

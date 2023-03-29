@@ -1,12 +1,15 @@
 package com.idilio.backend.serviceimpl;
 
 import com.idilio.backend.dto.NewOrderDTO;
+import com.idilio.backend.dto.NewOrderFullDTO;
 import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.entity.Designer;
 import com.idilio.backend.entity.NewOrder;
+import com.idilio.backend.entity.Package;
 import com.idilio.backend.entity.Resources;
 import com.idilio.backend.repository.DesignerRepo;
 import com.idilio.backend.repository.NewOrderRepo;
+import com.idilio.backend.repository.PackageRepo;
 import com.idilio.backend.service.NewOrderService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -26,11 +29,14 @@ public class NewOrderServiceImpl implements NewOrderService {
     @Autowired
     private DesignerRepo designerRepo;
 
+    @Autowired
+    private PackageRepo packageRepo;
+
     @Override
-    public List<NewOrderDTO> getAllNewOrders() {
+    public List<NewOrderFullDTO> getAllNewOrders() {
         try{
             List<NewOrder> list = newOrderRepo.findAll();
-            return modelMapper.map(list, new TypeToken<List<NewOrderDTO>>(){}.getType());
+            return modelMapper.map(list, new TypeToken<List<NewOrderFullDTO>>(){}.getType());
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -73,7 +79,7 @@ public class NewOrderServiceImpl implements NewOrderService {
         try{
             Designer designerDTO = designerRepo.getDesignerById(newOrderDTO.getDesignerId());
             if(designerDTO!=null){
-                newOrderRepo.updateNewOrder(newOrderDTO.getProjectName(),newOrderDTO.getReqDescription(),newOrderDTO.getReqDraw(),newOrderDTO.getAttachments(),newOrderDTO.getReview(),newOrderDTO.getRate(),newOrderDTO.getNewOrderId());
+                newOrderRepo.UpdateNewOrder(newOrderDTO.getProjectName(),newOrderDTO.getReqDescription(),newOrderDTO.getReqDraw(),newOrderDTO.getAttachments(),newOrderDTO.getReview(),newOrderDTO.getRate(),newOrderDTO.getNewOrderId());
                 return getNewOrderById(newOrderDTO.getNewOrderId());
             }else{
                 return null;

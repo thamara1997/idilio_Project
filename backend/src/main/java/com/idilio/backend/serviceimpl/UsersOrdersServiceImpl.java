@@ -80,4 +80,16 @@ public class UsersOrdersServiceImpl implements UsersOrdersService {
             return null;
         }
     }
+
+    @Override
+    public List<UsersOrdersDTO> getOrdersByUserId(int userId) {
+        try{
+            List<UsersOrders> list = usersOrdersRepo.getOrdersByUserId(userId);
+            return modelMapper.map(list,new TypeToken<List<UsersOrdersDTO>>(){}.getType());
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }
