@@ -1,9 +1,9 @@
 package com.idilio.backend.serviceimpl;
 
-import com.idilio.backend.dto.ResourceOrderDTO;
-import com.idilio.backend.dto.ResourceOrderFullDTO;
-import com.idilio.backend.entity.ResourceOrder;
-import com.idilio.backend.entity.Resources;
+import com.idilio.backend.dto.*;
+import com.idilio.backend.entity.*;
+import com.idilio.backend.entity.Package;
+import com.idilio.backend.repository.ProgressRepo;
 import com.idilio.backend.repository.ResourceOrderRepo;
 import com.idilio.backend.repository.ResourcesRepo;
 import com.idilio.backend.service.ResourceOrderService;
@@ -25,6 +25,9 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
 
     @Autowired
     private ResourcesRepo resourcesRepo;
+
+    @Autowired
+    private ProgressRepo progressRepo;
 
     @Override
     public List<ResourceOrderFullDTO> getAllResourceOrders() {
@@ -69,23 +72,54 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
         }
     }
 
+//    @Override
+//    public ResourceOrderFullDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO) {
+//        try{
+//            Resources resources = resourcesRepo.getResourceById(resourceOrderDTO.getResourcesResourceId());
+//
+//            if(resources!=null){
+//                resourceOrderRepo.updateResourceOrder(resourceOrderDTO.getProjectName(),resourceOrderDTO.getReqDescription(),resourceOrderDTO.getReqDraw(),resourceOrderDTO.getAttachments(),resourceOrderDTO.getRate(),resourceOrderDTO.getReview(),resourceOrderDTO.getResourceOrderId());
+//                return getResourceOrderById(resourceOrderDTO.getResourceOrderId());
+//            }else{
+//                return null;
+//            }
+//        }
+//        catch(Exception e){
+//            System.out.println(e.toString());
+//            return null;
+//        }
+//    }
+
     @Override
     public ResourceOrderFullDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO) {
-        try{
+        try {
             Resources resources = resourcesRepo.getResourceById(resourceOrderDTO.getResourcesResourceId());
+            Progress progress = progressRepo.getReferenceById(resourceOrderDTO.getProgressId());
 
-            if(resources!=null){
-                resourceOrderRepo.updateResourceOrder(resourceOrderDTO.getProjectName(),resourceOrderDTO.getReqDescription(),resourceOrderDTO.getReqDraw(),resourceOrderDTO.getAttachments(),resourceOrderDTO.getRate(),resourceOrderDTO.getReview(),resourceOrderDTO.getResourceOrderId());
+            if (resources != null && progress != null) {
+                ResourceOrder resourceOrder = resourceOrderRepo.getById(resourceOrderDTO.getResourceOrderId());
+
+                resourceOrder.setProjectName(resourceOrderDTO.getProjectName());
+                resourceOrder.setReqDescription(resourceOrderDTO.getReqDescription());
+                resourceOrder.setReqDraw(resourceOrderDTO.getReqDraw());
+                resourceOrder.setAttachments(resourceOrderDTO.getAttachments());
+                resourceOrder.setRate(resourceOrderDTO.getRate());
+                resourceOrder.setReview(resourceOrderDTO.getReview());
+                resourceOrder.setResources(resources);
+                resourceOrder.setProgress(progress);
+
+                resourceOrderRepo.save(resourceOrder);
+
                 return getResourceOrderById(resourceOrderDTO.getResourceOrderId());
-            }else{
+            } else {
                 return null;
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
             return null;
         }
     }
+
 
     @Override
     public ResourceOrderFullDTO getResourceOrderById(int resourceOrderId) {
