@@ -123,4 +123,32 @@ public class FileController {
         String fileDir = "resourceOrderWork";
         return LoadFile(fileName, fileDir, request);
     }
+
+    @PostMapping("/uploadneworderdrawing/{newOrderId}")
+    public ResponseEntity<FileResponse> NewOrderDrawingUpload(@RequestParam("file") MultipartFile file, @PathVariable int newOrderId){
+        String imgName = Integer.toString(newOrderId) + ".jpg";
+        String uploadDir = "newOrderDrawing";
+        return uploadFile(file, imgName,"newOrderDrawing", uploadDir);
+    }
+
+    @GetMapping("/neworderdrawing/{newOrderId}")
+    public ResponseEntity<Resource> downloadNewOrderDrawing(@PathVariable int newOrderId, HttpServletRequest request){
+        String fileName = Integer.toString(newOrderId)+".jpg";
+        String fileDir = "newOrderDrawing";
+        return LoadFile(fileName, fileDir, request);
+    }
+
+    @PostMapping("/uploadneworderwork/{newOrderId}")
+    public ResponseEntity<FileResponse> NewOrderWorkUpload(@RequestParam("file") MultipartFile file, @PathVariable int newOrderId){
+        String imgName = Integer.toString(newOrderId) + ".jpg";
+        String uploadDir = "newOrderWork";
+        return uploadFile(file, imgName,"newOrderWork", uploadDir);
+    }
+
+    @GetMapping("/neworderwork/{newOrderId}")
+    public ResponseEntity<Resource> downloadNewOrderWork(@PathVariable int newOrderId, HttpServletRequest request){
+        String fileName = Integer.toString(newOrderId)+".jpg";
+        String fileDir = "newOrderWork";
+        return LoadFile(fileName, fileDir, request);
+    }
 }

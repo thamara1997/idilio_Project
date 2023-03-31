@@ -5,6 +5,8 @@ import UserService from "Services/UserService";
 import DesignerService from "Services/DesignerService";
 import FileUploadServices from "Services/FileUploadServices";
 import SignaturePad from "react-signature-canvas";
+import UsersOrdersServices from "Services/UsersOrdersServices";
+import ResourceOrderService from "Services/ResourceOrderService";
 
 const ResourceOrderCard = (resourceOrder: any) => {
   console.log(resourceOrder);
@@ -76,6 +78,28 @@ const ResourceOrderCard = (resourceOrder: any) => {
     }
   }, [designers?.userId]);
 
+  const [userdetails, setUserDetails] = useState<any>();
+
+  useEffect(() => {
+    if (resourceOrder?.resourceOrder.resourceOrderId) {
+      UsersOrdersServices.getUsersOrdersByResourceOrderId(
+        resourceOrder?.resourceOrder.resourceOrderId
+      )
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setUserDetails(res.data.data);
+            console.log(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          //console.log(error);
+        });
+    }
+  }, [resourceOrder?.resourceOrder.resourceOrderId]);
+
   const [art, setArt] = useState<any>("");
   useEffect(() => {
     FileUploadServices.getResourceArt(1).then((res: any) => {
@@ -122,6 +146,41 @@ const ResourceOrderCard = (resourceOrder: any) => {
     });
   }, [resourceOrderId]);
 
+  const handleAcceptOrder = async (data: any) => {
+    const resOrder: any = {
+      resourceOrderId: resourceOrder?.resourceOrder.resourceOrderId,
+      projectName: resourceOrder?.resourceOrder.projectName,
+      reqDescription: resourceOrder?.resourceOrder.reqDescription,
+      reqDraw: resourceOrder?.resourceOrder.reqDraw,
+      attachments: resourceOrder?.resourceOrder.attachments,
+      rate: resourceOrder?.resourceOrder.rate,
+      review: resourceOrder?.resourceOrder.review,
+      resourcesResourceId: resourceOrder?.resourceOrder.resourcesResourceId,
+      progressId: resourceOrder?.resourceOrder.progressId + 1,
+      paymentId: resourceOrder?.resourceOrder.resourceOrderId,
+    };
+    const result = await ResourceOrderService.UpdateResourceOrder(resOrder);
+    if (result.data.status === 1) {
+      console.log(result.data);
+      window.location.reload();
+      return;
+    } else {
+      console.log("Update Fail");
+    }
+  };
+
+  const [loggedUser, setLoggedUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Check local storage for user details
+    const storedUser = localStorage.getItem("loggedUser");
+    if (storedUser) {
+      setLoggedUser(JSON.parse(storedUser));
+    } else {
+      setLoggedUser(null);
+    }
+  }, []);
+
   return (
     <div className="w-[70%] mx-auto">
       {/* Resource Order Details */}
@@ -129,7 +188,7 @@ const ResourceOrderCard = (resourceOrder: any) => {
         <div className="flex justify-between mb-8 ">
           <div className="w-[60%] uppercase">
             <label className="flex mb-4">
-              <span className="flex w-[30%] font-bold">Resource Id</span>
+              <span className="flex w-[30%] font-bold">Resource Order Id</span>
               <div className="w-[70%] flex font-normal">
                 : {resourceOrder?.resourceOrder?.resourceOrderId}
               </div>
@@ -187,19 +246,41 @@ const ResourceOrderCard = (resourceOrder: any) => {
               <div className="w-[300px] h-[300px] bg-white border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white ">
                 <img src={draw} alt="" className="rounded-lg" />
               </div>
-              <div className="flex justify-center mt-3">
-                <button className="w-full uppercase btn2">
-                  Change Drawing
-                </button>
-              </div>
+              {loggedUser?.userId === userdetails?.userId ? (
+                <>
+                  <div className="flex justify-center mt-3">
+                    <button className="w-full uppercase btn2">
+                      Change Drawing
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-center mt-4 text-center text-[#828282]">
+                    <div className="w-full uppercase">Drawing Of Art</div>
+                  </div>
+                </>
+              )}
             </div>
             <div>
               <div className="w-[300px] h-[300px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white ">
                 <img src={work} alt="" className="rounded-lg" />
               </div>
-              <div className="flex justify-center mt-3">
-                <button className="w-full uppercase btn2">Upload Art</button>
-              </div>
+              {loggedUser?.userId === designUser?.userId ? (
+                <>
+                  <div className="flex justify-center mt-3">
+                    <button className="w-full uppercase btn2">
+                      Upload Art
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-center mt-4 text-center text-[#828282]">
+                    <div className="w-full uppercase">Drawing Of Art</div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -214,9 +295,70 @@ const ResourceOrderCard = (resourceOrder: any) => {
           <div className="flex justify-center w-full mt-3">
             <button className="w-full uppercase btn3">Any Inconvenience</button>
           </div>
-          <div className="flex justify-center w-full mt-3">
-            <button className="w-full uppercase btn3 ">Next Step</button>
-          </div>
+
+          {loggedUser?.userId === userdetails?.userId ? (
+            <>
+              <div className="flex justify-center w-full mt-3 text-center">
+                {resourceOrder?.resourceOrder?.progressId === 2 ? (
+                  <>
+                    <div className="w-full  uppercase text-[#fec750] mt-3 text-center ">
+                      wait For Accept
+                    </div>
+                  </>
+                ) : resourceOrder?.resourceOrder?.progressId === 3 ? (
+                  <>
+                    <div className="w-full mt-3 text-center  uppercase text-[#fec750]">
+                      Designer Cooking Your Art
+                    </div>
+                  </>
+                ) : resourceOrder?.resourceOrder?.progressId === 4 ? (
+                  <>
+                    <button
+                      className="w-full uppercase btn3 "
+                      onClick={handleAcceptOrder}
+                    >
+                      Accept Delivery
+                    </button>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex justify-center w-full mt-3">
+                {resourceOrder?.resourceOrder?.progressId === 2 ? (
+                  <>
+                    <button
+                      className="w-full uppercase btn3 "
+                      onClick={handleAcceptOrder}
+                    >
+                      Accept Order
+                    </button>
+                  </>
+                ) : resourceOrder?.resourceOrder?.progressId === 3 ? (
+                  <>
+                    <button
+                      className="w-full uppercase btn3 "
+                      onClick={handleAcceptOrder}
+                    >
+                      Send Preview
+                    </button>
+                  </>
+                ) : resourceOrder?.resourceOrder?.progressId === 4 ? (
+                  <>
+                    <div className="w-full mt-3 text-center uppercase text-[#fec750]">
+                      Buyer Review Your Delivery
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </>
+          )}
+
           <div className="flex justify-center w-full mt-3">
             <button className="w-full uppercase btn3">Live Chat</button>
           </div>

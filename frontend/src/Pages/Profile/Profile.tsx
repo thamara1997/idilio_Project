@@ -1,7 +1,6 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import ArtModalUpdate from "components/ArtCard/ArtModalUpdate";
-import OrderCard from "components/OrderCard/OrderCard";
-import PlacedOrderCard from "components/OrderCard/PlacedOrderCard";
+import PlacedOrderCard from "components/OrderCard/ResourceOrderCard";
 import DesignerProfileCard from "components/ProfileCard/DesignerProfileCard";
 import ProfileCard from "components/ProfileCard/ProfileCard";
 import { useEffect, useState } from "react";
@@ -13,6 +12,9 @@ import FileUploadServices from "Services/FileUploadServices";
 import ResourcesService from "Services/ResourcesService";
 import AddResourceModal from "components/ArtCard/AddResourceModal";
 import UsersOrdersServices from "Services/UsersOrdersServices";
+import NewOrderServices from "Services/NewOrderServices";
+import ResourceOrderCard from "components/OrderCard/ResourceOrderCard";
+import NewOrderCard from "components/OrderCard/NewOrderCard";
 
 interface ProfileProps {
   user: any;
@@ -43,14 +45,29 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
   const [resources, setResources] = useState<any>();
   const [selectedResource, setSelectedResource] = useState(null);
 
-  //get orders by user id
+  //get resource orders by user id
   const [placedOrders, setPlacedOrders] = useState<any>([]);
+
+  const [placedOrdersNew, setPlacedOrdersNew] = useState<any>([]);
+
   const iid = user?.userId;
-  console.log(typeof iid);
+  // console.log(typeof iid);
   useEffect(() => {
     UsersOrdersServices.getOrdersByUserId(iid).then((res: any) => {
       if (res.data.status === 1) {
         setPlacedOrders(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, [iid]);
+
+  useEffect(() => {
+    NewOrderServices.getNewOrderByUserId(iid).then((res: any) => {
+      if (res.data.status === 1) {
+        setPlacedOrdersNew(res.data.data);
         console.log(res.data.data);
         return;
       } else {
@@ -81,6 +98,22 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
     }
   }, [user?.designer?.designerId]);
 
+  const [newOrderQueue, setNewOrderQueue] = useState<any>([]);
+
+  useEffect(() => {
+    NewOrderServices.getNewOrderByDesignerId(user?.designer?.designerId).then(
+      (res: any) => {
+        if (res.data.status === 1) {
+          setNewOrderQueue(res.data.data);
+          console.log(res.data.data);
+          return;
+        } else {
+          console.log("not found");
+        }
+      }
+    );
+  }, [user?.designer?.designerId]);
+
   const [propic, setPropic] = useState<any>("");
   useEffect(() => {
     FileUploadServices.getProfilePicture(1).then((res: any) => {
@@ -103,7 +136,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
 
   return (
     <div>
-      <div className="flex w-[80%] mx-auto mt-10 justify-center gap-5 items-center">
+      <div className="flex w-[80%] mx-auto my-10 justify-center gap-5 items-center">
         <div className="w-[30%] text-center">
           {user?.designer ? (
             <>
@@ -132,13 +165,17 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
             <div className="w-[70%] p-5 h-[350px] bg-[#171717ce] rounded-xl flex-row">
               <h1 className="text-start">Order Queue</h1>
               <div className="text-center">
-                {ordercard.map((t: any, i: number) => (
+                {newOrderQueue.map((t: any, i: number) => (
                   <div id="item1" key={i}>
-                    <OrderCard
-                      type={t.type}
-                      OrderId={t.OrderId}
-                      price={t.price}
-                    />
+                    <Link
+                      to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
+                    >
+                      <NewOrderCard
+                        type={"N"}
+                        OrderId={t.newOrderId}
+                        price={t.price}
+                      />
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -151,9 +188,22 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                     <Link
                       to={routeNames.Progress.replace(":id", t.resourceOrderId)}
                     >
-                      <PlacedOrderCard
+                      <ResourceOrderCard
                         type={"R"}
                         OrderId={t.resourceOrderId}
+                        price={t.price}
+                      />
+                    </Link>
+                  </div>
+                ))}
+                {placedOrdersNew.map((t: any, i: number) => (
+                  <div id="item1" key={i}>
+                    <Link
+                      to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
+                    >
+                      <NewOrderCard
+                        type={"N"}
+                        OrderId={t.newOrderId}
                         price={t.price}
                       />
                     </Link>
@@ -172,7 +222,23 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                     <Link
                       to={routeNames.Progress.replace(":id", t.resourceOrderId)}
                     >
-                      <PlacedOrderCard type={"R"} OrderId={t.resourceOrderId} />
+                      <ResourceOrderCard
+                        type={"R"}
+                        OrderId={t.resourceOrderId}
+                      />
+                    </Link>
+                  </div>
+                ))}
+                {placedOrdersNew.map((t: any, i: number) => (
+                  <div id="item1" key={i}>
+                    <Link
+                      to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
+                    >
+                      <NewOrderCard
+                        type={"N"}
+                        OrderId={t.newOrderId}
+                        price={t.price}
+                      />
                     </Link>
                   </div>
                 ))}

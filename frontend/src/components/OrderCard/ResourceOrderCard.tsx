@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ResourceOrderService from "Services/ResourceOrderService";
 import ResourcesService from "Services/ResourcesService";
 
-const PlacedOrderCard = ({ type, OrderId }: any) => {
+const ResourceOrderCard = ({ type, OrderId }: any) => {
   const [resourceOrder, setResourceOrder] = useState<any>({});
 
   useEffect(() => {
@@ -49,4 +49,4 @@ const PlacedOrderCard = ({ type, OrderId }: any) => {
   );
 };
 
-export default PlacedOrderCard;
+export default ResourceOrderCard;

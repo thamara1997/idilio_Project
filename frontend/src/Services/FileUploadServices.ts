@@ -77,6 +77,18 @@ const uploadResourceOrderDrawing = async (
   return response;
 };
 
+// upload New Order Drawing
+const uploadNewOrderDrawing = async (newOrderId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadneworderdrawing/${newOrderId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
 const FileUploadServices = {
   getProfilePicture,
   convertBase64ToFile,
@@ -86,6 +98,7 @@ const FileUploadServices = {
   uploadResourceOrderDrawing,
   getResourceOrderDrawing,
   getResourceOrderWork,
+  uploadNewOrderDrawing,
 };
 
 export default FileUploadServices;

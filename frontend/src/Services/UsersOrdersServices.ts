@@ -7,6 +7,13 @@ axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 const getOrdersByUserId = async (userId: any) => {
   return http.get<any>(`/api/v1/usersorders/getordersbyuserid/${userId}`);
 };
+
+//get users orders by resource Order id
+const getUsersOrdersByResourceOrderId = async (resourceOrderId: any) => {
+  return http.get<any>(
+    `/api/v1/usersorders/getusersordersbyresourceorderid/${resourceOrderId}`
+  );
+};
 //addresource
 const addUsersOrders = async (data: any) => {
   //console.log(data);
@@ -23,6 +30,7 @@ const addUsersOrders = async (data: any) => {
 const UsersOrdersServices = {
   addUsersOrders,
   getOrdersByUserId,
+  getUsersOrdersByResourceOrderId,
 };
 
 export default UsersOrdersServices;

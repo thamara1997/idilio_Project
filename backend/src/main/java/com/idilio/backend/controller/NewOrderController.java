@@ -92,6 +92,40 @@ public class NewOrderController {
         }
     }
 
+    @GetMapping("/getneworderbyuserid/{userId}")
+    public ResponseEntity<?> getNewOrderByUserId(@PathVariable Integer userId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<NewOrderFullDTO> newOrderList = newOrderService.getNewOrdersByUserId(userId);
+        if(newOrderList != null){
+            map.put("status",1);
+            map.put("data",newOrderList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","New Order List Not Found");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getneworderbydesignerid/{designerId}")
+    public ResponseEntity<?> getNewOrderByDesignerId(@PathVariable Integer designerId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<NewOrderFullDTO> newOrderList = newOrderService.getNewOrdersByDesignerId(designerId);
+        if(newOrderList != null){
+            map.put("status",1);
+            map.put("data",newOrderList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","New Order List Not Found");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/deleteneworder/{newOrderId}")
     public ResponseEntity<?> deleteNewOrder(@PathVariable int newOrderId){
         Map<String, Object> map = new LinkedHashMap<>();

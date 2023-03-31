@@ -92,4 +92,16 @@ public class UsersOrdersServiceImpl implements UsersOrdersService {
             return null;
         }
     }
+
+    @Override
+    public UsersOrdersDTO getUsersOrdersByResourceOrderId(int resourceOrderId) {
+        try{
+            UsersOrders usersOrders = usersOrdersRepo.getUserByResourceOrderId(resourceOrderId);
+            return modelMapper.map(usersOrders,new TypeToken<UsersOrdersDTO>(){}.getType());
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

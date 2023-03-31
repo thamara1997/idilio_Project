@@ -107,4 +107,21 @@ public class UsersOrdersController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getusersordersbyresourceorderid/{resourceOrderId}")
+    public ResponseEntity<?> getUsersOrdersByResourceOrderId(@PathVariable int resourceOrderId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        UsersOrdersDTO uo = usersOrdersService.getUsersOrdersByResourceOrderId(resourceOrderId);
+        if(uo !=null){
+            map.put("status",1);
+            map.put("data",uo);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","Users Orders Not Found for Resource Order Id");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

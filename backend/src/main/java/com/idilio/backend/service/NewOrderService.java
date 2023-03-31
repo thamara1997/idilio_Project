@@ -15,4 +15,8 @@ public interface NewOrderService {
     NewOrderDTO updateNewOrder(NewOrderDTO newOrderDTO);
 
     NewOrderDTO getNewOrderById(int newOrderId);
+
+    List<NewOrderFullDTO> getNewOrdersByUserId(int userId);
+
+    List<NewOrderFullDTO> getNewOrdersByDesignerId(int designerId);
 }

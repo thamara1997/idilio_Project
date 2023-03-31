@@ -190,4 +190,30 @@ public class NewOrderServiceImpl implements NewOrderService {
             return null;
         }
     }
+
+    @Override
+    public List<NewOrderFullDTO> getNewOrdersByUserId(int userId) {
+        try{
+            List<NewOrder> list =  newOrderRepo.getNewOrdersByUserId(userId);
+            System.out.println(list.get(0).getNewOrderId());
+            return modelMapper.map(list, new TypeToken<List<NewOrderFullDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<NewOrderFullDTO> getNewOrdersByDesignerId(int designerId) {
+        try{
+            List<NewOrder> list =  newOrderRepo.getNewOrdersByDesignerId(designerId);
+            System.out.println(list.get(0).getNewOrderId());
+            return modelMapper.map(list, new TypeToken<List<NewOrderFullDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

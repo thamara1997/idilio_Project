@@ -31,5 +31,6 @@ export enum routeNames {
   RDesignDetails = "/resourcedesign/details/:id",
   Requirement = "/resourcedesign/details/:id/requirement",
 
-  Progress = "/resourcedesign/details/progress/:id",
+  Progress = "/resourcedesign/progress/:id",
+  ProgressNew = "/newdesign/progress/:id",
 }

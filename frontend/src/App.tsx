@@ -20,6 +20,7 @@ import ProfileSetup from "Pages/ProfileSetup/ProfileSetup";
 import Progress from "Pages/Progress/Progress";
 import Requirement2 from "Pages/Requirement/Requirement2";
 import { user } from "Types/User";
+import ProgressNew from "Pages/Progress/ProgressNew";
 
 function App() {
   const [user, setUser] = useState<user>(null);
@@ -161,6 +162,17 @@ function App() {
               <>
                 <NavBar user={user} onLogout={handleLogout} />
                 <Progress />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path={routeNames.ProgressNew}
+            element={
+              <>
+                <NavBar user={user} onLogout={handleLogout} />
+                <ProgressNew />
                 <Footer />
               </>
             }

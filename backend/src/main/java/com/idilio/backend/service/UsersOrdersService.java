@@ -15,4 +15,6 @@ public interface UsersOrdersService {
     UsersOrdersDTO getUsersOrdersById(int usersOrdersId);
 
     List<UsersOrdersDTO> getOrdersByUserId(int userId);
+
+    UsersOrdersDTO getUsersOrdersByResourceOrderId(int resourceOrderId);
 }

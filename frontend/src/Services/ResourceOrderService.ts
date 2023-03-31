@@ -21,9 +21,26 @@ const addResourceOrder = async (data: any) => {
   return response;
 };
 
+//updateuser
+const UpdateResourceOrder = async (data: any) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/resourceorder/updateresourceorder`,
+      data: data,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update user data");
+  }
+};
+
 const ResourceOrderService = {
   addResourceOrder,
   getResourceOrderById,
+  UpdateResourceOrder,
 };
 
 export default ResourceOrderService;

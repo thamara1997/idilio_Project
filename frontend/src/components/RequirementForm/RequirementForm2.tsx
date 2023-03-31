@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import SignaturePad from "react-signature-canvas";
 import { routeNames } from "routes/route";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { BiEraser } from "react-icons/bi";
+import NewOrderServices from "Services/NewOrderServices";
+import FileUploadServices from "Services/FileUploadServices";
 
 const RequirementForm = ({ id, name, category, Artwork }: any) => {
   const sigPad = useRef<SignaturePad>(null);
@@ -14,11 +16,77 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    // Save the signature data
-    setSignatureData(sigPad.current?.toDataURL() ?? "");
-    console.log(signatureData);
-    console.log(data);
+  // const onSubmit = (data: any) => {
+  //   // Save the signature data
+  //   setSignatureData(sigPad.current?.toDataURL() ?? "");
+  //   console.log(signatureData);
+  //   console.log(data);
+  // };
+
+  const [loggedUser, setLoggedUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Check local storage for user details
+    const storedUser = localStorage.getItem("loggedUser");
+    if (storedUser) {
+      setLoggedUser(JSON.parse(storedUser));
+    } else {
+      setLoggedUser(null);
+    }
+  }, []);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: any) => {
+    const newOrderData: any = {
+      projectName: data.projectname,
+      reqDescription: data.requirements,
+      reqDraw: "uploaded",
+      attachments: "uploaded",
+      rate: 0,
+      review: null,
+      designerId: 1,
+      packageId: id,
+      progressId: 2,
+      userId: loggedUser.userId,
+    };
+
+    console.log(newOrderData);
+
+    const result = await NewOrderServices.addNewOrder(newOrderData);
+
+    if (result.data.status === 1) {
+      // Upload drawing for relevant ID
+      const signatureDataURL = sigPad.current?.toDataURL() ?? "";
+
+      setSignatureData(signatureDataURL);
+
+      if (signatureDataURL != null && signatureDataURL !== "") {
+        const file = FileUploadServices.convertBase64ToFile(
+          signatureDataURL,
+          "aa.png"
+        );
+
+        let formData = new FormData();
+        formData.append("file", file);
+
+        FileUploadServices.uploadNewOrderDrawing(
+          result.data.data.newOrderId,
+          formData
+        );
+      } else {
+        console.log("No Drawing");
+      }
+
+      // Navigate to progress page
+      setTimeout(() => {
+        navigate(
+          routeNames.ProgressNew.replace(":id", result.data.data.newOrderId)
+        );
+      }, 500);
+    } else {
+      console.log("New Order Not Added");
+    }
   };
 
   useEffect(() => {
@@ -101,7 +169,12 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
 
           <label className="flex mb-4">
             <span className="w-[20%] font-bold">Drawing </span>
-
+            <input
+              {...register("signature")}
+              className="hidden"
+              id="signature"
+              type="hidden"
+            />
             <SignaturePad
               ref={sigPad}
               canvasProps={{
@@ -129,8 +202,8 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
             />
           </label>
           {/* <Link to={routeNames.Progress.replace(":id", id)}> */}
-          <input type="hidden" name="signature" value={signatureData} />
-          <button type="submit" value="SUBMIT" className="w-full my-8 btn2">
+
+          <button type="submit" className="w-full my-8 btn2">
             Submit New Order
           </button>
           {/* </Link> */}
