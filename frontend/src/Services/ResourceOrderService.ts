@@ -8,6 +8,13 @@ const getResourceOrderById = async (id: any) => {
   return http.get<any>(`/api/v1/resourceorder/getresourceorderbyid/${id}`);
 };
 
+//getResourceOrderBy designerId
+const getResourceOrdersByDesignerId = async (designerId: any) => {
+  return http.get<any>(
+    `/api/v1/resourceorder/getresourceorderbydesignerid/${designerId}`
+  );
+};
+
 //addresourceOrder
 const addResourceOrder = async (data: any) => {
   //console.log(data);
@@ -41,6 +48,7 @@ const ResourceOrderService = {
   addResourceOrder,
   getResourceOrderById,
   UpdateResourceOrder,
+  getResourceOrdersByDesignerId,
 };
 
 export default ResourceOrderService;

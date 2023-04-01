@@ -15,6 +15,7 @@ import UsersOrdersServices from "Services/UsersOrdersServices";
 import NewOrderServices from "Services/NewOrderServices";
 import ResourceOrderCard from "components/OrderCard/ResourceOrderCard";
 import NewOrderCard from "components/OrderCard/NewOrderCard";
+import ResourceOrderService from "Services/ResourceOrderService";
 
 interface ProfileProps {
   user: any;
@@ -114,6 +115,22 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
     );
   }, [user?.designer?.designerId]);
 
+  const [resourceOrderQueue, setResourceOrderQueue] = useState<any>([]);
+
+  useEffect(() => {
+    ResourceOrderService.getResourceOrdersByDesignerId(
+      user?.designer?.designerId
+    ).then((res: any) => {
+      if (res.data.status === 1) {
+        setResourceOrderQueue(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, [user?.designer?.designerId]);
+
   const [propic, setPropic] = useState<any>("");
   useEffect(() => {
     FileUploadServices.getProfilePicture(1).then((res: any) => {
@@ -165,6 +182,19 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
             <div className="w-[70%] p-5 h-[350px] bg-[#171717ce] rounded-xl flex-row">
               <h1 className="text-start">Order Queue</h1>
               <div className="text-center">
+                {resourceOrderQueue.map((t: any, i: number) => (
+                  <div id="item1" key={i}>
+                    <Link
+                      to={routeNames.Progress.replace(":id", t.resourceOrderId)}
+                    >
+                      <ResourceOrderCard
+                        type={"R"}
+                        OrderId={t.resourceOrderId}
+                        price={t.price}
+                      />
+                    </Link>
+                  </div>
+                ))}
                 {newOrderQueue.map((t: any, i: number) => (
                   <div id="item1" key={i}>
                     <Link

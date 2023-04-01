@@ -138,5 +138,18 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
         }
     }
 
+    @Override
+    public List<ResourceOrderFullDTO> getResourceOrderByDesignerId(int designerId) {
+        try{
+            List<ResourceOrder> list =  resourceOrderRepo.getResourceOrderByDesignerId(designerId);
+//            System.out.println(list.get(0).getNewOrderId());
+            return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
 
 }

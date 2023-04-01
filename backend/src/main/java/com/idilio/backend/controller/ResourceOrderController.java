@@ -1,9 +1,6 @@
 package com.idilio.backend.controller;
 
-import com.idilio.backend.dto.NewOrderDTO;
-import com.idilio.backend.dto.ResourceOrderDTO;
-import com.idilio.backend.dto.ResourceOrderFullDTO;
-import com.idilio.backend.dto.ResourcesDTO;
+import com.idilio.backend.dto.*;
 import com.idilio.backend.repository.ResourceOrderRepo;
 import com.idilio.backend.service.ResourceOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +87,23 @@ public class ResourceOrderController {
             map.clear();
             map.put("status",0);
             map.put("message","Resource Order id Not Found");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getresourceorderbydesignerid/{designerId}")
+    public ResponseEntity<?> getResourceOrderByDesignerId(@PathVariable Integer designerId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ResourceOrderFullDTO> resourceOrderList = resourceOrderService.getResourceOrderByDesignerId(designerId);
+        if(resourceOrderList != null){
+            map.put("status",1);
+            map.put("data",resourceOrderList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","New Order List Not Found");
             return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
         }
     }
