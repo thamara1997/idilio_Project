@@ -46,12 +46,18 @@ const UpdateResource = async (data: any) => {
   }
 };
 
+// delete resource
+const deleteResource = async (resourceId: any) => {
+  return http.delete<any>(`/api/v1/resources/deleteresource/${resourceId}`);
+};
+
 const ResourcesService = {
   getAllResource,
   getResourceById,
   getResourceByDesignerId,
   addResource,
   UpdateResource,
+  deleteResource,
 };
 
 export default ResourcesService;

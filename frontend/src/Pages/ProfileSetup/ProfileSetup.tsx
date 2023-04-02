@@ -102,7 +102,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
       if (newUser) {
         localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
         toast.success("Profile Updated");
-        navigate(routeNames.ProfileSetup);
+        window.location.reload();
       }
     } else {
       console.log("Update fail");
@@ -114,6 +114,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
     return null;
   }
 
+  let userName = user.firstName;
   return (
     <div>
       {/* profile details */}
@@ -136,10 +137,6 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
               exportAsSquare
               exportSize={2000}
             />
-
-            {/* {preview && <img src={preview} alt="" />}
-            <img src={preview} alt="" /> */}
-            <img src={propic} alt="" />
 
             <span className="absolute top-[130px] left-[125px] text-[20px] ">
               <RiImageAddLine />
@@ -257,6 +254,8 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
             onClose={handleModalClose}
             title="Delete Account"
             description="Are you sure you want to delete account from IDILIO group.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia delectus eos nobis iure quae vero libero repellendus saepe perspiciatis eaque error "
+            userId={user.userId}
+            userName={userName}
           />
         </div>
       </form>

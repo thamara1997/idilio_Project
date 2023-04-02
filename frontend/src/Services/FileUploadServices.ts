@@ -3,6 +3,19 @@ import http from "utils/http-common";
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
+// convert Base64 string to file
+const convertBase64ToFile = (base64String: any, filename: any) => {
+  const arr = base64String.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+};
+
 //get profile pic by id
 const getProfilePicture = async (userId: any) => {
   return http.get<any>(`/api/v1/upload/profilePic/${userId}`);
@@ -25,17 +38,14 @@ const getResourceOrderWork = async (resourceOrderId: any) => {
   return http.get<any>(`/api/v1/upload/resourceorderwork/${resourceOrderId}`);
 };
 
-// convert Base64 string to file
-const convertBase64ToFile = (base64String: any, filename: any) => {
-  const arr = base64String.split(",");
-  const mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, { type: mime });
+//get new order drawing by id
+const getNewOrderDrawing = async (newOrderId: any) => {
+  return http.get<any>(`/api/v1/upload/neworderdrawing/${newOrderId}`);
+};
+
+//get new order drawing by id
+const getNewOrderWork = async (newOrderId: any) => {
+  return http.get<any>(`/api/v1/upload/neworderwork/${newOrderId}`);
 };
 
 // upload profile picture
@@ -89,6 +99,30 @@ const uploadNewOrderDrawing = async (newOrderId: any, formData: any) => {
   return response;
 };
 
+// upload Resource Order Work
+const uploadResourceOrderWork = async (resourceOrderId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceorderwork/${resourceOrderId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
+// upload new Order Work
+const uploadNewOrderWork = async (newOrderId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadneworderwork/${newOrderId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
 const FileUploadServices = {
   getProfilePicture,
   convertBase64ToFile,
@@ -99,6 +133,10 @@ const FileUploadServices = {
   getResourceOrderDrawing,
   getResourceOrderWork,
   uploadNewOrderDrawing,
+  getNewOrderDrawing,
+  getNewOrderWork,
+  uploadResourceOrderWork,
+  uploadNewOrderWork,
 };
 
 export default FileUploadServices;

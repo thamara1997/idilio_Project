@@ -1,5 +1,7 @@
+import UserService from "Services/UserService";
 import { useState } from "react";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 
 type ModalProps = {
   isOpen: boolean;
@@ -8,6 +10,8 @@ type ModalProps = {
   description?: string;
   primaryButtonText?: string;
   secondaryButtonText?: string;
+  userId: any;
+  userName: string;
 };
 const customStyles = {
   overlay: {
@@ -32,6 +36,8 @@ const MyModal: React.FC<ModalProps> = ({
   description,
   primaryButtonText = "Delete",
   secondaryButtonText = "Cancel",
+  userId,
+  userName,
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -39,10 +45,19 @@ const MyModal: React.FC<ModalProps> = ({
     setInputValue(e.target.value);
   };
 
-  const handleSaveButtonClick = () => {
+  const handleSaveButtonClick = (data: any) => {
     // TODO: Implement save functionality
-    console.log("input value:", inputValue);
-    onClose();
+    if (inputValue === userName) {
+      console.log("input value:", inputValue);
+      UserService.deleteUser(userId).then((res: any) => {
+        if (res.data.status == 1) {
+          window.location.reload();
+          localStorage.removeItem("loggedUser");
+        } else {
+          toast.error(res.data.message);
+        }
+      });
+    }
     return inputValue;
   };
 

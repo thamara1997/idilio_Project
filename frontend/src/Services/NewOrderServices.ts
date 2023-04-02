@@ -30,11 +30,28 @@ const addNewOrder = async (data: any) => {
   return response;
 };
 
+//updateuser
+const UpdateNewOrder = async (data: any) => {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/neworder/updateneworder`,
+      data: data,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update new order data");
+  }
+};
+
 const NewOrderServices = {
   addNewOrder,
   getNewOrderByDesignerId,
   getNewOrderByUserId,
   getNewOrderById,
+  UpdateNewOrder,
 };
 
 export default NewOrderServices;

@@ -119,6 +119,19 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
     }
   };
 
+  const handleDeleteClick = (data: any) => {
+    // TODO: Implement save functionality
+    if (details2?.resourceId) {
+      ResourcesService.deleteResource(details2?.resourceId).then((res: any) => {
+        if (res.data.status === 1) {
+          window.location.reload();
+        } else {
+          toast.error(res.data.message);
+        }
+      });
+    }
+  };
+
   function onClose2() {
     setPreview(null);
   }
@@ -264,6 +277,12 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
               )}
 
               <div className="flex justify-center">
+                <button
+                  className="px-4 py-2 mr-2 text-black bg-[#ff1212] rounded-md hover:bg-[#ffffff] focus:outline-none focus:bg-indigo-600"
+                  onClick={handleDeleteClick}
+                >
+                  Delete
+                </button>
                 <button className="px-4 py-2 mr-2 text-black bg-[#FEC850] rounded-md hover:bg-[#ffffff] focus:outline-none focus:bg-indigo-600">
                   {primaryButtonText}
                 </button>

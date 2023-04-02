@@ -50,7 +50,7 @@ const ResourceDesign = () => {
         fugit perspiciatis, illum error accusamus, natus repudiandae omnis
         fugiat iure!
       </p>
-      <div className="flex justify-around h-[3rem] mx-[60px] gap-[20px] content-center align-middle">
+      <div className="flex w-[70%] justify-around h-[3rem] mx-auto gap-[20px] content-center align-middle">
         <div className="relative">
           <input
             type="text"

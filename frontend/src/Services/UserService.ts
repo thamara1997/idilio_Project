@@ -23,9 +23,15 @@ const getUserByUserId = async (userId: any) => {
   return await http.get<any>(`/api/v1/user/getuserbyid/${userId}`);
 };
 
+// delete user
+const deleteUser = async (userId: any) => {
+  return http.delete<any>(`/api/v1/user/deleteuser/${userId}`);
+};
+
 const UserService = {
   Update,
   getUserByUserId,
+  deleteUser,
 };
 
 export default UserService;

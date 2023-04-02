@@ -7,6 +7,9 @@ import FileUploadServices from "Services/FileUploadServices";
 import SignaturePad from "react-signature-canvas";
 import UsersOrdersServices from "Services/UsersOrdersServices";
 import ResourceOrderService from "Services/ResourceOrderService";
+import { RiImageAddLine } from "react-icons/ri";
+import Avatar from "react-avatar-edit";
+import ChangeDrawModal from "./ChangeDrawModal";
 
 const ResourceOrderCard = (resourceOrder: any) => {
   console.log(resourceOrder);
@@ -181,6 +184,48 @@ const ResourceOrderCard = (resourceOrder: any) => {
     }
   }, []);
 
+  const [src, setSrc] = useState<any>();
+  const [preview, setPreview] = useState(null);
+
+  function onClose() {
+    setPreview(null);
+  }
+  function onCrop(pv: any) {
+    setPreview(pv);
+  }
+  function onBeforeFileLoad(elem: any) {
+    if (elem.target.files[0].size > 7168000) {
+      alert("File is too big!");
+      elem.target.value = "";
+    }
+  }
+
+  const handleArt = () => {
+    if (preview) {
+      const file = FileUploadServices.convertBase64ToFile(preview, "aa.png");
+
+      let formData = new FormData();
+      formData.append("file", file);
+
+      FileUploadServices.uploadResourceOrderWork(resourceOrderId, formData);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } else {
+      console.log("Null");
+    }
+  };
+
+  const [isChangeDrawModalOpen, setIsChangeDrawModalOpen] = useState(false);
+
+  const handleChangeDrawModalOpen = () => {
+    setIsChangeDrawModalOpen(true);
+  };
+
+  const handleChangeDrawModalClose = () => {
+    setIsChangeDrawModalOpen(false);
+  };
+
   return (
     <div className="w-[70%] mx-auto">
       {/* Resource Order Details */}
@@ -249,9 +294,19 @@ const ResourceOrderCard = (resourceOrder: any) => {
               {loggedUser?.userId === userdetails?.userId ? (
                 <>
                   <div className="flex justify-center mt-3">
-                    <button className="w-full uppercase btn2">
+                    <button
+                      className="w-full uppercase btn2"
+                      onClick={handleChangeDrawModalOpen}
+                    >
                       Change Drawing
                     </button>
+                    <ChangeDrawModal
+                      isOpen={isChangeDrawModalOpen}
+                      onClose={handleChangeDrawModalClose}
+                      resourceOrderId={
+                        resourceOrder?.resourceOrder?.resourceOrderId
+                      }
+                    />
                   </div>
                 </>
               ) : (
@@ -263,21 +318,47 @@ const ResourceOrderCard = (resourceOrder: any) => {
               )}
             </div>
             <div>
-              <div className="w-[300px] h-[300px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white ">
-                <img src={work} alt="" className="rounded-lg" />
-              </div>
               {loggedUser?.userId === designUser?.userId ? (
                 <>
+                  <div className="w-[300px] h-[300px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white ">
+                    <img src={work} alt="" className="rounded-lg" />
+                    <div className="relative  top-[-300px] left-0 ">
+                      <div className="hover:bg-gray-800 hover:bg-opacity-50">
+                        <Avatar
+                          width={300}
+                          height={300}
+                          onCrop={onCrop}
+                          onClose={onClose}
+                          onBeforeFileLoad={onBeforeFileLoad}
+                          src={src}
+                          exportQuality={1}
+                          shadingOpacity={0.6}
+                          exportAsSquare
+                          exportSize={2000}
+                        />
+                      </div>
+                      <span className="relative top-[-155px] left-[140px] text-[20px] text-[#FEC850]">
+                        <RiImageAddLine />
+                      </span>
+                    </div>
+                  </div>
                   <div className="flex justify-center mt-3">
-                    <button className="w-full uppercase btn2">
+                    <button
+                      className="w-full uppercase btn2"
+                      type="submit"
+                      onClick={handleArt}
+                    >
                       Upload Art
                     </button>
                   </div>
                 </>
               ) : (
                 <>
+                  <div className="w-[300px] h-[300px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white ">
+                    <img src={work} alt="" className="rounded-lg" />
+                  </div>
                   <div className="flex justify-center mt-4 text-center text-[#828282]">
-                    <div className="w-full uppercase">Drawing Of Art</div>
+                    <div className="w-full uppercase">Recent Art</div>
                   </div>
                 </>
               )}

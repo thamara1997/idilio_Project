@@ -81,7 +81,7 @@ const AddResourceModal: React.FC<ModalProps> = ({
 
       FileUploadServices.uploadResourceArt(resource?.resourceId, formData);
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 500);
     } else {
       console.log("Null");
