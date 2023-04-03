@@ -303,7 +303,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
       </div>
 
       {/* designer resources */}
-      {user?.designer ? (
+      {user?.designer && user?.designer.approve == true ? (
         <>
           <div>
             <div>

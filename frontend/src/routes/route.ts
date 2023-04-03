@@ -9,6 +9,7 @@ export enum routeNames {
   Register = "/register",
   Login = "/login",
   ProfileSetup = "/profilesetup",
+  AdminDashBoard = "/admindashboard",
 
   //under new design
   AlbumCover = "/albumcover/",

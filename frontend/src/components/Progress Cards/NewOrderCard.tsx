@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Avatar from "react-avatar-edit";
 import { RiImageAddLine } from "react-icons/ri";
 import ChangeDrawModalNew from "./ChangeDrawModalNew";
+import SupportEngine from "components/SupportEngine";
 
 const NewOrderCard = (newOrder: any) => {
   console.log(newOrder);
@@ -204,6 +205,12 @@ const NewOrderCard = (newOrder: any) => {
 
   const handleChangeDrawModalClose = () => {
     setIsChangeDrawModalOpen(false);
+  };
+
+  const [showSupportEngine, setShowSupportEngine] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowSupportEngine(true);
   };
 
   return (
@@ -424,10 +431,16 @@ const NewOrderCard = (newOrder: any) => {
           )}
 
           <div className="flex justify-center w-full mt-3">
-            <button className="w-full uppercase btn3">Live Chat</button>
+            <button
+              className="w-full uppercase btn3"
+              onClick={handleButtonClick}
+            >
+              Live Chat
+            </button>
           </div>
         </div>
       </div>
+      {showSupportEngine && <SupportEngine />}
     </div>
   );
 };

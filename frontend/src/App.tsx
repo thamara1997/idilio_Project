@@ -21,6 +21,7 @@ import Progress from "Pages/Progress/Progress";
 import Requirement2 from "Pages/Requirement/Requirement2";
 import { user } from "Types/User";
 import ProgressNew from "Pages/Progress/ProgressNew";
+import AdminDashBoard from "Pages/AdminDashBoard/AdminDashBoard";
 
 function App() {
   const [user, setUser] = useState<user>(null);
@@ -121,6 +122,18 @@ function App() {
               <>
                 <NavBar user={user} onLogout={handleLogout} />
                 <ProfileSetup user={user} onLogout={handleLogout} />
+
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path={routeNames.AdminDashBoard}
+            element={
+              <>
+                <NavBar user={user} onLogout={handleLogout} />
+                <AdminDashBoard />
 
                 <Footer />
               </>

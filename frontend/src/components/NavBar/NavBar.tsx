@@ -132,7 +132,7 @@ const NavBar: React.FC<NavBarProps> = ({ user, onLogout }) => {
                       <li>
                         <Link
                           className="hover:bg-black focus:bg-[#FEC850]"
-                          to={routeNames.Profile}
+                          to={routeNames.AdminDashBoard}
                         >
                           Admin DashBoard
                         </Link>

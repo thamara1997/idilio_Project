@@ -123,6 +123,18 @@ const uploadNewOrderWork = async (newOrderId: any, formData: any) => {
   return response;
 };
 
+// upload CV
+const uploadCv = async (designerId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadcv/${designerId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
 const FileUploadServices = {
   getProfilePicture,
   convertBase64ToFile,
@@ -137,6 +149,7 @@ const FileUploadServices = {
   getNewOrderWork,
   uploadResourceOrderWork,
   uploadNewOrderWork,
+  uploadCv,
 };
 
 export default FileUploadServices;

@@ -10,6 +10,7 @@ import ResourceOrderService from "Services/ResourceOrderService";
 import { RiImageAddLine } from "react-icons/ri";
 import Avatar from "react-avatar-edit";
 import ChangeDrawModal from "./ChangeDrawModal";
+import SupportEngine from "components/SupportEngine";
 
 const ResourceOrderCard = (resourceOrder: any) => {
   console.log(resourceOrder);
@@ -224,6 +225,12 @@ const ResourceOrderCard = (resourceOrder: any) => {
 
   const handleChangeDrawModalClose = () => {
     setIsChangeDrawModalOpen(false);
+  };
+
+  const [showSupportEngine, setShowSupportEngine] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowSupportEngine(true);
   };
 
   return (
@@ -441,10 +448,16 @@ const ResourceOrderCard = (resourceOrder: any) => {
           )}
 
           <div className="flex justify-center w-full mt-3">
-            <button className="w-full uppercase btn3">Live Chat</button>
+            <button
+              className="w-full uppercase btn3"
+              onClick={handleButtonClick}
+            >
+              Live Chat
+            </button>
           </div>
         </div>
       </div>
+      {showSupportEngine && <SupportEngine />}
     </div>
   );
 };

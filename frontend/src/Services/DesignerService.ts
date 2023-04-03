@@ -23,9 +23,23 @@ const UpdateDesigner = async (data: any) => {
   }
 };
 
+//adddesigner
+const addDesigner = async (data: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/designer/adddesigner`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  console.log(response);
+  return response;
+};
+
 const DesignerService = {
   UpdateDesigner,
   getDesignerById,
+  addDesigner,
 };
 
 export default DesignerService;

@@ -26,7 +26,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
         style={{ width: "20%" }}
       >
         <div
-          className={`relative z-10 rounded-full w-6 h-6 flex items-center justify-center text-[12px] ${
+          className={`relative z-1 rounded-full w-6 h-6 flex items-center justify-center text-[12px] ${
             isCurrent ? "bg-[#fec750] text-black font-light " : "bg-gray-300"
           }`}
         >
