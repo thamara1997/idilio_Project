@@ -44,11 +44,19 @@ const UpdateResourceOrder = async (data: any) => {
   }
 };
 
+// delete Users Orders
+const deleteResourceOrder = async (resourceOrderId: any) => {
+  return http.delete<any>(
+    `/api/v1/resourceorder/deleteresourceorder/${resourceOrderId}`
+  );
+};
+
 const ResourceOrderService = {
   addResourceOrder,
   getResourceOrderById,
   UpdateResourceOrder,
   getResourceOrdersByDesignerId,
+  deleteResourceOrder,
 };
 
 export default ResourceOrderService;

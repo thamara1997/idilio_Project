@@ -11,6 +11,7 @@ import { RiImageAddLine } from "react-icons/ri";
 import Avatar from "react-avatar-edit";
 import ChangeDrawModal from "./ChangeDrawModal";
 import SupportEngine from "components/SupportEngine";
+import DeleteResourceOrderModal from "./DeleteResourceOrderModal";
 
 const ResourceOrderCard = (resourceOrder: any) => {
   console.log(resourceOrder);
@@ -233,6 +234,16 @@ const ResourceOrderCard = (resourceOrder: any) => {
     setShowSupportEngine(true);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="w-[70%] mx-auto">
       {/* Resource Order Details */}
@@ -381,7 +392,20 @@ const ResourceOrderCard = (resourceOrder: any) => {
         {/* buttons fields */}
         <div className="flex justify-between gap-6 mb-8 ">
           <div className="flex justify-center w-full mt-3">
-            <button className="w-full uppercase btn3">Any Inconvenience</button>
+            <input
+              type="button"
+              value="Delete Order"
+              className="w-full uppercase btn3 "
+              onClick={handleModalOpen}
+            />
+            <DeleteResourceOrderModal
+              isOpen={isModalOpen}
+              onClose={handleModalClose}
+              title="Delete Your Resource Order"
+              description="Are you sure you want to delete Order from IDILIO group.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia delectus eos nobis iure quae vero libero repellendus saepe perspiciatis eaque error "
+              resourceOrderId={resourceOrder?.resourceOrder?.resourceOrderId}
+              projectName={resourceOrder?.resourceOrder?.projectName}
+            />
           </div>
 
           {loggedUser?.userId === userdetails?.userId ? (

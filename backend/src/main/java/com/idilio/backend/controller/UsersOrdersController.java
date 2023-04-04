@@ -124,4 +124,21 @@ public class UsersOrdersController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/deleteusersordersbyreourceid/{resourceOrderId}")
+    public ResponseEntity<?> deleteByResourceOrderId(@PathVariable int resourceOrderId){
+        Map<String, Object> map = new LinkedHashMap<>();
+        boolean deleted = usersOrdersService.deleteUsersOrdersByResourceOrderId(resourceOrderId);
+        if(deleted){
+            map.put("status",1);
+            map.put("data",deleted);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","User and Order Not Deleted");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
 }

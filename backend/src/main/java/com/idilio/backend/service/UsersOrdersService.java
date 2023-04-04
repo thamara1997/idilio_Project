@@ -17,4 +17,6 @@ public interface UsersOrdersService {
     List<UsersOrdersDTO> getOrdersByUserId(int userId);
 
     UsersOrdersDTO getUsersOrdersByResourceOrderId(int resourceOrderId);
+
+    boolean deleteUsersOrdersByResourceOrderId(int resourceOrderId);
 }

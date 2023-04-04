@@ -46,12 +46,18 @@ const UpdateNewOrder = async (data: any) => {
   }
 };
 
+// delete new Order
+const deleteNewOrder = async (newOrderId: any) => {
+  return http.delete<any>(`/api/v1/neworder/deleteneworder/${newOrderId}`);
+};
+
 const NewOrderServices = {
   addNewOrder,
   getNewOrderByDesignerId,
   getNewOrderByUserId,
   getNewOrderById,
   UpdateNewOrder,
+  deleteNewOrder,
 };
 
 export default NewOrderServices;

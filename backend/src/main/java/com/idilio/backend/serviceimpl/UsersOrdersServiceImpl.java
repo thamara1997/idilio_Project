@@ -104,4 +104,21 @@ public class UsersOrdersServiceImpl implements UsersOrdersService {
             return null;
         }
     }
+
+    @Override
+    public boolean deleteUsersOrdersByResourceOrderId(int resourceOrderId) {
+        try{
+            UsersOrders usersOrders = usersOrdersRepo.getUserByResourceOrderId(resourceOrderId);
+            if(usersOrders==null){
+                return false;
+            }else{
+                usersOrdersRepo.deleteById(usersOrders.getUsersOrdersId());
+                return true;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 }

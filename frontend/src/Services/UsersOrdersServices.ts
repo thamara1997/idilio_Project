@@ -27,10 +27,18 @@ const addUsersOrders = async (data: any) => {
   return response;
 };
 
+// delete Users Orders
+const deleteUsersOrders = async (resourceOrderId: any) => {
+  return http.delete<any>(
+    `/api/v1/usersorders/deleteusersordersbyreourceid/${resourceOrderId}`
+  );
+};
+
 const UsersOrdersServices = {
   addUsersOrders,
   getOrdersByUserId,
   getUsersOrdersByResourceOrderId,
+  deleteUsersOrders,
 };
 
 export default UsersOrdersServices;

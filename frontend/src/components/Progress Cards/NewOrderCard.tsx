@@ -8,6 +8,7 @@ import Avatar from "react-avatar-edit";
 import { RiImageAddLine } from "react-icons/ri";
 import ChangeDrawModalNew from "./ChangeDrawModalNew";
 import SupportEngine from "components/SupportEngine";
+import DeleteNewOrderModal from "./DeleteNewOrderModal";
 
 const NewOrderCard = (newOrder: any) => {
   console.log(newOrder);
@@ -213,6 +214,16 @@ const NewOrderCard = (newOrder: any) => {
     setShowSupportEngine(true);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="w-[70%] mx-auto">
       {/* New Order Details */}
@@ -364,7 +375,20 @@ const NewOrderCard = (newOrder: any) => {
         {/* buttons fields */}
         <div className="flex justify-between gap-6 mb-8 ">
           <div className="flex justify-center w-full mt-3">
-            <button className="w-full uppercase btn3">Any Inconvenience</button>
+            <input
+              type="button"
+              value="Delete Account"
+              className="w-full uppercase btn3 "
+              onClick={handleModalOpen}
+            />
+            <DeleteNewOrderModal
+              isOpen={isModalOpen}
+              onClose={handleModalClose}
+              title="Delete Your New Order"
+              description="Are you sure you want to delete Order from IDILIO group.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia delectus eos nobis iure quae vero libero repellendus saepe perspiciatis eaque error "
+              newOrderId={newOrder?.newOrder?.newOrderId}
+              projectName={newOrder?.newOrder?.projectName}
+            />
           </div>
 
           {loggedUser?.userId === newOrder?.newOrder?.userId ? (
