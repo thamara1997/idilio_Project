@@ -181,6 +181,9 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                 level={user?.designer.level}
                 Avatar={propic}
                 user={user}
+                fb={user?.designer.fbURL}
+                insta={user?.designer.instaURL}
+                linkedin={user?.designer.linkedinURL}
               />
             </>
           ) : (

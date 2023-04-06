@@ -10,6 +10,9 @@ const DesignerProfileCard = ({
   level,
   Avatar,
   user,
+  fb,
+  insta,
+  linkedin,
 }: any) => {
   return (
     <div>
@@ -42,13 +45,19 @@ const DesignerProfileCard = ({
 
           <div className="absolute w-full h-[35px] mx-auto top-[290px] flex gap-4 justify-center items-center">
             <div className="flex h-[30px] w-[30px] ">
-              <img src={Facebook} alt="" />
+              <a href={fb} target="_blank">
+                <img src={Facebook} alt="" />
+              </a>
             </div>
             <div className="flex  h-[30px] w-[30px] ">
-              <img src={Insta} alt="" />
+              <a href={insta} target="_blank">
+                <img src={Insta} alt="" />
+              </a>
             </div>
             <div className="flex h-[30px] w-[30px] ">
-              <img src={LinkedIn} alt="" />
+              <a href={linkedin} target="_blank">
+                <img src={LinkedIn} alt="" />
+              </a>
             </div>
           </div>
         </div>
