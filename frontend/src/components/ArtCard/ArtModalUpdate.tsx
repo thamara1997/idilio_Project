@@ -94,12 +94,7 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
     const result = await ResourcesService.UpdateResource(updatedResource);
     console.log(result.data);
     setFormSubmitted(true);
-    if (formSubmitted === true) {
-      toast.success("Resource Added Upload Your Art");
-      return;
-    } else {
-      toast.error("Resource added Failed");
-    }
+    toast.success("Update Successful");
   };
 
   const handleSaveButtonClick = () => {

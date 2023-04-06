@@ -12,6 +12,10 @@ import Avatar from "react-avatar-edit";
 import ChangeDrawModal from "./ChangeDrawModal";
 import SupportEngine from "components/SupportEngine";
 import DeleteResourceOrderModal from "./DeleteResourceOrderModal";
+import FeedbackForm from "components/Rating/FeedbackForm";
+import Feedback from "components/Rating/FeedBack";
+import PaymentModal from "./PaymentModal";
+import { toast } from "react-toastify";
 
 const ResourceOrderCard = (resourceOrder: any) => {
   console.log(resourceOrder);
@@ -104,6 +108,26 @@ const ResourceOrderCard = (resourceOrder: any) => {
         });
     }
   }, [resourceOrder?.resourceOrder.resourceOrderId]);
+
+  const [user, setUser] = useState<any>();
+
+  useEffect(() => {
+    if (userdetails?.userId) {
+      UserService.getUserByUserId(userdetails?.userId)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setUser(res.data.data);
+            console.log(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          //console.log(error);
+        });
+    }
+  }, [userdetails?.userId]);
 
   const [art, setArt] = useState<any>("");
   useEffect(() => {
@@ -210,6 +234,8 @@ const ResourceOrderCard = (resourceOrder: any) => {
       formData.append("file", file);
 
       FileUploadServices.uploadResourceOrderWork(resourceOrderId, formData);
+
+      toast.success("Recent Art Added");
       setTimeout(() => {
         window.location.reload();
       }, 500);
@@ -257,6 +283,12 @@ const ResourceOrderCard = (resourceOrder: any) => {
               </div>
             </label>
             <label className="flex mb-4">
+              <span className="flex w-[30%] font-bold">Order Placed By</span>
+              <div className="w-[70%] flex font-normal">
+                : {user?.firstName} {user?.lastName}
+              </div>
+            </label>
+            <label className="flex mb-4">
               <span className="flex w-[30%] font-bold">Project Name</span>
               <div className="w-[70%] flex font-normal">
                 : {resourceOrder?.resourceOrder?.projectName}
@@ -281,8 +313,13 @@ const ResourceOrderCard = (resourceOrder: any) => {
               </div>
             </label>
           </div>
-          <div className=" bg-white w-[200px] h-[200px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white">
-            <img src={art} alt="" className="rounded-lg" />
+          <div>
+            <div className=" bg-white w-[220px] h-[220px] border-[0.5px] border-[#fefefe7b] rounded-lg hover:border-1 hover:border-white">
+              <img src={art} alt="" className="rounded-lg" />
+            </div>
+            <div className="flex justify-center mt-4 text-center text-[#575757]">
+              <div className="w-full uppercase">Resource Art</div>
+            </div>
           </div>
         </div>
         <div>
@@ -389,6 +426,70 @@ const ResourceOrderCard = (resourceOrder: any) => {
           officiis quibusdam maiores modi sint quaerat,
         </div>
 
+        {resourceOrder?.resourceOrder?.progressId > 4 ? (
+          <>
+            {loggedUser.userId == userdetails?.userId ? (
+              <>
+                {resourceOrder?.resourceOrder?.rate == 0 ? (
+                  <>
+                    <div>
+                      <div className="flex justify-center text-[#fec750]  my-8 font-bold text-center uppercase">
+                        <div className="w-full uppercase">
+                          FeedBack For Order
+                        </div>
+                      </div>
+                      <FeedbackForm
+                        rating={0}
+                        review=""
+                        reviewUser={userdetails?.userId}
+                        resourceOrder={resourceOrder}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <div className="flex justify-center text-[#fec750]  my-8 font-bold text-center uppercase">
+                        <div className="w-full uppercase">
+                          FeedBack For Order
+                        </div>
+                      </div>
+                      <Feedback
+                        rating={resourceOrder?.resourceOrder?.rate}
+                        review={resourceOrder?.resourceOrder?.review}
+                        reviewUser={userdetails?.userId}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {resourceOrder?.resourceOrder?.rate == 0 ? (
+                  <></>
+                ) : (
+                  <>
+                    <div>
+                      <div className="flex justify-center text-[#fec750]  my-8 font-bold text-center uppercase">
+                        <div className="w-full uppercase">
+                          FeedBack For Order
+                        </div>
+                      </div>
+                      <Feedback
+                        rating={resourceOrder?.resourceOrder?.rate}
+                        review={resourceOrder?.resourceOrder?.review}
+                        reviewUser={userdetails?.userId}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+          </>
+        ) : (
+          <></>
+        )}
+
         {/* buttons fields */}
         <div className="flex justify-between gap-6 mb-8 ">
           <div className="flex justify-center w-full mt-3">
@@ -425,12 +526,24 @@ const ResourceOrderCard = (resourceOrder: any) => {
                   </>
                 ) : resourceOrder?.resourceOrder?.progressId === 4 ? (
                   <>
-                    <button
+                    <input
+                      type="button"
+                      value="Accept Order"
                       className="w-full uppercase btn3 "
-                      onClick={handleAcceptOrder}
-                    >
-                      Accept Delivery
-                    </button>
+                      onClick={handleModalOpen}
+                    />
+                    <PaymentModal
+                      isOpen={isModalOpen}
+                      onClose={handleModalClose}
+                      title="PayPal Checkout"
+                      description="Thank You Very Much Are you sure you want to delete Order from IDILIO group."
+                      resourceOrderId={
+                        resourceOrder?.resourceOrder?.resourceOrderId
+                      }
+                      amount={resources?.amount}
+                      resourceOrder={resourceOrder}
+                      // projectName={resourceOrder?.resourceOrder?.projectName}
+                    />
                   </>
                 ) : (
                   <></>

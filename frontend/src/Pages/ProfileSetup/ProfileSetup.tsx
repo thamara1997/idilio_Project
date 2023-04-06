@@ -12,6 +12,7 @@ import MyModal from "components/MyModel/MyModal";
 import FileUploadServices from "Services/FileUploadServices";
 
 import Avatar from "react-avatar-edit";
+import DesignerService from "Services/DesignerService";
 
 interface ProfileUpdateProps {
   user: any;
@@ -67,11 +68,13 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
       formData.append("file", file);
 
       FileUploadServices.uploadProfilePicture(iid, formData);
+      toast.success("Update Successful");
       setTimeout(() => {
         window.location.reload();
       }, 500);
     } else {
       console.log("Null");
+      toast.error("Not Updated");
     }
   };
 
@@ -98,11 +101,37 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
 
     const result = await UserService.Update(updatedUser);
     if (result.data.status === 1) {
-      const newUser = await UserService.getUserByUserId(user.userId);
-      if (newUser) {
-        localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
-        toast.success("Profile Updated");
-        window.location.reload();
+      if (result.data.data?.designer) {
+        const updatedDesigner: any = {
+          designerId: user?.designer.designerId,
+          orderCount: user?.designer.orderCount,
+          level: user?.designer.level,
+          fbURL: data.fbURL,
+          instaURL: data.instaURL,
+          linkedinURL: data.linkedinURL,
+          cv: user?.designer.cv,
+          approved: user?.designer.approved,
+          userId: user?.designer.userId,
+        };
+        console.log(updatedDesigner);
+        const result2 = await DesignerService.UpdateDesigner(updatedDesigner);
+        const newUser = await UserService.getUserByUserId(user.userId);
+        if (newUser) {
+          localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
+          toast.success("Profile Updated");
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
+      } else {
+        const newUser = await UserService.getUserByUserId(user.userId);
+        if (newUser) {
+          localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
+          toast.success("Profile Updated");
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
       }
     } else {
       console.log("Update fail");

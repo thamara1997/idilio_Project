@@ -1,8 +1,10 @@
 package com.idilio.backend.serviceimpl;
 
 import com.idilio.backend.dto.DesignerDTO;
+import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.dto.UserDTO;
 import com.idilio.backend.entity.Designer;
+import com.idilio.backend.entity.Resources;
 import com.idilio.backend.repository.DesignerRepo;
 import com.idilio.backend.service.DesignerService;
 import org.modelmapper.ModelMapper;
@@ -85,6 +87,32 @@ public class DesignerServiceImpl implements DesignerService {
             else{
                 return null;
             }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<DesignerDTO> getDesignerByApprove(int approved) {
+        try{
+            List<Designer> list =  designerRepo.getDesignerByApprove(approved);
+//            System.out.println(list.get(0).getResourceId());
+            return modelMapper.map(list, new TypeToken<List<DesignerDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<DesignerDTO> getDesignersByApproved(int approved) {
+        try{
+            List<Designer> list =  designerRepo.getDesignersByApproved(approved);
+//            System.out.println(list.get(0).getResourceId());
+            return modelMapper.map(list, new TypeToken<List<DesignerDTO>>(){}.getType());
         }
         catch(Exception e){
             System.out.println(e.toString());

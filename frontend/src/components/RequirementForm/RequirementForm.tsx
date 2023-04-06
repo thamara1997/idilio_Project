@@ -9,6 +9,7 @@ import Artwork from "assets/art.jpg";
 import FileUploadServices from "Services/FileUploadServices";
 import ResourceOrderService from "Services/ResourceOrderService";
 import UsersOrdersServices from "Services/UsersOrdersServices";
+import { toast } from "react-toastify";
 
 const RequirementForm = ({
   title,
@@ -28,12 +29,6 @@ const RequirementForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // const onSubmit = (data: any) => {
-  //   // Save the signature data
-  //   setSignatureData(sigPad.current?.toDataURL() ?? "");
-  //   console.log(signatureData);
-  //   console.log(data);
-  // };
   const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
@@ -86,6 +81,7 @@ const RequirementForm = ({
         console.log("No Drawing");
       }
 
+      toast.success("Order Placed");
       // Navigate to progress page
       setTimeout(() => {
         navigate(

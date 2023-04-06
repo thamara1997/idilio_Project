@@ -60,8 +60,11 @@ const Login = () => {
         })
       );
       toast.success("Login Successful");
-      navigate(routeNames.Overview);
-      navigate(0);
+      setTimeout(() => {
+        navigate(routeNames.Overview);
+        navigate(0);
+      }, 500);
+
       return;
     } else {
       // toast.error(result.data.user.message);
@@ -177,7 +180,6 @@ const Login = () => {
                 </h6>
               </div>
             </form>
-            <ToastContainer />
           </div>
         </div>
       </div>

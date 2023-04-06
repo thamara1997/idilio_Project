@@ -22,6 +22,8 @@ import Requirement2 from "Pages/Requirement/Requirement2";
 import { user } from "Types/User";
 import ProgressNew from "Pages/Progress/ProgressNew";
 import AdminDashBoard from "Pages/AdminDashBoard/AdminDashBoard";
+import SupportAdmin from "components/SupportAdmin";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [user, setUser] = useState<user>(null);
@@ -140,6 +142,17 @@ function App() {
             }
           />
           <Route
+            path={routeNames.Chatbox}
+            element={
+              <>
+                <NavBar user={user} onLogout={handleLogout} />
+                <SupportAdmin />
+
+                <Footer />
+              </>
+            }
+          />
+          <Route
             path={routeNames.RDesignDetails}
             element={
               <>
@@ -208,6 +221,18 @@ function App() {
           />
         </Routes>
         {/* <Footer /> */}
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        ></ToastContainer>
       </BrowserRouter>
     </div>
   );

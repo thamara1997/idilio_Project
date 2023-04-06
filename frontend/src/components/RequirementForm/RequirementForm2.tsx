@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { BiEraser } from "react-icons/bi";
 import NewOrderServices from "Services/NewOrderServices";
 import FileUploadServices from "Services/FileUploadServices";
+import { toast } from "react-toastify";
 
 const RequirementForm = ({ id, name, category, Artwork }: any) => {
   const sigPad = useRef<SignaturePad>(null);
@@ -78,6 +79,7 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
         console.log("No Drawing");
       }
 
+      toast.success("Order Placed");
       // Navigate to progress page
       setTimeout(() => {
         navigate(

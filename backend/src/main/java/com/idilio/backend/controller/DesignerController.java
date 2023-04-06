@@ -1,6 +1,7 @@
 package com.idilio.backend.controller;
 
 import com.idilio.backend.dto.DesignerDTO;
+import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.service.DesignerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,6 +67,42 @@ public class DesignerController {
             map.clear();
             map.put("status",0);
             map.put("message","Designer Not Added");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getdesignerbyapproved/{approved}")
+    public ResponseEntity<?> getDesignerByApprove(@PathVariable int approved) throws NullPointerException{
+        // re
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<DesignerDTO> designerList = designerService.getDesignerByApprove(approved);
+        if(designerList != null){
+            map.put("status",1);
+            map.put("data",designerList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","Designer List Not Found");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getdesignersbyapproved/{approved}")
+    public ResponseEntity<?> getDesignersByApproved(@PathVariable int approved) throws NullPointerException{
+        // re
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<DesignerDTO> designerList = designerService.getDesignersByApproved(approved);
+        if(designerList != null){
+            map.put("status",1);
+            map.put("data",designerList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","Designer List Not Found");
             return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
         }
     }

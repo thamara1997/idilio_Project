@@ -64,9 +64,11 @@ const Register = () => {
           profile: result.data.user.profile,
         })
       );
-      toast.success("Register Successful");
-      navigate(routeNames.Overview);
-      navigate(0);
+      toast.success("Login Successful");
+      setTimeout(() => {
+        navigate(routeNames.Overview);
+        navigate(0);
+      }, 500);
       return;
     } else {
       toast.error("Registration Failed");

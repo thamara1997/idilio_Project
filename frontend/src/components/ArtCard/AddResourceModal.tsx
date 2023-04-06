@@ -61,24 +61,32 @@ const AddResourceModal: React.FC<ModalProps> = ({
   const handleNextButtonClick = async (data: any) => {
     const formDataWithDesignerId = { ...data, designerId };
     const result = await ResourcesService.addResource(formDataWithDesignerId);
-    console.log(result.data?.resource);
+    console.log(result);
     setFormSubmitted(true);
-    if (formSubmitted == true) {
-      toast.success("Resource Added Upload Your Art");
-      setResource(result.data.resources);
+    if (result.data.status == 1) {
+      console.log("added");
+      toast.success("Resource Added Successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      setResource(result?.data.data);
+      console.log(resource);
       return;
     } else {
       toast.error("Resource added Failed");
     }
   };
 
+  console.log(resource);
+
   const handleSaveButtonClick = () => {
-    if (preview) {
+    if (preview && resource) {
       const file = FileUploadServices.convertBase64ToFile(preview, "aa.png");
 
       let formData = new FormData();
       formData.append("file", file);
 
+      console.log(resource);
       FileUploadServices.uploadResourceArt(resource?.resourceId, formData);
       setTimeout(() => {
         window.location.reload();

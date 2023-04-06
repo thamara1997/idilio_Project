@@ -39,7 +39,7 @@ public class Payment2ServiceImpl implements Payment2Service {
                 Payment2 payment1 = modelMapper.map(payment2DTO,Payment2.class);
                 payment1 = payment2Repo.save(payment1);
 
-                return modelMapper.map(payment,new TypeToken<Payment2DTO>(){}.getType());
+                return modelMapper.map(payment1,new TypeToken<Payment2DTO>(){}.getType());
             }
             else{
                 return null;

@@ -9,6 +9,10 @@ import { RiImageAddLine } from "react-icons/ri";
 import ChangeDrawModalNew from "./ChangeDrawModalNew";
 import SupportEngine from "components/SupportEngine";
 import DeleteNewOrderModal from "./DeleteNewOrderModal";
+import Feedback from "components/Rating/FeedBack";
+import FeedbackFormN from "components/Rating/FeedbcakFormN";
+import PaymentModal2 from "./PaymentModal2";
+import { toast } from "react-toastify";
 
 const NewOrderCard = (newOrder: any) => {
   console.log(newOrder);
@@ -57,6 +61,26 @@ const NewOrderCard = (newOrder: any) => {
         });
     }
   }, [designers?.userId]);
+
+  const [user, setUser] = useState<any>();
+
+  useEffect(() => {
+    if (newOrder?.newOrder.userId) {
+      UserService.getUserByUserId(newOrder?.newOrder.userId)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setUser(res.data.data);
+            //console.log(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          //console.log(error);
+        });
+    }
+  }, [newOrder?.newOrder.userId]);
 
   const [mypackage, setPackage] = useState<any>();
 
@@ -190,6 +214,7 @@ const NewOrderCard = (newOrder: any) => {
         newOrder?.newOrder.newOrderId,
         formData
       );
+      toast.success("Recent Art Added");
       setTimeout(() => {
         window.location.reload();
       }, 500);
@@ -234,6 +259,12 @@ const NewOrderCard = (newOrder: any) => {
               <span className="flex w-[30%] font-bold">New Order Id</span>
               <div className="w-[70%] flex font-normal">
                 : {newOrder?.newOrder?.newOrderId}
+              </div>
+            </label>
+            <label className="flex mb-4">
+              <span className="flex w-[30%] font-bold">Order Placed By</span>
+              <div className="w-[70%] flex font-normal">
+                : {user?.firstName} {user?.lastName}
               </div>
             </label>
             <label className="flex mb-4">
@@ -372,12 +403,76 @@ const NewOrderCard = (newOrder: any) => {
           officiis quibusdam maiores modi sint quaerat,
         </div>
 
+        {newOrder?.newOrder?.progressId > 4 ? (
+          <>
+            {loggedUser.userId === newOrder?.newOrder?.userId ? (
+              <>
+                {newOrder?.newOrder?.rate === 0 ? (
+                  <>
+                    <div>
+                      <div className="flex justify-center text-[#fec750]  my-8 font-bold text-center uppercase">
+                        <div className="w-full uppercase">
+                          FeedBack For Order
+                        </div>
+                      </div>
+                      <FeedbackFormN
+                        rating={0}
+                        review=""
+                        reviewUser={newOrder?.newOrder?.userId}
+                        newOrder={newOrder}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <div className="flex justify-center text-[#fec750]  my-8 font-bold text-center uppercase">
+                        <div className="w-full uppercase">
+                          FeedBack For Order
+                        </div>
+                      </div>
+                      <Feedback
+                        rating={newOrder?.newOrder?.rate}
+                        review={newOrder?.newOrder?.review}
+                        reviewUser={newOrder?.newOrder?.userId}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {newOrder?.newOrder?.rate == 0 ? (
+                  <></>
+                ) : (
+                  <>
+                    <div>
+                      <div className="flex justify-center text-[#fec750]  my-8 font-bold text-center uppercase">
+                        <div className="w-full uppercase">
+                          FeedBack For Order
+                        </div>
+                      </div>
+                      <Feedback
+                        rating={newOrder?.newOrder?.rate}
+                        review={newOrder?.newOrder?.review}
+                        reviewUser={newOrder?.newOrder?.userId}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+          </>
+        ) : (
+          <></>
+        )}
+
         {/* buttons fields */}
         <div className="flex justify-between gap-6 mb-8 ">
           <div className="flex justify-center w-full mt-3">
             <input
               type="button"
-              value="Delete Account"
+              value="Delete Order"
               className="w-full uppercase btn3 "
               onClick={handleModalOpen}
             />
@@ -408,12 +503,22 @@ const NewOrderCard = (newOrder: any) => {
                   </>
                 ) : newOrder?.newOrder?.progressId === 4 ? (
                   <>
-                    <button
+                    <input
+                      type="button"
+                      value="Accept Order"
                       className="w-full uppercase btn3 "
-                      onClick={handleAcceptOrder}
-                    >
-                      Accept Delivery
-                    </button>
+                      onClick={handleModalOpen}
+                    />
+                    <PaymentModal2
+                      isOpen={isModalOpen}
+                      onClose={handleModalClose}
+                      title="PayPal Checkout"
+                      description="Thank You Very Much Are you sure you want to delete Order from IDILIO group."
+                      newOrderId={newOrder?.newOrder?.newOrderId}
+                      amount={mypackage?.amount}
+                      newOrder={newOrder}
+                      // projectName={resourceOrder?.resourceOrder?.projectName}
+                    />
                   </>
                 ) : (
                   <></>

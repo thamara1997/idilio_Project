@@ -41,7 +41,7 @@ public class PaymentServiceImpl implements PaymentService {
                 Payment payment1 = modelMapper.map(paymentDTO,Payment.class);
                 payment1 = paymentRepo.save(payment1);
 
-                return modelMapper.map(payment,new TypeToken<PaymentDTO>(){}.getType());
+                return modelMapper.map(payment1,new TypeToken<PaymentDTO>(){}.getType());
             }
             else{
                 return null;

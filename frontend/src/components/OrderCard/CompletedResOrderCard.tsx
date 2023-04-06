@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
 import ResourceOrderService from "Services/ResourceOrderService";
 import ResourcesService from "Services/ResourcesService";
+import React, { useEffect, useState } from "react";
 
-const ResourceOrderCard = ({ type, OrderId }: any) => {
+const CompletedResOrderCard = ({ type, OrderId }: any) => {
   const [resourceOrder, setResourceOrder] = useState<any>({});
 
   useEffect(() => {
@@ -35,12 +35,10 @@ const ResourceOrderCard = ({ type, OrderId }: any) => {
   return (
     <>
       {resourceOrder.progressId == 5 ? (
-        <></>
-      ) : (
         <>
           <div>
             <div>
-              <div className="relative mx-auto my-4 h-[40px] bg-[#17171797] rounded-xl border-[#fec7507a] border-[0.3px]  hover:border-1 hover:border-white">
+              <div className="w-[80%] relative mx-auto my-4 h-[40px] bg-[#17171797] rounded-xl border-[#facf707a] border-[0.3px]  hover:border-1 hover:border-[#72cf93]">
                 <div className="absolute top-1 left-3 text-[#fec750]">
                   {type}
                 </div>
@@ -54,9 +52,11 @@ const ResourceOrderCard = ({ type, OrderId }: any) => {
             </div>
           </div>
         </>
+      ) : (
+        <></>
       )}
     </>
   );
 };
 
-export default ResourceOrderCard;
+export default CompletedResOrderCard;

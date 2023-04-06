@@ -9,6 +9,7 @@ const DesignerProfileCard = ({
   role,
   level,
   Avatar,
+  user,
 }: any) => {
   return (
     <div>
@@ -17,9 +18,21 @@ const DesignerProfileCard = ({
           <div className="absolute mx-[30px] top-[25px] hover:border-1 hover:border-white">
             <img src={Avatar} alt="" className="rounded-[50%]" />
           </div>
-          <h4 className="absolute w-full mx-auto top-[225px] text-[8px] text-[#fec850] font-light uppercase">
-            Level {level} Designer
-          </h4>
+
+          {user?.designer.approved ? (
+            <>
+              <h4 className="absolute w-full mx-auto top-[225px] text-[8px] text-[#fec850] font-light uppercase">
+                Level {level} Designer
+              </h4>
+            </>
+          ) : (
+            <>
+              <h4 className="absolute w-full mx-auto top-[225px] text-[8px] text-[#fec850] font-light uppercase">
+                Designer Form Submitted
+              </h4>
+            </>
+          )}
+
           <h4 className="absolute w-full mx-auto top-[240px] text-[12px] font-semibold">
             {firstName} {lastName}
           </h4>

@@ -1,6 +1,7 @@
 package com.idilio.backend.service;
 
 import com.idilio.backend.dto.DesignerDTO;
+import com.idilio.backend.dto.ResourcesDTO;
 import com.idilio.backend.dto.UserDTO;
 import com.idilio.backend.dto.UserFullDTO;
 
@@ -14,4 +15,8 @@ public interface DesignerService {
     DesignerDTO getDesignerById(int designerId);
 
     DesignerDTO updateDesigner(DesignerDTO designerDTO);
+
+    List<DesignerDTO> getDesignerByApprove(int approved);
+
+    List<DesignerDTO> getDesignersByApproved(int approved);
 }

@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { routeNames } from "routes/route";
 import SignaturePad from "react-signature-canvas";
 import { BiEraser } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 type ModalProps = {
   isOpen: boolean;
@@ -63,6 +64,7 @@ const ChangeDrawModal: React.FC<ModalProps> = ({
       formData.append("file", file);
 
       FileUploadServices.uploadNewOrderDrawing(newOrderId, formData);
+      toast.success("Drawing Changed");
     } else {
       console.log("No Drawing");
     }

@@ -17,6 +17,8 @@ import ResourceOrderCard from "components/OrderCard/ResourceOrderCard";
 import NewOrderCard from "components/OrderCard/NewOrderCard";
 import ResourceOrderService from "Services/ResourceOrderService";
 import NewOrderAcceptCard from "components/OrderCard/NewOrderAcceptCard";
+import CompletedOrderCard from "components/OrderCard/CompletedOrderCard";
+import CompletedResOrderCard from "components/OrderCard/CompletedResOrderCard";
 
 interface ProfileProps {
   user: any;
@@ -178,6 +180,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                 role={user?.role}
                 level={user?.designer.level}
                 Avatar={propic}
+                user={user}
               />
             </>
           ) : (
@@ -285,15 +288,24 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                 ))}
                 {placedOrdersNew.map((t: any, i: number) => (
                   <div id="item1" key={i}>
-                    <Link
-                      to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
-                    >
-                      <NewOrderCard
-                        type={"N"}
-                        OrderId={t.newOrderId}
-                        price={t.price}
-                      />
-                    </Link>
+                    {t.progressId == 5 ? (
+                      <></>
+                    ) : (
+                      <>
+                        <Link
+                          to={routeNames.ProgressNew.replace(
+                            ":id",
+                            t.newOrderId
+                          )}
+                        >
+                          <NewOrderCard
+                            type={"N"}
+                            OrderId={t.newOrderId}
+                            price={t.price}
+                          />
+                        </Link>
+                      </>
+                    )}
                   </div>
                 ))}
               </div>
@@ -303,7 +315,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
       </div>
 
       {/* designer resources */}
-      {user?.designer && user?.designer.approve == true ? (
+      {user?.designer && user?.designer.approved == true ? (
         <>
           <div>
             <div>
@@ -314,15 +326,21 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
             <div>
               {newOrdersToAccept.map((t: any, i: number) => (
                 <div id="item1" key={i}>
-                  <Link
-                    to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
-                  >
-                    <NewOrderAcceptCard
-                      type={"N"}
-                      OrderId={t.newOrderId}
-                      price={t.price}
-                    />
-                  </Link>
+                  {t.progressId < 3 ? (
+                    <>
+                      <Link
+                        to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
+                      >
+                        <NewOrderAcceptCard
+                          type={"N"}
+                          OrderId={t.newOrderId}
+                          price={t.price}
+                        />
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               ))}
             </div>
@@ -377,36 +395,55 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
       ) : (
         <></>
       )}
+
+      {user ? (
+        <>
+          <div>
+            <div>
+              <h1 className="mt-8 mb-7 text-center uppercase text-[18px]">
+                Completed Order
+              </h1>
+            </div>
+            <div>
+              {placedOrdersNew.map((t: any, i: number) => (
+                <div id="item1" key={i}>
+                  {t.progressId == 5 ? (
+                    <>
+                      <Link
+                        to={routeNames.ProgressNew.replace(":id", t.newOrderId)}
+                      >
+                        <CompletedOrderCard
+                          type={"N"}
+                          OrderId={t.newOrderId}
+                          price={t.price}
+                        />
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ))}
+              {placedOrders.map((t: any, i: number) => (
+                <div id="item1" key={i}>
+                  <Link
+                    to={routeNames.Progress.replace(":id", t.resourceOrderId)}
+                  >
+                    <CompletedResOrderCard
+                      type={"R"}
+                      OrderId={t.resourceOrderId}
+                    />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
 
 export default Profile;
-
-const ordercard = [
-  {
-    type: "R",
-    OrderId: 1,
-    price: "$50",
-  },
-  {
-    type: "N",
-    OrderId: 3,
-    price: "$99",
-  },
-  {
-    type: "R",
-    OrderId: 4,
-    price: "$40",
-  },
-  {
-    type: "N",
-    OrderId: 2,
-    price: "$20",
-  },
-  {
-    type: "R",
-    OrderId: 8,
-    price: "$30",
-  },
-];
