@@ -17,4 +17,7 @@ public interface ResourceOrderService {
     ResourceOrderFullDTO getResourceOrderById(int resourceOrderId);
 
     List<ResourceOrderFullDTO> getResourceOrderByDesignerId(int designerId);
+
+    List<ResourceOrderFullDTO> getResourceReviewByResourceId(int resourceId);
+
 }

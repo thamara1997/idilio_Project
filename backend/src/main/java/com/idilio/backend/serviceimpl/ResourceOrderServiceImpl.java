@@ -2,7 +2,6 @@ package com.idilio.backend.serviceimpl;
 
 import com.idilio.backend.dto.*;
 import com.idilio.backend.entity.*;
-import com.idilio.backend.entity.Package;
 import com.idilio.backend.repository.ProgressRepo;
 import com.idilio.backend.repository.ResourceOrderRepo;
 import com.idilio.backend.repository.ResourcesRepo;
@@ -142,6 +141,19 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
     public List<ResourceOrderFullDTO> getResourceOrderByDesignerId(int designerId) {
         try{
             List<ResourceOrder> list =  resourceOrderRepo.getResourceOrderByDesignerId(designerId);
+//            System.out.println(list.get(0).getNewOrderId());
+            return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<ResourceOrderFullDTO> getResourceReviewByResourceId(int resourceId) {
+        try{
+            List<ResourceOrder> list =  resourceOrderRepo.getResourceReviewByResourceId(resourceId);
 //            System.out.println(list.get(0).getNewOrderId());
             return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
         }

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ReviewCard from "components/ReviewCard/ReviewCard";
 import { useEffect, useState } from "react";
 import ResourcesService from "Services/ResourcesService";
+import ResourceOrderService from "Services/ResourceOrderService";
 
 const RDesignDetails = () => {
   let { id } = useParams();
@@ -17,6 +18,19 @@ const RDesignDetails = () => {
     ResourcesService.getResourceById(iid).then((res: any) => {
       if (res.data.status === 1) {
         setResources(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, [iid]);
+
+  const [reviewedResource, setReviewedResource] = useState<any>();
+  useEffect(() => {
+    ResourceOrderService.getResourceReviewByResourceId(iid).then((res: any) => {
+      if (res.data.status === 1) {
+        setReviewedResource(res.data.data);
         console.log(res.data.data);
         return;
       } else {
@@ -39,14 +53,13 @@ const RDesignDetails = () => {
       <div>
         <h6 className="text-center uppercase mt-9">Reviews For the art</h6>
         <div className="mt-[50px]">
-          {review.map((r: any, i: number) => (
+          {reviewedResource?.map((r: any, i: number) => (
             <div id="item1" className="" key={i}>
               <ReviewCard
-                name={r.rName}
-                stars={r.stars}
+                rate={r.rate}
                 review={r.review}
-                country={r.country}
-                date={r.date}
+                resourceId={r?.resourceId}
+                resourceOrderId={r?.resourceOrderId}
               />
             </div>
           ))}

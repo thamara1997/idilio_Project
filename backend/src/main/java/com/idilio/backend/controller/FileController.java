@@ -8,13 +8,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -35,6 +35,25 @@ public class FileController {
 
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
+    }
+
+    // store multiple files
+    public ResponseEntity<List<FileResponse>> uploadMultipleFile(MultipartFile[] files, String imgCategory, String uploadDir){
+        List<FileResponse> list = new ArrayList<>();
+        //final int[] number = {1};
+        Arrays.asList(files).stream().forEach(file->{
+            String imgName= StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String fileName = fileStorageService.storeFile(file,imgName,uploadDir);
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/v1/upload/" + imgCategory + "/")
+                    .path(fileName)
+                    .toUriString();
+
+            FileResponse fileResponse = new FileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+            list.add(fileResponse);
+            //number[0]++;
+        });
+        return new ResponseEntity<List<FileResponse>>(list, HttpStatus.OK);
     }
 
     // load function
@@ -151,4 +170,35 @@ public class FileController {
         String fileDir = "newOrderWork";
         return LoadFile(fileName, fileDir, request);
     }
+
+    //multiple file
+
+    //upload multiple files new
+    @PostMapping("/uploadneworderfiles/{newOrderId}")
+    public ResponseEntity<List<FileResponse>> uploadNewOrderFiles(@RequestParam("file") MultipartFile[] files,@PathVariable int newOrderId){
+        String uploadDir="NewOrderAttachments/"+Integer.toString(newOrderId);
+        return uploadMultipleFile(files,uploadDir,uploadDir);
+    }
+
+    //get multiple file new
+    @GetMapping("/neworderfiles/{newOrderId}")
+    public List<String> getNewOrderFiles(@PathVariable int newOrderId, HttpServletRequest request){
+        String fileDir="NewOrderAttachments/"+Integer.toString(newOrderId);
+        return fileStorageService.getMultipleFiles(fileDir);
+    }
+
+    //upload multiple files resource
+    @PostMapping("/uploadresourceorderfiles/{resourceOrderId}")
+    public ResponseEntity<List<FileResponse>> uploadResourceOrderFiles(@RequestParam("file") MultipartFile[] files,@PathVariable int resourceOrderId){
+        String uploadDir="ResourceOrderAttachments/"+Integer.toString(resourceOrderId);
+        return uploadMultipleFile(files,uploadDir,uploadDir);
+    }
+
+    //get multiple file resource
+    @GetMapping("/resourceorderfiles/{resourceOrderId}")
+    public List<String> getResourceOrderFiles(@PathVariable int resourceOrderId, HttpServletRequest request){
+        String fileDir="ResourceOrderAttachments/"+Integer.toString(resourceOrderId);
+        return fileStorageService.getMultipleFiles(fileDir);
+    }
+
 }

@@ -7,12 +7,12 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FileStorageService {
@@ -68,5 +68,29 @@ public class FileStorageService {
         }catch(MalformedURLException ex) {
             throw new MyFileNotFoundException("File not found " + fileName);
         }
+    }
+
+    public List<String> getMultipleFiles(String fileDir){
+        File folder= new File(this.fileStorageLocation.toString()+"/"+fileDir);
+        File[] files=folder.listFiles();
+
+        List<String> list=new ArrayList<>();
+        for(File file:files){
+            if(file.isFile()){
+                list.add(file.getName());
+            }
+        }
+        return list;
+    }
+
+    public boolean deleteDetailImage(String fileDir) {
+        Path path = FileSystems.getDefault().getPath(this.fileStorageLocation.toString()+"/"+fileDir);
+        try {
+            Files.deleteIfExists(path);
+            return true;
+        } catch (IOException x) {
+            System.err.println(x);
+        }
+        return false;
     }
 }

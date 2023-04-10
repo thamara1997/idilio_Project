@@ -135,6 +135,48 @@ const uploadCv = async (designerId: any, formData: any) => {
   return response;
 };
 
+//multi files
+// get new order attavhments names
+const getNewOrderAttachments = async (newOrderId: any) => {
+  return http.get<any>(
+    `${process.env.REACT_APP_BACKEND_SERVER}/upload/neworderfiles/${newOrderId}`
+  );
+};
+
+// upload service logo
+const uploadNewOrderAttachments = async (newOrderId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadneworderfiles/${newOrderId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
+// get new order attavhments names
+const getResourceOrderAttachments = async (resourceOrderId: any) => {
+  return http.get<any>(
+    `${process.env.REACT_APP_BACKEND_SERVER}/upload/resourceorderfiles/${resourceOrderId}`
+  );
+};
+
+// upload service logo
+const uploadResourceOrderAttachments = async (
+  resourceOrderId: any,
+  formData: any
+) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadresourceorderfiles/${resourceOrderId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
 const FileUploadServices = {
   getProfilePicture,
   convertBase64ToFile,
@@ -150,6 +192,10 @@ const FileUploadServices = {
   uploadResourceOrderWork,
   uploadNewOrderWork,
   uploadCv,
+  getNewOrderAttachments,
+  uploadNewOrderAttachments,
+  getResourceOrderAttachments,
+  uploadResourceOrderAttachments,
 };
 
 export default FileUploadServices;

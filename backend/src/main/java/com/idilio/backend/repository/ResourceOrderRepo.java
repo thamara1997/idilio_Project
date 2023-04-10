@@ -18,4 +18,7 @@ public interface ResourceOrderRepo extends JpaRepository<ResourceOrder,Integer> 
 
     @Query(value = "SELECT ro.resource_order_id, ro.resource_id, ro.attachments, ro.project_name,ro.rate,ro.req_description,ro.req_draw,ro.review,ro.progress_id FROM idilio.resource_order ro WHERE ro.resource_id IN (SELECT r.resource_id  FROM idilio.resources r  WHERE r.designer_id = :designerId)", nativeQuery = true)
     List<ResourceOrder> getResourceOrderByDesignerId(int designerId);
+
+    @Query(value = "SELECT * FROM idilio.resource_order WHERE rate>=1 AND resource_id=?1", nativeQuery = true)
+    List<ResourceOrder> getResourceReviewByResourceId(int resourceId);
 }

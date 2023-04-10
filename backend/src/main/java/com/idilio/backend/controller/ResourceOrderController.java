@@ -108,6 +108,23 @@ public class ResourceOrderController {
         }
     }
 
+    @GetMapping("/getresourcereviewbyresourceid/{resourceId}")
+    public ResponseEntity<?> getResourceReviewByResourceId(@PathVariable Integer resourceId)throws NullPointerException{
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ResourceOrderFullDTO> resourceOrderList = resourceOrderService.getResourceReviewByResourceId(resourceId);
+        if(resourceOrderList != null){
+            map.put("status",1);
+            map.put("data",resourceOrderList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else{
+            map.clear();
+            map.put("status",0);
+            map.put("message","Reviews List Not Found");
+            return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/deleteresourceorder/{resourceOrderId}")
     public ResponseEntity<?> deleteResourceOrder(@PathVariable int resourceOrderId){
         Map<String, Object> map = new LinkedHashMap<>();
