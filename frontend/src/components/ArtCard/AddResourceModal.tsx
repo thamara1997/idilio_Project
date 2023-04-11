@@ -63,12 +63,12 @@ const AddResourceModal: React.FC<ModalProps> = ({
     const result = await ResourcesService.addResource(formDataWithDesignerId);
     console.log(result);
     setFormSubmitted(true);
-    if (result.data.status == 1) {
-      console.log("added");
-      toast.success("Resource Added Successfully");
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+    if (result.data.status === 1) {
+      // console.log("added");
+      toast.success("Resource Details Added");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 500);
       setResource(result?.data.data);
       console.log(resource);
       return;

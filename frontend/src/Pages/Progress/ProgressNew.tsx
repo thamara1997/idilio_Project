@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProgressBar from "components/Progress Cards/ProgressBar";
 import NewOrderServices from "Services/NewOrderServices";
 import NewOrderCard from "components/Progress Cards/NewOrderCard";
+import { routeNames } from "routes/route";
 
-const ProgressNew = () => {
+const ProgressNew = ({ user, onLogout }: any) => {
   let { id } = useParams();
 
   let iid: number = Number(id);
@@ -25,15 +26,22 @@ const ProgressNew = () => {
     });
   }, [iid]);
 
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
+
   const progressStep = newOrder.progressId;
   return (
     <div>
       <div className="p-8 text-center uppercase">Progress</div>
       <div className="px-[200px] text-center font-light text-[14px]">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
-        officiis quibusdam maiores modi sint quaerat, voluptatem fuga dolorem
-        impedit possimus minus eligendi nihil. Sequi, saepe repellat ea hic eos
-        itaque.
+        The Progress Page is where you can track the progress of your project in
+        real-time. Our advanced progress bar system provides you with updates on
+        how much of your project has been completed, giving you peace of mind
+        knowing that your project is being worked on.
       </div>
       <ProgressBar currentStep={progressStep} />
       <div className="mt-[80px] mb-[40px] text-[#fec750] text-center uppercase font-medium text-[18px]">

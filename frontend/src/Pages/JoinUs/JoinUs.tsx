@@ -13,7 +13,7 @@ import FileUploadServices from "Services/FileUploadServices";
 import { toast } from "react-toastify";
 import { routeNames } from "routes/route";
 
-const JoinUs = (user: any) => {
+const JoinUs = ({ user, onLogout }: any) => {
   const [loggedUser, setLoggedUser] = useState<any>(null);
 
   useEffect(() => {
@@ -99,10 +99,10 @@ const JoinUs = (user: any) => {
       <div>
         <h1 className="m-8 text-center uppercase text-[25px]">Join Us</h1>
         <p className="text-[15px] text-center font-light mx-[200px] mb-8">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae
-          quae facere quisquam beatae facilis ad rerum harum dolorem repellendus
-          deserunt consequatur mollitia tempore dolorum, adipisci excepturi
-          accusantium tenetur ea ratione!
+          At IDILIO, we are committed to supporting the growth of the graphic
+          design industry in Sri Lanka. Our company is based in Kegalle and our
+          mission is to provide opportunities for talented designers in Sri
+          Lanka to work with professional buyers from all around the world.
         </p>
       </div>
       <div className="flex justify-center mb-8">

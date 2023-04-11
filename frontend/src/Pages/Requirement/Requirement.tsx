@@ -1,15 +1,17 @@
 import RequirementForm from "components/RequirementForm/RequirementForm";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { routeNames } from "routes/route";
 import DesignerService from "Services/DesignerService";
 import ResourcesService from "Services/ResourcesService";
 import UserService from "Services/UserService";
 
 interface RequirementProps {
   user: any;
+  onLogout: () => void;
 }
 
-const Requirement: React.FC<RequirementProps> = ({ user }) => {
+const Requirement: React.FC<RequirementProps> = ({ user, onLogout }) => {
   let { id } = useParams();
   //console.log(id);
 
@@ -71,6 +73,13 @@ const Requirement: React.FC<RequirementProps> = ({ user }) => {
         });
     }
   }, [designers?.userId]);
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
 
   return (
     <div>

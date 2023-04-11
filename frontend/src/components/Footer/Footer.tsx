@@ -13,16 +13,24 @@ const Footer = () => {
         <h1 className="text-[30px] font-extrabold mb-5">IDILIO</h1>
         <div className="flex justify-center gap-[20px]">
           <div>
-            <img src={Facebook} alt="" className="w-[40px]" />
+            <a href="https://www.facebook.com/idiliodesigns" target="_blank">
+              <img src={Facebook} alt="" className="w-[40px]" />
+            </a>
           </div>
           <div>
-            <img src={Insta} alt="" className="w-[40px]" />
+            <a href="https://www.instagram.com/idiliodesigns/" target="_blank">
+              <img src={Insta} alt="" className="w-[40px]" />
+            </a>
           </div>
           <div>
-            <img src={Twitter} alt="" className="w-[40px]" />
+            <a href="https://twitter.com/idiliodesigns" target="_blank">
+              <img src={Twitter} alt="" className="w-[40px]" />
+            </a>
           </div>
           <div>
-            <img src={LinkedIn} alt="" className="w-[40px]" />
+            <a href="https://www.linkedin.com/feed/" target="_blank">
+              <img src={Twitter} alt="" className="w-[40px]" />
+            </a>
           </div>
           <div>
             <img src={Whatsapp} alt="" className="w-[40px]" />

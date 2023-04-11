@@ -1,9 +1,9 @@
 import React from "react";
-import image1 from "assets/image.jpg";
-import image2 from "assets/image.jpg";
+import image1 from "assets/BookCoverArt.jpg";
+import image2 from "assets/Podcast.jpg";
 import image3 from "assets/image.jpg";
-import image4 from "assets/image.jpg";
-import image5 from "assets/image.jpg";
+import image4 from "assets/CompanyLogoArt.jpg";
+import image5 from "assets/Mascot.jpg";
 import "./Slider.css";
 
 const Slider = () => {

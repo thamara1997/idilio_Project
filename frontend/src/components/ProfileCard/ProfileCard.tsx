@@ -3,16 +3,38 @@ import Facebook from "assets/Facebook.png";
 import Insta from "assets/Insta.png";
 import LinkedIn from "assets/Linkedin.png";
 
-const ProfileCard = ({ firstName, lastName, role, level, Avatar }: any) => {
+const ProfileCard = ({
+  firstName,
+  lastName,
+  role,
+  level,
+  Avatar,
+  image,
+  name,
+}: any) => {
   return (
     <div>
       <div>
         <div className="relative w-[240px] h-[350px] border-[0.3px] border-[#fec7507a] bg-[#17171797] rounded-xl hover:bg-black ">
           <div className="absolute mx-[30px] top-[25px] hover:border-1 hover:border-white">
-            <img src={Avatar} alt="" className="rounded-[50%]" />
+            {Avatar ? (
+              <>
+                <img src={Avatar} alt="" className="rounded-[50%]" />
+              </>
+            ) : (
+              <>
+                <img src={image} alt="" className="rounded-[50%]" />
+              </>
+            )}
           </div>
           <h4 className="absolute w-full mx-auto top-[240px] text-[12px] font-semibold">
-            {firstName} {lastName}
+            {firstName && lastName ? (
+              <>
+                {firstName} {lastName}
+              </>
+            ) : (
+              <>{name}</>
+            )}
           </h4>
           <h4 className="absolute w-full mx-auto top-[260px] text-[10px] text-[#727272] font-light uppercase">
             {role}

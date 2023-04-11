@@ -1,6 +1,5 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import ArtModalUpdate from "components/ArtCard/ArtModalUpdate";
-import PlacedOrderCard from "components/OrderCard/ResourceOrderCard";
 import DesignerProfileCard from "components/ProfileCard/DesignerProfileCard";
 import ProfileCard from "components/ProfileCard/ProfileCard";
 import { useEffect, useState } from "react";
@@ -326,7 +325,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
                 New Orders
               </h1>
             </div>
-            <div>
+            <div className="w-[80%] mx-auto">
               {newOrdersToAccept.map((t: any, i: number) => (
                 <div id="item1" key={i}>
                   {t.progressId < 3 ? (
@@ -403,11 +402,11 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout }) => {
         <>
           <div>
             <div>
-              <h1 className="mt-8 mb-7 text-center uppercase text-[18px]">
+              <h1 className="mt-8 mb-7 text-center uppercase text-[18px] ">
                 Completed Order
               </h1>
             </div>
-            <div>
+            <div className="w-[80%] mx-auto">
               {placedOrdersNew.map((t: any, i: number) => (
                 <div id="item1" key={i}>
                   {t.progressId == 5 ? (

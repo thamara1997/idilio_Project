@@ -62,7 +62,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <JoinUs user={user} />
+                <JoinUs user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -72,7 +72,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <NewDesign user={user} />
+                <NewDesign user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -93,7 +93,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <Community />
+                <Community user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -103,7 +103,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <SayHello />
+                <SayHello user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -157,7 +157,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <RDesignDetails />
+                <RDesignDetails user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -167,7 +167,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <Requirement user={user} />
+                <Requirement user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -177,7 +177,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <Requirement2 />
+                <Requirement2 user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -187,7 +187,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <Progress />
+                <Progress user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -198,7 +198,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <ProgressNew />
+                <ProgressNew user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }

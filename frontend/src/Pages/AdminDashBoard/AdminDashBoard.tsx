@@ -8,7 +8,7 @@ import DesignerCard from "components/AdminDashboard/DesignerCard";
 import NewOrderServices from "Services/NewOrderServices";
 import NewOrderAcceptCard from "components/OrderCard/NewOrderAcceptCard";
 
-const AdminDashBoard = (user: any, onLogout: () => void) => {
+const AdminDashBoard = ({ user, onLogout }: any) => {
   const [designers, setDesigners] = useState<any>([]);
   const navigate = useNavigate();
 

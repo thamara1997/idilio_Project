@@ -2,9 +2,10 @@ import RequirementForm from "components/RequirementForm/RequirementForm";
 import RequirementForm2 from "components/RequirementForm/RequirementForm2";
 import { packageDetails } from "data/package";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { routeNames } from "routes/route";
 
-const Requirement2 = () => {
+const Requirement2 = ({ user, onLogout }: any) => {
   let { id } = useParams();
   console.log(id);
 
@@ -14,6 +15,12 @@ const Requirement2 = () => {
   const packDeatils = packageDetails[iid - 1];
   console.log(packDeatils);
 
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
   return (
     <div>
       <div id="item1" className="w-full">

@@ -1,11 +1,12 @@
 import DetailsCard from "components/DetailsCard/DetailsCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "components/ReviewCard/ReviewCard";
 import { useEffect, useState } from "react";
 import ResourcesService from "Services/ResourcesService";
 import ResourceOrderService from "Services/ResourceOrderService";
+import { routeNames } from "routes/route";
 
-const RDesignDetails = () => {
+const RDesignDetails = ({ user, onLogout }: any) => {
   let { id } = useParams();
 
   let iid: number = Number(id);
@@ -38,6 +39,13 @@ const RDesignDetails = () => {
       }
     });
   }, []);
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
 
   return (
     <div>

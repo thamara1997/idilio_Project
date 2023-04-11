@@ -38,7 +38,7 @@ const CompletedResOrderCard = ({ type, OrderId }: any) => {
         <>
           <div>
             <div>
-              <div className="w-[80%] relative mx-auto my-4 h-[40px] bg-[#17171797] rounded-xl border-[#facf707a] border-[0.3px]  hover:border-1 hover:border-[#72cf93]">
+              <div className="w-[100%] relative mx-auto my-4 h-[40px] bg-[#17171797] rounded-xl border-[#facf707a] border-[0.3px]  hover:border-1 hover:border-[#72cf93]">
                 <div className="absolute top-1 left-3 text-[#fec750]">
                   {type}
                 </div>

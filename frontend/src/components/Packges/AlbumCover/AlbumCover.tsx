@@ -54,10 +54,10 @@ const Album = () => {
       <div>
         <h3 className="font-bold text-[20px] mb-8">Album Cover Packages</h3>
         <h6 className="font-light text-[12px] mx-[200px]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, veniam
-          doloribus est cum recusandae assumenda dolores adipisci! Aperiam,
-          aspernatur neque officia reprehenderit numquam accusamus. Tempore
-          fugit quam commodi incidunt nulla!
+          Our user-friendly interface and notification system keep you updated
+          on the progress of your project, and our team is always available to
+          answer any questions you may have. So, if you're looking for a unique
+          and professional design, look no further than our new design page.
         </h6>
       </div>
       <div className="flex justify-center mb-[100px]">

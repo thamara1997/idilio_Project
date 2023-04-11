@@ -282,7 +282,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
             isOpen={isModalOpen}
             onClose={handleModalClose}
             title="Delete Account"
-            description="Are you sure you want to delete account from IDILIO group.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia delectus eos nobis iure quae vero libero repellendus saepe perspiciatis eaque error "
+            description="This message appears when you attempt to delete your IDILIO account. It serves as a confirmation message to ensure that you intended to delete your account, and that you understand the consequences of deleting it. Before proceeding with the deletion, make sure to review the details of your account to avoid any unintended deletions. "
             userId={user.userId}
             userName={userName}
           />

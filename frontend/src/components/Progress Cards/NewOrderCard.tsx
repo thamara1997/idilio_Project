@@ -251,6 +251,16 @@ const NewOrderCard = (newOrder: any) => {
     setIsModalOpen(false);
   };
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleDeleteModalOpen = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsDeleteModalOpen(false);
+  };
+
   const [names, setNames] = useState<any>(null);
   useEffect(() => {
     FileUploadServices.getNewOrderAttachments(newOrderId).then((res: any) => {
@@ -446,8 +456,11 @@ const NewOrderCard = (newOrder: any) => {
         </div>
 
         <div className="px-[200px] my-8 text-center font-light text-[14px]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
-          officiis quibusdam maiores modi sint quaerat,
+          On the Comparison Section, you can compare and contrast your original
+          idea with the recent artwork our team of experienced designers has
+          created for you.Once you're satisfied with the design, simply click
+          the buttons located at the bottom of the page to proceed to the next
+          steps of the project.
         </div>
 
         {newOrder?.newOrder?.progressId > 4 ? (
@@ -521,13 +534,13 @@ const NewOrderCard = (newOrder: any) => {
               type="button"
               value="Delete Order"
               className="w-full uppercase btn3 "
-              onClick={handleModalOpen}
+              onClick={handleDeleteModalOpen}
             />
             <DeleteNewOrderModal
-              isOpen={isModalOpen}
-              onClose={handleModalClose}
+              isOpen={isDeleteModalOpen}
+              onClose={handleDeleteModalClose}
               title="Delete Your New Order"
-              description="Are you sure you want to delete Order from IDILIO group.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia delectus eos nobis iure quae vero libero repellendus saepe perspiciatis eaque error "
+              description="This message appears when you attempt to delete an order from IDILIO group. It serves as a confirmation message to ensure that you intended to delete the order, and that you understand the consequences of deleting it. Before proceeding with the deletion, make sure to review the details of the order to avoid any unintended deletions."
               newOrderId={newOrder?.newOrder?.newOrderId}
               projectName={newOrder?.newOrder?.projectName}
             />

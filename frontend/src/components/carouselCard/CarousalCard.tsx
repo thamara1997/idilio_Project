@@ -1,7 +1,7 @@
 import React from "react";
 import avatar from "assets/avatar.jpg";
 
-const CarousalCard = ({ name, desc }: any) => {
+const CarousalCard = ({ name, desc, image }: any) => {
   return (
     <div className="!flex !items-center">
       <div className="w-[1000px] border-[0.1px] rounded-[25px] border-[#FEC850] text-center p-[45px] ">
@@ -12,7 +12,7 @@ const CarousalCard = ({ name, desc }: any) => {
         <div className="mt-[30px]">
           <img
             className="inline w-[80px] h-[80px] rounded-full mb-[20px]"
-            src={avatar}
+            src={image}
             alt=""
           />
         </div>

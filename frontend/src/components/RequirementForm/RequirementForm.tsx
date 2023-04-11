@@ -154,10 +154,10 @@ const RequirementForm = ({
     <div>
       <div className="p-8 text-center uppercase">Requirements</div>
       <div className="px-[200px] text-center font-light text-[14px]">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
-        officiis quibusdam maiores modi sint quaerat, voluptatem fuga dolorem
-        impedit possimus minus eligendi nihil. Sequi, saepe repellat ea hic eos
-        itaque.
+        Welcome to our requirements page, where you can fill out all the details
+        of your custom design project. We understand that every project is
+        unique, and that's why we've created this page to gather all the
+        information we need to provide you with the best possible service.
       </div>
       <div className="my-8 text-[#fec750] text-center uppercase font-medium text-[18px]">
         Resource Order Details
