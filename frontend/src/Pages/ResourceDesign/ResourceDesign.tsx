@@ -1,12 +1,12 @@
 import ArtCard from "components/ArtCard/ArtCard";
 import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 import ResourcesService from "Services/ResourcesService";
 import { Resource } from "Types/Resources";
 
-const ResourceDesign = () => {
+const ResourceDesign = (user: any, onLogout: () => void) => {
   const [resources, setResources] = useState<Array<Resource>>();
   const [cards, setCards] = useState<Array<Resource>>();
 
@@ -40,6 +40,13 @@ const ResourceDesign = () => {
   }, [filter1, filter2, filter3]);
 
   console.log(cards);
+  const navigate = useNavigate();
+
+  if (!user) {
+    window.location.reload();
+    navigate(routeNames.Overview);
+    return null;
+  }
 
   return (
     <div className="text-center">

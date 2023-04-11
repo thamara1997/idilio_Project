@@ -270,6 +270,18 @@ const ResourceOrderCard = (resourceOrder: any) => {
     setIsModalOpen(false);
   };
 
+  const [names, setNames] = useState<any>(null);
+  useEffect(() => {
+    FileUploadServices.getResourceOrderAttachments(resourceOrderId).then(
+      (res: any) => {
+        if (res.status == 200) {
+          setNames(res.data);
+        }
+      }
+    );
+  }, [resourceOrderId]);
+  const server = `http://localhost:8080/api/v1/upload/resourceorderfile/${resourceOrderId}`;
+
   return (
     <div className="w-[70%] mx-auto">
       {/* Resource Order Details */}
@@ -322,21 +334,56 @@ const ResourceOrderCard = (resourceOrder: any) => {
             </div>
           </div>
         </div>
-        <div>
-          <label className="mb-4 ">
-            <span className="w-full font-bold uppercase">
-              Requirement Description
-            </span>
-            <div className="w-full mt-6 font-light">
-              {resourceOrder?.resourceOrder?.reqDescription}
-            </div>
-          </label>
+        {/* this is description and files section */}
+        <div className="flex justify-between gap-[100px]">
+          <div className="w-[50%] h-[300px]">
+            <label className="mb-4 ">
+              <span className="w-full mb-4 font-bold uppercase">
+                Requirement Description
+              </span>
+              <div className="w-full mt-4 font-light bg-[#0a0a0ab8] rounded-xl p-7 border-[0.5px] h-[300px] border-[#fec75046]">
+                <div className="mt-[10px] text-[15px]">
+                  {resourceOrder?.resourceOrder?.reqDescription}
+                </div>
+              </div>
+            </label>
+          </div>
+          <div className="w-[50%] h-[300px]">
+            <label className="mb-4 ">
+              <span className="w-full font-bold uppercase">
+                Requirement Attachments
+              </span>
+              <div className="flex justify-center text-center bg-[#0a0a0ab8] rounded-xl p-6 border-[0.5px] h-[300px] mt-4 border-[#fec75046]">
+                <div className="mt-[10px] grid grid-cols-1 gap-[30px] mx-auto md:grid-cols-3">
+                  {names ? (
+                    <>
+                      {names?.map((c: any, i: number) => (
+                        <>
+                          <img
+                            src={`${server}/${c}`}
+                            alt="artwork"
+                            style={{
+                              width: "100px",
+                              height: "100px",
+                              borderRadius: "10px",
+                            }}
+                          />
+                        </>
+                      ))}
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+            </label>
+          </div>
         </div>
       </div>
 
       {/* drawing and recent work */}
       <div>
-        <span className="flex w-full justify-center mx-auto text-[#fec750]  my-8 font-bold text-center uppercase">
+        <span className="flex w-full justify-center mx-auto text-[#fec750] mt-[130px] my-8 font-bold text-center uppercase">
           Drawing And Recent Work
         </span>
 

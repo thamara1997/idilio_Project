@@ -1,6 +1,6 @@
 import SupportAdmin from "components/SupportAdmin";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 import logo from "assets/logo.png";
 import DesignerService from "Services/DesignerService";
@@ -8,8 +8,9 @@ import DesignerCard from "components/AdminDashboard/DesignerCard";
 import NewOrderServices from "Services/NewOrderServices";
 import NewOrderAcceptCard from "components/OrderCard/NewOrderAcceptCard";
 
-const AdminDashBoard = () => {
+const AdminDashBoard = (user: any, onLogout: () => void) => {
   const [designers, setDesigners] = useState<any>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     DesignerService.getDesignersByApprove(0).then((res: any) => {
@@ -48,6 +49,11 @@ const AdminDashBoard = () => {
       }
     });
   }, [1]);
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
 
   return (
     <div>

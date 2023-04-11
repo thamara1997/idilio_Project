@@ -11,8 +11,9 @@ import { useForm } from "react-hook-form";
 import DesignerService from "Services/DesignerService";
 import FileUploadServices from "Services/FileUploadServices";
 import { toast } from "react-toastify";
+import { routeNames } from "routes/route";
 
-const JoinUs = () => {
+const JoinUs = (user: any) => {
   const [loggedUser, setLoggedUser] = useState<any>(null);
 
   useEffect(() => {
@@ -85,6 +86,14 @@ const JoinUs = () => {
       console.log("Application Not Submitted");
     }
   };
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
+
   return (
     <div className="text-center ">
       <div>

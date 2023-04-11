@@ -3,6 +3,7 @@ import React from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { MdDownloadDone, MdOutlineVerifiedUser } from "react-icons/md";
 import { toast } from "react-toastify";
+import LinkedIn from "assets/Linkedin.png";
 
 const DesignerCard = ({ designerId, type, approved, designer }: any) => {
   console.log(designer);
@@ -39,11 +40,17 @@ const DesignerCard = ({ designerId, type, approved, designer }: any) => {
           <div className="absolute uppercase top-1 left-[55px]">
             Designer Id : {designerId}
           </div>
+
+          <div className="absolute uppercase top-1 right-[100px] h-[30px] w-[30px]">
+            <a href={designer?.linkedinURL} target="_blank">
+              <img src={LinkedIn} alt="" />
+            </a>
+          </div>
           <button
             className="absolute uppercase top-1 right-5 text-[#fec750] btn2"
             onClick={handleAcceptOrder}
           >
-            {approved == 0 ? (
+            {approved === 0 ? (
               <>
                 <AiOutlineUserAdd />
               </>

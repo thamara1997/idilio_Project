@@ -6,7 +6,7 @@ import CarousalCard from "components/CarouselCard/CarousalCard";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
 import community from "assets/community.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
 
 const Overview = () => {

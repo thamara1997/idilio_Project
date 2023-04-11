@@ -201,4 +201,16 @@ public class FileController {
         return fileStorageService.getMultipleFiles(fileDir);
     }
 
+    @GetMapping("/neworderfile/{newOrderId}/{fileName}")
+    public ResponseEntity<Resource> getNewOrderFile(@PathVariable int newOrderId,@PathVariable String fileName, HttpServletRequest request){
+        String fileDir="NewOrderAttachments/"+Integer.toString(newOrderId);
+        return LoadFile(fileName,fileDir,request);
+    }
+
+    @GetMapping("/resourceorderfile/{resourceOrderId}/{fileName}")
+    public ResponseEntity<Resource> getResourceOrderFile(@PathVariable int resourceOrderId,@PathVariable String fileName, HttpServletRequest request){
+        String fileDir="ResourceOrderAttachments/"+Integer.toString(resourceOrderId);
+        return LoadFile(fileName,fileDir,request);
+    }
+
 }

@@ -17,12 +17,6 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // const onSubmit = (data: any) => {
-  //   // Save the signature data
-  //   setSignatureData(sigPad.current?.toDataURL() ?? "");
-  //   console.log(signatureData);
-  //   console.log(data);
-  // };
 
   const [loggedUser, setLoggedUser] = useState<any>(null);
 
@@ -37,6 +31,16 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
   }, []);
 
   const navigate = useNavigate();
+
+  const [files1, setFiles1] = useState<File[]>([]);
+
+  const handleFileChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+    if (selectedFiles) {
+      const filesArray = Array.from(selectedFiles);
+      setFiles1(filesArray);
+    }
+  };
 
   const onSubmit = async (data: any) => {
     const newOrderData: any = {
@@ -79,13 +83,36 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
         console.log("No Drawing");
       }
 
+      console.log(files1);
+
+      if (files1.length > 0) {
+        const formData2 = new FormData();
+        files1.forEach((file) => {
+          formData2.append("file", file);
+        });
+
+        const uploadResult = await FileUploadServices.uploadNewOrderAttachments(
+          result.data.data.newOrderId,
+          formData2
+        );
+
+        if (uploadResult.status === 200) {
+          console.log(uploadResult);
+          toast.success("Successfully Uploaded");
+        } else {
+          toast.error("Attachments Not Uploaded");
+        }
+      } else {
+        toast.error("No Attachments");
+      }
+
       toast.success("Order Placed");
       // Navigate to progress page
-      setTimeout(() => {
-        navigate(
-          routeNames.ProgressNew.replace(":id", result.data.data.newOrderId)
-        );
-      }, 500);
+      // setTimeout(() => {
+      //   navigate(
+      //     routeNames.ProgressNew.replace(":id", result.data.data.newOrderId)
+      //   );
+      // }, 500);
     } else {
       console.log("New Order Not Added");
     }
@@ -95,7 +122,7 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
     console.log(signatureData);
   }, [signatureData]);
 
-  function clear(e: any) {
+  function clear(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     sigPad.current?.clear();
   }
@@ -201,6 +228,8 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
               {...register("attachments")}
               type="file"
               className="flex w-[80%] text-[14px] bg-[#272727] file-input file-input-bordered"
+              onChange={handleFileChange1}
+              multiple
             />
           </label>
           {/* <Link to={routeNames.Progress.replace(":id", id)}> */}

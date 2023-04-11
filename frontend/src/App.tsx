@@ -62,7 +62,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <JoinUs />
+                <JoinUs user={user} />
                 <Footer />
               </>
             }
@@ -72,7 +72,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <NewDesign />
+                <NewDesign user={user} />
                 <Footer />
               </>
             }
@@ -82,7 +82,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <ResourceDesign />
+                <ResourceDesign user={user} onLogout={handleLogout} />
                 <Footer />
               </>
             }
@@ -135,7 +135,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <AdminDashBoard />
+                <AdminDashBoard user={user} onLogout={handleLogout} />
 
                 <Footer />
               </>

@@ -139,16 +139,16 @@ const uploadCv = async (designerId: any, formData: any) => {
 // get new order attavhments names
 const getNewOrderAttachments = async (newOrderId: any) => {
   return http.get<any>(
-    `${process.env.REACT_APP_BACKEND_SERVER}/upload/neworderfiles/${newOrderId}`
+    `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/neworderfiles/${newOrderId}`
   );
 };
 
-// upload service logo
+// upload new order attachments
 const uploadNewOrderAttachments = async (newOrderId: any, formData: any) => {
   //console.log(data);
   const response = await axios({
     method: "post",
-    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadneworderfiles/${newOrderId}`,
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadneworderfiles/${newOrderId}`,
     data: formData,
     headers: {},
   });
@@ -158,11 +158,11 @@ const uploadNewOrderAttachments = async (newOrderId: any, formData: any) => {
 // get new order attavhments names
 const getResourceOrderAttachments = async (resourceOrderId: any) => {
   return http.get<any>(
-    `${process.env.REACT_APP_BACKEND_SERVER}/upload/resourceorderfiles/${resourceOrderId}`
+    `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/resourceorderfiles/${resourceOrderId}`
   );
 };
 
-// upload service logo
+// upload resource order attachments
 const uploadResourceOrderAttachments = async (
   resourceOrderId: any,
   formData: any
@@ -170,7 +170,7 @@ const uploadResourceOrderAttachments = async (
   //console.log(data);
   const response = await axios({
     method: "post",
-    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadresourceorderfiles/${resourceOrderId}`,
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceorderfiles/${resourceOrderId}`,
     data: formData,
     headers: {},
   });

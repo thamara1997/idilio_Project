@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryCard from "components/CategoryCard/CategoryCard";
 import { routeNames } from "routes/route";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
 import AlbumCoverImg from "assets/AlbumCover.jpg";
 import PodcastCoverImg from "assets/PodcastCover.jpg";
@@ -17,7 +17,7 @@ import Flyer from "components/Packges/Flyer/Flyer";
 import Mascotlogo from "components/Packges/MascotLogo/Mascotlogo";
 import CompanyLogo from "components/Packges/CompanyLogo/CompanyLogo";
 
-const NewDesign = () => {
+const NewDesign = (user: any) => {
   const handleClickScroll = () => {
     const element = document.getElementById("section1");
     if (element) {
@@ -58,6 +58,12 @@ const NewDesign = () => {
       link: `/newdesign${routeNames.Companylogo}`,
     },
   ];
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
   return (
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>
