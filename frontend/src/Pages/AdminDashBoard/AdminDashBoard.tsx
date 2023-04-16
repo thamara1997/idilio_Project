@@ -89,7 +89,7 @@ const AdminDashBoard = ({ user, onLogout }: any) => {
         <div>
           <h1 className="mt-8 text-center uppercase text-[18px]">New Orders</h1>
         </div>
-        <div>
+        <div className="w-[80%] mx-auto">
           {newOrdersToAccept.map((t: any, i: number) => (
             <div id="item1" key={i}>
               {t.progressId < 3 ? (

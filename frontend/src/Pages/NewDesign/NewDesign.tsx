@@ -17,7 +17,7 @@ import Flyer from "components/Packges/Flyer/Flyer";
 import Mascotlogo from "components/Packges/MascotLogo/Mascotlogo";
 import CompanyLogo from "components/Packges/CompanyLogo/CompanyLogo";
 
-const NewDesign = ({ user, onLogout }: any) => {
+const NewDesign = () => {
   const handleClickScroll = () => {
     const element = document.getElementById("section1");
     if (element) {
@@ -58,12 +58,6 @@ const NewDesign = ({ user, onLogout }: any) => {
       link: `/newdesign${routeNames.Companylogo}`,
     },
   ];
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate(routeNames.Overview);
-    return null;
-  }
   return (
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>

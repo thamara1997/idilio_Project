@@ -173,10 +173,10 @@ const Login = () => {
 
               <div className="flex text-center font-light text-[12px] mt-[50px]">
                 <h6>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Necessitatibus saepe aspernatur vero, assumenda reprehenderit
-                  ea quis facilis mollitia quo nisi at neque ipsum dolor eos
-                  enim quibusdam obcaecati, temporibus nostrum.
+                  Welcome to the IDILIO login page. If you are already a member,
+                  simply enter your email address and password to access your
+                  account. If you are a new user, you can create an account by
+                  clicking on the "Register" button.
                 </h6>
               </div>
             </form>

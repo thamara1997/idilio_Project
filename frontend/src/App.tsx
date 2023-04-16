@@ -72,7 +72,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <NewDesign user={user} onLogout={handleLogout} />
+                <NewDesign />
                 <Footer />
               </>
             }

@@ -52,10 +52,11 @@ const ResourceDesign = (user: any, onLogout: () => void) => {
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>
       <p className="font-light text-[15px] px-[200px] mt-[30px] mb-[40px]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure harum quas
-        aliquam perspiciatis eius a? Quia quaerat, necessitatibus dolores magnam
-        fugit perspiciatis, illum error accusamus, natus repudiandae omnis
-        fugiat iure!
+        The resource design page is where you can find previously created
+        designs that you can customize to your liking. With an advanced search
+        feature, you can easily browse through different categories to find the
+        perfect design that matches your needs. Plus, you can view reviews from
+        other clients to get an idea of the quality of our work.
       </p>
       <div className="flex w-[70%] justify-around h-[3rem] mx-auto gap-[20px] content-center align-middle">
         <div className="relative">
