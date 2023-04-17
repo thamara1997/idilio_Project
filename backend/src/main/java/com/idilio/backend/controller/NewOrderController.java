@@ -24,7 +24,7 @@ public class NewOrderController {
     @Autowired
     private NewOrderRepo newOrderRepo;
 
-    @GetMapping("/getallneworders")
+    @GetMapping("/get/getallneworders")
     public ResponseEntity<?> getAllNewOrders(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<NewOrderFullDTO> newOrderList = newOrderService.getAllNewOrders();
@@ -75,7 +75,7 @@ public class NewOrderController {
         }
     }
 
-    @GetMapping("/getneworderbyid/{newOrderId}")
+    @GetMapping("/get/getneworderbyid/{newOrderId}")
     public ResponseEntity<?> getNewOrderById(@PathVariable int newOrderId){
         Map<String, Object> map = new LinkedHashMap<>();
         NewOrderDTO newOrderDTO = newOrderService.getNewOrderById(newOrderId);
@@ -92,7 +92,7 @@ public class NewOrderController {
         }
     }
 
-    @GetMapping("/getneworderbyuserid/{userId}")
+    @GetMapping("/get/getneworderbyuserid/{userId}")
     public ResponseEntity<?> getNewOrderByUserId(@PathVariable Integer userId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         List<NewOrderFullDTO> newOrderList = newOrderService.getNewOrdersByUserId(userId);
@@ -109,7 +109,7 @@ public class NewOrderController {
         }
     }
 
-    @GetMapping("/getneworderbydesignerid/{designerId}")
+    @GetMapping("/get/getneworderbydesignerid/{designerId}")
     public ResponseEntity<?> getNewOrderByDesignerId(@PathVariable Integer designerId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         List<NewOrderFullDTO> newOrderList = newOrderService.getNewOrdersByDesignerId(designerId);

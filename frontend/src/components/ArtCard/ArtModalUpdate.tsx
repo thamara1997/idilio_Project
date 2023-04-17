@@ -48,6 +48,16 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
   designerId,
   details,
 }) => {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   console.log(details);
   const {
     register,
@@ -91,7 +101,10 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
       designerId: details2?.designerId,
     };
     // console.log(updatedResource);
-    const result = await ResourcesService.UpdateResource(updatedResource);
+    const result = await ResourcesService.UpdateResource(
+      updatedResource,
+      token
+    );
     console.log(result.data);
     setFormSubmitted(true);
     toast.success("Update Successful");
@@ -104,7 +117,7 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
       let formData = new FormData();
       formData.append("file", file);
 
-      FileUploadServices.uploadResourceArt(details.resourceId, formData);
+      FileUploadServices.uploadResourceArt(details.resourceId, formData, token);
       setFormSubmitted(false);
       setTimeout(() => {
         window.location.reload();
@@ -117,13 +130,15 @@ const ArtModalUpdate: React.FC<ModalProps> = ({
   const handleDeleteClick = (data: any) => {
     // TODO: Implement save functionality
     if (details2?.resourceId) {
-      ResourcesService.deleteResource(details2?.resourceId).then((res: any) => {
-        if (res.data.status === 1) {
-          window.location.reload();
-        } else {
-          toast.error(res.data.message);
+      ResourcesService.deleteResource(details2?.resourceId, token).then(
+        (res: any) => {
+          if (res.data.status === 1) {
+            window.location.reload();
+          } else {
+            toast.error(res.data.message);
+          }
         }
-      });
+      );
     }
   };
 

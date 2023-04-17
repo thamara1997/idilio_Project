@@ -24,6 +24,16 @@ const RequirementForm = ({
   const sigPad = useRef<SignaturePad>(null);
   const [signatureData, setSignatureData] = useState<string>("");
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -56,7 +66,8 @@ const RequirementForm = ({
     console.log(resourceOrderData);
 
     const result = await ResourceOrderService.addResourceOrder(
-      resourceOrderData
+      resourceOrderData,
+      token
     );
 
     if (result.data.status === 1) {
@@ -66,7 +77,10 @@ const RequirementForm = ({
         userId: user?.userId,
       };
 
-      const result2 = await UsersOrdersServices.addUsersOrders(UsersOrdersData);
+      const result2 = await UsersOrdersServices.addUsersOrders(
+        UsersOrdersData,
+        token
+      );
       console.log(result2);
 
       // Upload drawing for relevant ID
@@ -85,7 +99,8 @@ const RequirementForm = ({
 
         FileUploadServices.uploadResourceOrderDrawing(
           result.data.data.resourceOrderId,
-          formData
+          formData,
+          token
         );
       } else {
         console.log("No Drawing");
@@ -102,7 +117,8 @@ const RequirementForm = ({
         const uploadResult =
           await FileUploadServices.uploadResourceOrderAttachments(
             result.data.data.resourceOrderId,
-            formData2
+            formData2,
+            token
           );
 
         if (uploadResult.status === 200) {

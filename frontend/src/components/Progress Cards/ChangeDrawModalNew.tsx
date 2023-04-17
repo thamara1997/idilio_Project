@@ -42,6 +42,16 @@ const ChangeDrawModal: React.FC<ModalProps> = ({
   secondaryButtonText = "Cancel",
   newOrderId,
 }) => {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const { register, handleSubmit } = useForm<FormData>();
 
   // console.log(designUser);
@@ -63,7 +73,7 @@ const ChangeDrawModal: React.FC<ModalProps> = ({
       let formData = new FormData();
       formData.append("file", file);
 
-      FileUploadServices.uploadNewOrderDrawing(newOrderId, formData);
+      FileUploadServices.uploadNewOrderDrawing(newOrderId, formData, token);
       toast.success("Drawing Changed");
     } else {
       console.log("No Drawing");

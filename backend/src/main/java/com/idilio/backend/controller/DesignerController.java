@@ -20,7 +20,7 @@ public class DesignerController {
     @Autowired
     private DesignerService designerService;
 
-    @GetMapping("/getalldesigners")
+    @GetMapping("/get/getalldesigners")
     public ResponseEntity<?> getAllDesigners(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<DesignerDTO> designerList = designerService.getAllLDesigner();
@@ -37,7 +37,7 @@ public class DesignerController {
         }
     }
 
-    @GetMapping("/getdesignerbyid/{designerId}")
+    @GetMapping("/get/getdesignerbyid/{designerId}")
     public ResponseEntity<?> getDesignerById(@PathVariable int designerId){
         Map<String, Object> map = new LinkedHashMap<>();
         DesignerDTO designerDTO = designerService.getDesignerById(designerId);
@@ -71,7 +71,7 @@ public class DesignerController {
         }
     }
 
-    @GetMapping("/getdesignerbyapproved/{approved}")
+    @GetMapping("/get/getdesignerbyapproved/{approved}")
     public ResponseEntity<?> getDesignerByApprove(@PathVariable int approved) throws NullPointerException{
         // re
         Map<String, Object> map = new LinkedHashMap<>();
@@ -89,7 +89,7 @@ public class DesignerController {
         }
     }
 
-    @GetMapping("/getdesignersbyapproved/{approved}")
+    @GetMapping("/get/getdesignersbyapproved/{approved}")
     public ResponseEntity<?> getDesignersByApproved(@PathVariable int approved) throws NullPointerException{
         // re
         Map<String, Object> map = new LinkedHashMap<>();

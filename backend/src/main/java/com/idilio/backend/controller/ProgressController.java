@@ -20,7 +20,7 @@ public class ProgressController {
     @Autowired
     private ProgressService progressService;
 
-    @GetMapping("/getallprogress")
+    @GetMapping("/get/getallprogress")
     public ResponseEntity<?> getAllProgress(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<ProgressDTO> progressList = progressService.getAllProgress();
@@ -71,7 +71,7 @@ public class ProgressController {
         }
     }
 
-    @GetMapping("/getprogressbyid/{progressId}")
+    @GetMapping("/get/getprogressbyid/{progressId}")
     public ResponseEntity<?> getProgressById(@PathVariable int progressId){
         Map<String, Object> map = new LinkedHashMap<>();
         ProgressDTO progressDTO = progressService.getProgressById(progressId);

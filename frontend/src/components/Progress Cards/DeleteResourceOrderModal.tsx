@@ -1,7 +1,7 @@
 import NewOrderServices from "Services/NewOrderServices";
 import ResourceOrderService from "Services/ResourceOrderService";
 import UsersOrdersServices from "Services/UsersOrdersServices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -50,6 +50,15 @@ const MyModal: React.FC<ModalProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
 
   const handleSaveButtonClick = (data: any) => {
     // TODO: Implement save functionality
@@ -58,18 +67,19 @@ const MyModal: React.FC<ModalProps> = ({
       UsersOrdersServices.deleteUsersOrders(resourceOrderId).then(
         (res: any) => {
           if (res.data.status == 1) {
-            ResourceOrderService.deleteResourceOrder(resourceOrderId).then(
-              (res2: any) => {
-                if (res2.data.status == 1) {
-                  toast.success("Delete Successful");
-                  navigate(routeNames.Profile);
-                  navigate(0);
-                  return;
-                } else {
-                  toast.error(res2.data.message);
-                }
+            ResourceOrderService.deleteResourceOrder(
+              resourceOrderId,
+              token
+            ).then((res2: any) => {
+              if (res2.data.status == 1) {
+                toast.success("Delete Successful");
+                navigate(routeNames.Profile);
+                navigate(0);
+                return;
+              } else {
+                toast.error(res2.data.message);
               }
-            );
+            });
           } else {
             toast.error(res.data.message);
           }

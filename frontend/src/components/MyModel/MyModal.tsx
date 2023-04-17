@@ -1,5 +1,5 @@
 import UserService from "Services/UserService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 
@@ -45,11 +45,21 @@ const MyModal: React.FC<ModalProps> = ({
     setInputValue(e.target.value);
   };
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const handleSaveButtonClick = (data: any) => {
     // TODO: Implement save functionality
     if (inputValue === userName) {
       console.log("input value:", inputValue);
-      UserService.deleteUser(userId).then((res: any) => {
+      UserService.deleteUser(userId, token).then((res: any) => {
         if (res.data.status == 1) {
           window.location.reload();
           localStorage.removeItem("loggedUser");

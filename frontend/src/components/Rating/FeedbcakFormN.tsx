@@ -30,6 +30,16 @@ const FeedbackFormN: React.FC<FeedbackFormNProps> = ({
     setFormReview(event.target.value);
   };
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
 
@@ -69,7 +79,7 @@ const FeedbackFormN: React.FC<FeedbackFormNProps> = ({
       userId: newOrder?.newOrder.userId,
     };
     console.log(nOrder);
-    const result = await NewOrderServices.UpdateNewOrder(nOrder);
+    const result = await NewOrderServices.UpdateNewOrder(nOrder, token);
     if (result.data.status === 1) {
       console.log(result.data);
       toast.success("Drawing Changed");

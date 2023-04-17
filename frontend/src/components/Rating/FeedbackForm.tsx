@@ -30,6 +30,16 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
     setFormReview(event.target.value);
   };
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
   //   console.log(`Rating: ${formRating}, Review: ${formReview}`);
@@ -66,7 +76,10 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
       progressId: resourceOrder?.resourceOrder.progressId,
       paymentId: resourceOrder?.resourceOrder.resourceOrderId,
     };
-    const result = await ResourceOrderService.UpdateResourceOrder(resOrder);
+    const result = await ResourceOrderService.UpdateResourceOrder(
+      resOrder,
+      token
+    );
     if (result.data.status === 1) {
       console.log(result.data);
       toast.success("Drawing Changed");

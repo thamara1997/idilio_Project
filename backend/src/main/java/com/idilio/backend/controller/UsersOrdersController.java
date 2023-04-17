@@ -23,7 +23,7 @@ public class UsersOrdersController {
     @Autowired
     private UsersOrdersRepo usersOrdersRepo;
 
-    @GetMapping("/getallusersorders")
+    @GetMapping("/get/getallusersorders")
     public ResponseEntity<?> getAllUsersOrders(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<UsersOrdersDTO> usersOrdersList = usersOrdersService.getAllUsersOrders();
@@ -74,7 +74,7 @@ public class UsersOrdersController {
         }
     }
 
-    @GetMapping("/getusersordersbyid/{usersOrdersId}")
+    @GetMapping("/get/getusersordersbyid/{usersOrdersId}")
     public ResponseEntity<?> getUsersOrdersById(@PathVariable int usersOrdersId){
         Map<String, Object> map = new LinkedHashMap<>();
         UsersOrdersDTO usersOrdersDTO = usersOrdersService.getUsersOrdersById(usersOrdersId);
@@ -91,7 +91,7 @@ public class UsersOrdersController {
         }
     }
 
-    @GetMapping("/getordersbyuserid/{userId}")
+    @GetMapping("/get/getordersbyuserid/{userId}")
     public ResponseEntity<?> getOrdersByUserId(@PathVariable int userId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         List<UsersOrdersDTO> orderslist = usersOrdersService.getOrdersByUserId(userId);
@@ -108,7 +108,7 @@ public class UsersOrdersController {
         }
     }
 
-    @GetMapping("/getusersordersbyresourceorderid/{resourceOrderId}")
+    @GetMapping("/get/getusersordersbyresourceorderid/{resourceOrderId}")
     public ResponseEntity<?> getUsersOrdersByResourceOrderId(@PathVariable int resourceOrderId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         UsersOrdersDTO uo = usersOrdersService.getUsersOrdersByResourceOrderId(resourceOrderId);

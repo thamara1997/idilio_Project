@@ -45,6 +45,16 @@ const PaymentModal2: React.FC<ModalProps> = ({
   amount,
   newOrder,
 }) => {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const handleSaveButtonClick = async (data: any) => {
     const resOrder: any = {
       newOrderId: newOrder?.newOrder.newOrderId,
@@ -59,7 +69,7 @@ const PaymentModal2: React.FC<ModalProps> = ({
       progressId: newOrder?.newOrder.progressId + 1,
       userId: newOrder?.newOrder.userId,
     };
-    const result = await NewOrderServices.UpdateNewOrder(resOrder);
+    const result = await NewOrderServices.UpdateNewOrder(resOrder, token);
     if (result.data.status === 1) {
       const payment2: any = {
         amount: amount,
@@ -68,7 +78,7 @@ const PaymentModal2: React.FC<ModalProps> = ({
       };
       console.log(payment2);
       if (payment2) {
-        const result2 = await PaymentService.addPayment2(payment2);
+        const result2 = await PaymentService.addPayment2(payment2, token);
         toast.success("Payment Successful");
         setTimeout(() => {
           window.location.reload();

@@ -13,7 +13,7 @@ import FileUploadServices from "Services/FileUploadServices";
 import { toast } from "react-toastify";
 import { routeNames } from "routes/route";
 
-const JoinUs = ({ user, onLogout }: any) => {
+const JoinUs = ({ user, onLogout, token }: any) => {
   const [loggedUser, setLoggedUser] = useState<any>(null);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const JoinUs = ({ user, onLogout }: any) => {
 
     console.log(designerData);
 
-    const result = await DesignerService.addDesigner(designerData);
+    const result = await DesignerService.addDesigner(designerData, token);
 
     if (result.data.status === 1) {
       toast.success("Successful");

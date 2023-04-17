@@ -4,11 +4,11 @@ import http from "utils/http-common";
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
 const getAllPackages = async () => {
-  return http.get<any>(`/api/v1/package/getallpackages`);
+  return http.get<any>(`/api/v1/package/get/getallpackages`);
 };
 
 const getPackageById = async (id: any) => {
-  return http.get<any>(`/api/v1/package/getpackagebyid/${id}`);
+  return http.get<any>(`/api/v1/package/get/getpackagebyid/${id}`);
 };
 
 const PackageService = {

@@ -18,6 +18,16 @@ import PaymentModal from "./PaymentModal";
 import { toast } from "react-toastify";
 
 const ResourceOrderCard = (resourceOrder: any) => {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   console.log(resourceOrder);
   const [resources, setResources] = useState<any>();
 
@@ -188,7 +198,10 @@ const ResourceOrderCard = (resourceOrder: any) => {
       progressId: resourceOrder?.resourceOrder.progressId + 1,
       paymentId: resourceOrder?.resourceOrder.resourceOrderId,
     };
-    const result = await ResourceOrderService.UpdateResourceOrder(resOrder);
+    const result = await ResourceOrderService.UpdateResourceOrder(
+      resOrder,
+      token
+    );
     if (result.data.status === 1) {
       console.log(result.data);
       window.location.reload();
@@ -233,7 +246,11 @@ const ResourceOrderCard = (resourceOrder: any) => {
       let formData = new FormData();
       formData.append("file", file);
 
-      FileUploadServices.uploadResourceOrderWork(resourceOrderId, formData);
+      FileUploadServices.uploadResourceOrderWork(
+        resourceOrderId,
+        formData,
+        token
+      );
 
       toast.success("Recent Art Added");
       setTimeout(() => {

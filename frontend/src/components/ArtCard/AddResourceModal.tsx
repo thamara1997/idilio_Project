@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "react-avatar-edit";
 import { useForm } from "react-hook-form";
 import { RiImageAddLine } from "react-icons/ri";
@@ -46,6 +46,15 @@ const AddResourceModal: React.FC<ModalProps> = ({
   secondaryButtonText = "Cancel",
   designerId,
 }) => {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
   //   console.log(designerId);
   const {
     register,
@@ -60,7 +69,10 @@ const AddResourceModal: React.FC<ModalProps> = ({
 
   const handleNextButtonClick = async (data: any) => {
     const formDataWithDesignerId = { ...data, designerId };
-    const result = await ResourcesService.addResource(formDataWithDesignerId);
+    const result = await ResourcesService.addResource(
+      formDataWithDesignerId,
+      token
+    );
     console.log(result);
     setFormSubmitted(true);
     if (result.data.status === 1) {
@@ -87,7 +99,11 @@ const AddResourceModal: React.FC<ModalProps> = ({
       formData.append("file", file);
 
       console.log(resource);
-      FileUploadServices.uploadResourceArt(resource?.resourceId, formData);
+      FileUploadServices.uploadResourceArt(
+        resource?.resourceId,
+        formData,
+        token
+      );
       setTimeout(() => {
         window.location.reload();
       }, 500);

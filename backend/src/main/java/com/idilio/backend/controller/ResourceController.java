@@ -23,7 +23,7 @@ public class ResourceController {
     @Autowired
     private ResourcesRepo resourcesRepo;
 
-    @GetMapping("/getallresources")
+    @GetMapping("/get/getallresources")
     public ResponseEntity<?> getAllResources(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<ResourcesDTO> resourcesList = resourceService.getAllResources();
@@ -40,7 +40,7 @@ public class ResourceController {
         }
     }
 
-    @GetMapping("/getresourcesbydesignerid/{designerId}")
+    @GetMapping("/get/getresourcesbydesignerid/{designerId}")
     public ResponseEntity<?> getResourcesByDesignerId(@PathVariable Integer designerId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         List<ResourcesDTO> resourcesList = resourceService.getResourcesByDesignerId(designerId);
@@ -91,7 +91,7 @@ public class ResourceController {
         }
     }
 
-    @GetMapping("/getresourcebyid/{resourceId}")
+    @GetMapping("/get/getresourcebyid/{resourceId}")
     public ResponseEntity<?> getDesignerById(@PathVariable int resourceId){
         Map<String, Object> map = new LinkedHashMap<>();
         ResourcesDTO resourcesDTO = resourceService.getResourceById(resourceId);

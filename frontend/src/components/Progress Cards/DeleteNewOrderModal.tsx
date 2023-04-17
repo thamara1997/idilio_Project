@@ -1,5 +1,5 @@
 import NewOrderServices from "Services/NewOrderServices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -48,12 +48,21 @@ const MyModal: React.FC<ModalProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
 
   const handleSaveButtonClick = (data: any) => {
     // TODO: Implement save functionality
     if (inputValue === projectName) {
       console.log("input value:", inputValue);
-      NewOrderServices.deleteNewOrder(newOrderId).then((res: any) => {
+      NewOrderServices.deleteNewOrder(newOrderId, token).then((res: any) => {
         if (res.data.status == 1) {
           toast.success("Delete Successful");
           navigate(routeNames.Profile);

@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getallusers")
+    @GetMapping("/get/getallusers")
     public ResponseEntity<?> getAllUsers(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<UserDTO> userList = userService.getAllUsers();
@@ -54,7 +54,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getuserbyid/{userid}")
+    @GetMapping("/get/getuserbyid/{userid}")
     public ResponseEntity<?> getUserById(@PathVariable int userid){
         Map<String , Object> map = new LinkedHashMap<String, Object>();
         UserDTO user = userService.getUserById(userid);

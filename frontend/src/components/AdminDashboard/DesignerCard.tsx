@@ -1,5 +1,5 @@
 import DesignerService from "Services/DesignerService";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { MdDownloadDone, MdOutlineVerifiedUser } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -7,6 +7,17 @@ import LinkedIn from "assets/Linkedin.png";
 
 const DesignerCard = ({ designerId, type, approved, designer }: any) => {
   console.log(designer);
+
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const handleAcceptOrder = async (data: any) => {
     const designerData: any = {
       designerId: designer?.designerId,
@@ -20,7 +31,7 @@ const DesignerCard = ({ designerId, type, approved, designer }: any) => {
       userId: designer?.userId,
     };
     console.log(designerData);
-    const result = await DesignerService.UpdateDesigner(designerData);
+    const result = await DesignerService.UpdateDesigner(designerData, token);
     if (result.data.status === 1) {
       console.log(result.data);
       toast.success("Designer Added");

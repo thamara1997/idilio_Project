@@ -17,11 +17,13 @@ import DesignerService from "Services/DesignerService";
 interface ProfileUpdateProps {
   user: any;
   onLogout: () => void;
+  token: any;
 }
 
 const ProfileSetup: React.FC<ProfileUpdateProps> = ({
   user,
   onLogout,
+  token,
 }: any) => {
   const { register, handleSubmit } = useForm({
     mode: "all",
@@ -67,7 +69,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
       let formData = new FormData();
       formData.append("file", file);
 
-      FileUploadServices.uploadProfilePicture(iid, formData);
+      FileUploadServices.uploadProfilePicture(iid, formData, token);
       toast.success("Update Successful");
       setTimeout(() => {
         window.location.reload();
@@ -99,7 +101,7 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
     };
     console.log(updatedUser);
 
-    const result = await UserService.Update(updatedUser);
+    const result = await UserService.Update(updatedUser, token);
     if (result.data.status === 1) {
       if (result.data.data?.designer) {
         const updatedDesigner: any = {
@@ -114,7 +116,10 @@ const ProfileSetup: React.FC<ProfileUpdateProps> = ({
           userId: user?.designer.userId,
         };
         console.log(updatedDesigner);
-        const result2 = await DesignerService.UpdateDesigner(updatedDesigner);
+        const result2 = await DesignerService.UpdateDesigner(
+          updatedDesigner,
+          token
+        );
         const newUser = await UserService.getUserByUserId(user.userId);
         if (newUser) {
           localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));

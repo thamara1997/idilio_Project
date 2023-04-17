@@ -19,7 +19,7 @@ public class Payment2Controller {
     @Autowired
     private Payment2Service payment2Service;
 
-    @GetMapping("/getallpayments2")
+    @GetMapping("/get/getallpayments2")
     public ResponseEntity<?> getAllPayments2(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<Payment2DTO> paymentList = payment2Service.getAllPayments2();
@@ -53,7 +53,7 @@ public class Payment2Controller {
         }
     }
 
-    @GetMapping("/getpayment2byid/{payment2Id}")
+    @GetMapping("/get/getpayment2byid/{payment2Id}")
     public ResponseEntity<?> getPayment2ById(@PathVariable int payment2Id){
         Map<String, Object> map = new LinkedHashMap<>();
         Payment2DTO paymentDTO = payment2Service.getPayment2ById(payment2Id);

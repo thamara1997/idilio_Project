@@ -4,25 +4,32 @@ import http from "utils/http-common";
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
 const getDesignerById = async (id: Number) => {
-  return http.get<any>(`/api/v1/designer/getdesignerbyid/${id}`);
+  return http.get<any>(`/api/v1/designer/get/getdesignerbyid/${id}`);
 };
 
 const getDesignersByApprove = async (approved: any) => {
-  return http.get<any>(`/api/v1/designer/getdesignerbyapproved/${approved}`);
+  return http.get<any>(
+    `/api/v1/designer/get/getdesignerbyapproved/${approved}`
+  );
 };
 
 const getDesignersByApproved = async (approved: any) => {
-  return http.get<any>(`/api/v1/designer/getdesignersbyapproved/${approved}`);
+  return http.get<any>(
+    `/api/v1/designer/get/getdesignersbyapproved/${approved}`
+  );
 };
 
 //updateuser
-const UpdateDesigner = async (data: any) => {
+const UpdateDesigner = async (data: any, token: any) => {
   try {
     const response = await axios({
       method: "put",
       url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/designer/updatedesigner`,
       data: data,
-      headers: { "Content-Type": "application/json; charset=utf-8" },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response;
   } catch (error) {
@@ -32,13 +39,16 @@ const UpdateDesigner = async (data: any) => {
 };
 
 //adddesigner
-const addDesigner = async (data: any) => {
+const addDesigner = async (data: any, token: any) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/designer/adddesigner`,
     data: data,
-    headers: { "Content-Type": "application/json; charset=utf-8" },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      Authorization: `Bearer ${token}`,
+    },
   });
   console.log(response);
   return response;

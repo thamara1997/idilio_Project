@@ -19,7 +19,7 @@ public class PackageController {
     @Autowired
     private PackageService packageService;
 
-    @GetMapping("/getallpackages")
+    @GetMapping("/get/getallpackages")
     public ResponseEntity<?> getAllPackages(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<PackageDTO> packageList = packageService.getAllPackages();
@@ -70,7 +70,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping("/getpackagebyid/{packageId}")
+    @GetMapping("/get/getpackagebyid/{packageId}")
     public ResponseEntity<?> getPackageById(@PathVariable int packageId){
         Map<String, Object> map = new LinkedHashMap<>();
         PackageDTO packageDTO = packageService.getPackageById(packageId);

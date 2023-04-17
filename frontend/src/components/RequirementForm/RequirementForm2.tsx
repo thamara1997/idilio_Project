@@ -30,6 +30,16 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
     }
   }, []);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const navigate = useNavigate();
 
   const [files1, setFiles1] = useState<File[]>([]);
@@ -58,7 +68,7 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
 
     console.log(newOrderData);
 
-    const result = await NewOrderServices.addNewOrder(newOrderData);
+    const result = await NewOrderServices.addNewOrder(newOrderData, token);
 
     if (result.data.status === 1) {
       // Upload drawing for relevant ID
@@ -77,7 +87,8 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
 
         FileUploadServices.uploadNewOrderDrawing(
           result.data.data.newOrderId,
-          formData
+          formData,
+          token
         );
       } else {
         console.log("No Drawing");
@@ -93,7 +104,8 @@ const RequirementForm = ({ id, name, category, Artwork }: any) => {
 
         const uploadResult = await FileUploadServices.uploadNewOrderAttachments(
           result.data.data.newOrderId,
-          formData2
+          formData2,
+          token
         );
 
         if (uploadResult.status === 200) {

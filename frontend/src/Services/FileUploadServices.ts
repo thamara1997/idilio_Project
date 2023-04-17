@@ -49,25 +49,31 @@ const getNewOrderWork = async (newOrderId: any) => {
 };
 
 // upload profile picture
-const uploadProfilePicture = async (userId: any, formData: any) => {
+const uploadProfilePicture = async (userId: any, formData: any, token: any) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadprofilepic/${userId}`,
     data: formData,
-    headers: {},
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return response;
 };
 
 // upload Resource Art
-const uploadResourceArt = async (resourceId: any, formData: any) => {
+const uploadResourceArt = async (
+  resourceId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceart/${resourceId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
@@ -75,62 +81,75 @@ const uploadResourceArt = async (resourceId: any, formData: any) => {
 // upload Resource Order Drawing
 const uploadResourceOrderDrawing = async (
   resourceOrderId: any,
-  formData: any
+  formData: any,
+  token: any
 ) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceorderdrawing/${resourceOrderId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
 
 // upload New Order Drawing
-const uploadNewOrderDrawing = async (newOrderId: any, formData: any) => {
+const uploadNewOrderDrawing = async (
+  newOrderId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadneworderdrawing/${newOrderId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
 
 // upload Resource Order Work
-const uploadResourceOrderWork = async (resourceOrderId: any, formData: any) => {
+const uploadResourceOrderWork = async (
+  resourceOrderId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceorderwork/${resourceOrderId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
 
 // upload new Order Work
-const uploadNewOrderWork = async (newOrderId: any, formData: any) => {
+const uploadNewOrderWork = async (
+  newOrderId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadneworderwork/${newOrderId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
 
 // upload CV
-const uploadCv = async (designerId: any, formData: any) => {
+const uploadCv = async (designerId: any, formData: any, token: any) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadcv/${designerId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
@@ -144,13 +163,17 @@ const getNewOrderAttachments = async (newOrderId: any) => {
 };
 
 // upload new order attachments
-const uploadNewOrderAttachments = async (newOrderId: any, formData: any) => {
+const uploadNewOrderAttachments = async (
+  newOrderId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadneworderfiles/${newOrderId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
@@ -165,14 +188,15 @@ const getResourceOrderAttachments = async (resourceOrderId: any) => {
 // upload resource order attachments
 const uploadResourceOrderAttachments = async (
   resourceOrderId: any,
-  formData: any
+  formData: any,
+  token: any
 ) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/upload/uploadresourceorderfiles/${resourceOrderId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };

@@ -23,7 +23,7 @@ public class ResourceOrderController {
     private ResourceOrderRepo resourceOrderRepo;
     private Object resourceOrderFullDTO;
 
-    @GetMapping("/getallresourceorders")
+    @GetMapping("/get/getallresourceorders")
     public ResponseEntity<?> getAllResourceOrders(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<ResourceOrderFullDTO> resourcesOrderList = resourceOrderService.getAllResourceOrders();
@@ -74,7 +74,7 @@ public class ResourceOrderController {
         }
     }
 
-    @GetMapping("/getresourceorderbyid/{resourceOrderId}")
+    @GetMapping("/get/getresourceorderbyid/{resourceOrderId}")
     public ResponseEntity<?> getResourceOrderById(@PathVariable int resourceOrderId){
         Map<String, Object> map = new LinkedHashMap<>();
         ResourceOrderFullDTO resourceOrderDTO = resourceOrderService.getResourceOrderById(resourceOrderId);
@@ -91,7 +91,7 @@ public class ResourceOrderController {
         }
     }
 
-    @GetMapping("/getresourceorderbydesignerid/{designerId}")
+    @GetMapping("/get/getresourceorderbydesignerid/{designerId}")
     public ResponseEntity<?> getResourceOrderByDesignerId(@PathVariable Integer designerId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         List<ResourceOrderFullDTO> resourceOrderList = resourceOrderService.getResourceOrderByDesignerId(designerId);
@@ -108,7 +108,7 @@ public class ResourceOrderController {
         }
     }
 
-    @GetMapping("/getresourcereviewbyresourceid/{resourceId}")
+    @GetMapping("/get/getresourcereviewbyresourceid/{resourceId}")
     public ResponseEntity<?> getResourceReviewByResourceId(@PathVariable Integer resourceId)throws NullPointerException{
         Map<String, Object> map = new LinkedHashMap<>();
         List<ResourceOrderFullDTO> resourceOrderList = resourceOrderService.getResourceReviewByResourceId(resourceId);

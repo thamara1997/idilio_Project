@@ -19,7 +19,7 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @GetMapping("/getallpayments")
+    @GetMapping("/get/getallpayments")
     public ResponseEntity<?> getAllPayments(){
         Map<String, Object> map = new LinkedHashMap<>();
         List<PaymentDTO> paymentList = paymentService.getAllPayments();
@@ -53,7 +53,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping("/getpaymentbyid/{paymentId}")
+    @GetMapping("/get/getpaymentbyid/{paymentId}")
     public ResponseEntity<?> getPaymentById(@PathVariable int paymentId){
         Map<String, Object> map = new LinkedHashMap<>();
         PaymentDTO paymentDTO = paymentService.getPaymentById(paymentId);

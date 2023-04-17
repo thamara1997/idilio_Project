@@ -37,9 +37,22 @@ function App() {
     }
   }, []);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
+  console.log(token);
+
   const handleLogout = () => {
     // Remove user details from local storage and reset state
     localStorage.removeItem("loggedUser");
+    localStorage.removeItem("token");
     setUser(null);
   };
 
@@ -62,7 +75,7 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <JoinUs user={user} onLogout={handleLogout} />
+                <JoinUs user={user} onLogout={handleLogout} token={token} />
                 <Footer />
               </>
             }
@@ -123,7 +136,11 @@ function App() {
             element={
               <>
                 <NavBar user={user} onLogout={handleLogout} />
-                <ProfileSetup user={user} onLogout={handleLogout} />
+                <ProfileSetup
+                  user={user}
+                  onLogout={handleLogout}
+                  token={token}
+                />
 
                 <Footer />
               </>

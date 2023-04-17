@@ -19,6 +19,16 @@ const NewOrderCard = (newOrder: any) => {
   const sigPad = useRef<SignaturePad>(null);
   const [signatureData, setSignatureData] = useState<string>("");
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   useEffect(() => {
     console.log(signatureData);
   }, [signatureData]);
@@ -155,7 +165,7 @@ const NewOrderCard = (newOrder: any) => {
       progressId: newOrder?.newOrder.progressId + 1,
       userId: newOrder?.newOrder.userId,
     };
-    const result = await NewOrderServices.UpdateNewOrder(nOrder);
+    const result = await NewOrderServices.UpdateNewOrder(nOrder, token);
     if (result.data.status === 1) {
       console.log(result.data);
       window.location.reload();
@@ -179,7 +189,7 @@ const NewOrderCard = (newOrder: any) => {
       progressId: newOrder?.newOrder.progressId + 1,
       userId: newOrder?.newOrder.userId,
     };
-    const result = await NewOrderServices.UpdateNewOrder(nOrder);
+    const result = await NewOrderServices.UpdateNewOrder(nOrder, token);
     if (result.data.status === 1) {
       console.log(result.data);
       window.location.reload();
@@ -214,7 +224,8 @@ const NewOrderCard = (newOrder: any) => {
 
       FileUploadServices.uploadNewOrderWork(
         newOrder?.newOrder.newOrderId,
-        formData
+        formData,
+        token
       );
       toast.success("Recent Art Added");
       setTimeout(() => {
