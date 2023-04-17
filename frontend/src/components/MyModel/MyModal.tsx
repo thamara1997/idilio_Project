@@ -63,6 +63,7 @@ const MyModal: React.FC<ModalProps> = ({
         if (res.data.status == 1) {
           window.location.reload();
           localStorage.removeItem("loggedUser");
+          localStorage.removeItem("token");
         } else {
           toast.error(res.data.message);
         }

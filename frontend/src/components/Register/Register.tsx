@@ -52,6 +52,7 @@ const Register = () => {
     if (result.data.user != null) {
       console.log(result.data.user);
 
+      localStorage.setItem("token", JSON.stringify(result.data.token));
       //redirect to login page
       localStorage.setItem(
         "loggedUser",

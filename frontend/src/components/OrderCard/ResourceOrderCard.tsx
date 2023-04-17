@@ -34,7 +34,7 @@ const ResourceOrderCard = ({ type, OrderId }: any) => {
   }, [resourceOrder.resourcesResourceId]);
   return (
     <>
-      {resourceOrder.progressId == 5 ? (
+      {resourceOrder.progressId === 5 ? (
         <></>
       ) : (
         <>

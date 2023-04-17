@@ -17,7 +17,7 @@ const EmailForm = (props) => {
       .put(
         "https://api.chatengine.io/users/",
         { username: email, email: email, secret: email },
-        { headers: { "PRIVATE-KEY": "48be471c-0ae8-4251-a5c8-476e916ecba2" } }
+        { headers: { "Private-key": `98ee3815-d4bb-485c-b86f-7825afa67cad` } }
       )
       .then((r) => callback(r.data))
       .catch((e) => console.log("Get or create user error", e));
@@ -27,10 +27,10 @@ const EmailForm = (props) => {
     axios
       .put(
         "https://api.chatengine.io/chats/",
-        { usernames: [email, "IDILIO"], is_direct_chat: true },
+        { usernames: [email, "idilioAdmin"], is_direct_chat: true },
         {
           headers: {
-            "Project-ID": "efe5f6b4-5e78-4999-99a1-0e11bde12697",
+            "Private-key": `98ee3815-d4bb-485c-b86f-7825afa67cad`,
             "User-Name": email,
             "User-Secret": email,
           },

@@ -31,10 +31,19 @@ const addUsersOrders = async (data: any, token: any) => {
 };
 
 // delete Users Orders
-const deleteUsersOrders = async (resourceOrderId: any) => {
-  return http.delete<any>(
-    `/api/v1/usersorders/deleteusersordersbyreourceid/${resourceOrderId}`
-  );
+const deleteUsersOrders = async (resourceOrderId: any, token: any) => {
+  // return http.delete<any>(
+  //   `/api/v1/usersorders/deleteusersordersbyreourceid/${resourceOrderId}`
+  // );
+  const response = await axios({
+    method: "delete",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/usersorders/deleteusersordersbyreourceid/${resourceOrderId}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
 };
 
 const UsersOrdersServices = {

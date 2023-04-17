@@ -57,7 +57,7 @@ const deleteResource = async (resourceId: any, token: any) => {
   // return http.delete<any>(`/api/v1/resources/deleteresource/${resourceId}`);
   const response = await axios({
     method: "delete",
-    url: `${process.env.REACT_APP_BACKEND_SERVER}//api/v1/resources/deleteresource/${resourceId}`,
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/api/v1/resources/deleteresource/${resourceId}`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

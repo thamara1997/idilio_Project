@@ -64,7 +64,7 @@ const MyModal: React.FC<ModalProps> = ({
     // TODO: Implement save functionality
     if (inputValue === projectName) {
       console.log("input value:", inputValue);
-      UsersOrdersServices.deleteUsersOrders(resourceOrderId).then(
+      UsersOrdersServices.deleteUsersOrders(resourceOrderId, token).then(
         (res: any) => {
           if (res.data.status == 1) {
             ResourceOrderService.deleteResourceOrder(
