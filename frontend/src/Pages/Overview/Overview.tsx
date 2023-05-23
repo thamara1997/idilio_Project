@@ -2,7 +2,7 @@ import Slider from "components/ImageSlider/Slider";
 import Projects from "assets/Projects.png";
 import Employee from "assets/Employee.png";
 import Reviews from "assets/reviews.png";
-import CarousalCard from "components/CarouselCard/CarousalCard";
+import CarousalCard from "components/carouselCard/CarousalCard";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
 import community from "assets/community.png";
