@@ -1,7 +1,13 @@
 import registering from "assets/Companylogo.jpg";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 import { routeNames } from "routes/route";
+import AuthenticationServices from "Services/AuthenticationServices";
+
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const {
@@ -12,7 +18,62 @@ const Login = () => {
     mode: "all",
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  // show password
+  const [showPw, setShowPw] = useState<boolean>(false);
+  const handleClickShowPw = () => {
+    if (showPw) {
+      setShowPw(false);
+    } else {
+      setShowPw(true);
+    }
+  };
+
+  //navigate
+  const navigate = useNavigate();
+
+  //if already has logged user
+  const logged = localStorage.getItem("loggedUser");
+  useEffect(() => {
+    if (logged) {
+      navigate(routeNames.Overview);
+    }
+  }, []);
+
+  //redirected to the overview page again
+  const onSubmit = async (data: any) => {
+    const result = await AuthenticationServices.loginRequest(data);
+
+    if (result.data.user) {
+      console.log(result.data.user);
+
+      localStorage.setItem("token", JSON.stringify(result.data.token));
+
+      localStorage.setItem(
+        "loggedUser",
+        JSON.stringify({
+          userId: result.data.user.userId,
+          firstName: result.data.user.firstName,
+          lastName: result.data.user.lastName,
+          lastLogin: result.data.user.lastLogIn,
+          country: result.data.user.country,
+          role: result.data.user.role,
+          profile: result.data.user.profile,
+          designer: result.data.user.designer,
+        })
+      );
+      toast.success("Login Successful");
+      setTimeout(() => {
+        navigate(routeNames.Overview);
+        navigate(0);
+      }, 500);
+
+      return;
+    } else {
+      // toast.error(result.data.user.message);
+      toast.error("Bad Credentials");
+      console.log("User Not Found");
+    }
+  };
 
   // console.log(errors);
   return (
@@ -74,25 +135,35 @@ const Login = () => {
                     <>{errors.email?.message}</>
                   </p>
                 </label>
-                <label>
-                  <span className="m-1 font-light">Password</span>
-                  <input
-                    type="Password"
-                    className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
-                    {...register("password", {
-                      required: "Password is Required...",
-                      pattern: {
-                        value:
-                          /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
-                        message:
-                          "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
-                      },
-                    })}
-                  />
-                  <p className="flex-col m-1 text-xs text-red-600">
-                    <>{errors.password?.message}</>
-                  </p>
-                </label>
+                <div className="flex justify-between gap-4">
+                  <label className="w-[95%]">
+                    <span className="m-1 font-light">Password</span>
+                    <input
+                      type={showPw ? "text" : "Password"}
+                      className=" h-[2.5rem] w-full rounded-xl border-[0.5px] border-[#fec7505d] bg-transparent px-4 mb-3"
+                      {...register("password", {
+                        required: "Password is Required...",
+                        pattern: {
+                          value:
+                            /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+                          message:
+                            "Password Must Contain Atleast 6 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character",
+                        },
+                      })}
+                    />
+
+                    <p className="flex-col m-1 text-xs text-red-600">
+                      <>{errors.password?.message}</>
+                    </p>
+                  </label>
+                  <h1
+                    id="clear"
+                    className="mt-10 showPw"
+                    onClick={handleClickShowPw}
+                  >
+                    {showPw ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </h1>
+                </div>
               </div>
               <div className="flex mt-[5px] content-center">
                 <input
@@ -104,10 +175,10 @@ const Login = () => {
 
               <div className="flex text-center font-light text-[12px] mt-[50px]">
                 <h6>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Necessitatibus saepe aspernatur vero, assumenda reprehenderit
-                  ea quis facilis mollitia quo nisi at neque ipsum dolor eos
-                  enim quibusdam obcaecati, temporibus nostrum.
+                  Welcome to the IDILIO login page. If you are already a member,
+                  simply enter your email address and password to access your
+                  account. If you are a new user, you can create an account by
+                  clicking on the "Register" button.
                 </h6>
               </div>
             </form>

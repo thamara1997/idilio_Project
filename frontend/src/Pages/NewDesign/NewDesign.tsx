@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryCard from "components/CategoryCard/CategoryCard";
 import { routeNames } from "routes/route";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
 import AlbumCoverImg from "assets/AlbumCover.jpg";
 import PodcastCoverImg from "assets/PodcastCover.jpg";
@@ -62,10 +62,11 @@ const NewDesign = () => {
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>
       <p className="font-light text-[15px] px-[200px] mt-[30px] mb-[40px]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure harum quas
-        aliquam perspiciatis eius a? Quia quaerat, necessitatibus dolores magnam
-        fugit perspiciatis, illum error accusamus, natus repudiandae omnis
-        fugiat iuredwd!
+        The new design page is where you can request a custom design project
+        tailored specifically to your needs. Our team of experienced graphic
+        designers will work closely with you to bring your vision to life. We
+        offer a variety of pre-defined packages and options to choose from,
+        ensuring that you get exactly what you want.
       </p>
       <div className="flex justify-center mb-[100px]">
         <div className="mt-[80px] grid grid-cols-3 gap-[60px]">

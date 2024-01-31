@@ -13,9 +13,7 @@ public class UserFullDTO {
     private String firstName;
     private String lastName;
     private String country;
-    private String fbURL;
-    private String instaURL;
-    private String linkedinURL;
+    private String profile;
     private Role role;
     private Timestamp lastLogIn;
     private int loginId;

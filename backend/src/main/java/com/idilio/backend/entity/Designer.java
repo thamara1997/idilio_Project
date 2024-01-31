@@ -27,6 +27,21 @@ public class Designer {
     @Column(name="level")
     private int level;
 
+    @Column(name = "fbURL")
+    private String fbURL;
+
+    @Column(name = "instaURL")
+    private String instaURL;
+
+    @Column(name = "linkedinURL")
+    private String linkedinURL;
+
+    @Column(name = "cv")
+    private String cv;
+
+    @Column(name = "approved")
+    private boolean approved;
+
     @JsonIgnore
     @OneToOne
     @JoinColumn(name="userId",referencedColumnName = "userId")
@@ -34,5 +49,8 @@ public class Designer {
 
     @OneToMany(mappedBy = "designer", cascade = CascadeType.REMOVE)
     private List<Resources> resources;
+
+    @OneToMany(mappedBy = "designer", cascade = CascadeType.REMOVE)
+    private List<NewOrder> newOrders;
 
 }

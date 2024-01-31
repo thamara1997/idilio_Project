@@ -1,25 +1,97 @@
 import RequirementForm from "components/RequirementForm/RequirementForm";
-import { cardDetails } from "data/data";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { routeNames } from "routes/route";
+import DesignerService from "Services/DesignerService";
+import ResourcesService from "Services/ResourcesService";
+import UserService from "Services/UserService";
 
-const Requirement = () => {
+interface RequirementProps {
+  user: any;
+  onLogout: () => void;
+}
+
+const Requirement: React.FC<RequirementProps> = ({ user, onLogout }) => {
   let { id } = useParams();
-  console.log(id);
+  //console.log(id);
 
   let iid: number = Number(id);
 
-  const details = cardDetails[iid];
-  console.log(details);
+  // const details = cardDetails[iid];
+  // console.log(details);
+
+  const [resources, setResources] = useState<any>();
+
+  useEffect(() => {
+    ResourcesService.getResourceById(iid).then((res: any) => {
+      if (res.data.status === 1) {
+        setResources(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, [iid]);
+  const designerid = resources?.designerId;
+
+  const [designers, setDesigner] = useState<any>();
+  const [designUser, setDesignUser] = useState<any>();
+
+  useEffect(() => {
+    if (id) {
+      DesignerService.getDesignerById(designerid)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setDesigner(res.data.data);
+            //console.log(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          //console.log(error);
+        });
+    }
+  }, [designerid]);
+
+  useEffect(() => {
+    if (designers?.userId) {
+      UserService.getUserByUserId(designers?.userId)
+        .then((res: any) => {
+          if (res.data.status === 1) {
+            setDesignUser(res.data.data);
+            console.log(res.data.data);
+            return;
+          } else {
+            console.log("not found");
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    }
+  }, [designers?.userId]);
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
 
   return (
     <div>
       <div id="item1" className="w-full">
         <RequirementForm
-          title={details.title}
-          name={details.name}
-          price={details.price}
-          id2={details.id}
-          category={details.Category}
+          title={resources?.title}
+          designerId={resources?.designerId}
+          amount={resources?.amount}
+          resourceId={resources?.resourceId}
+          category={resources?.category}
+          designUser={designUser}
+          user={user}
         />
       </div>
     </div>

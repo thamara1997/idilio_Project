@@ -13,6 +13,7 @@ const Album = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
       category: "Album Cover",
+      source: "No Source File",
     },
     {
       id: 2,
@@ -23,6 +24,7 @@ const Album = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
       category: "Album Cover",
+      source: "No Source File",
     },
     {
       id: 3,
@@ -33,6 +35,7 @@ const Album = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "Album Cover",
+      source: "Source File",
     },
     {
       id: 4,
@@ -43,6 +46,7 @@ const Album = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "Album Cover",
+      source: "Source File",
     },
   ];
   return (
@@ -50,10 +54,10 @@ const Album = () => {
       <div>
         <h3 className="font-bold text-[20px] mb-8">Album Cover Packages</h3>
         <h6 className="font-light text-[12px] mx-[200px]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, veniam
-          doloribus est cum recusandae assumenda dolores adipisci! Aperiam,
-          aspernatur neque officia reprehenderit numquam accusamus. Tempore
-          fugit quam commodi incidunt nulla!
+          Our user-friendly interface and notification system keep you updated
+          on the progress of your project, and our team is always available to
+          answer any questions you may have. So, if you're looking for a unique
+          and professional design, look no further than our new design page.
         </h6>
       </div>
       <div className="flex justify-center mb-[100px]">
@@ -61,14 +65,14 @@ const Album = () => {
           {packcard.map((t: any, i: number) => (
             <div id="item1" className="w-full carousel-item" key={i}>
               <PackageCard
+                id={t.id}
                 name={t.name}
                 price={t.price}
                 designCount={t.designCount}
                 revisions={t.revisions}
                 resolution={t.resolution}
                 size={t.size}
-                id={t.id}
-                other={t.other}
+                source={t.source}
               />
             </div>
           ))}

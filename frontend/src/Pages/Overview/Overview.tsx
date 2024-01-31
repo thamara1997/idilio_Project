@@ -2,7 +2,7 @@ import Slider from "components/ImageSlider/Slider";
 import Projects from "assets/Projects.png";
 import Employee from "assets/Employee.png";
 import Reviews from "assets/reviews.png";
-import CarousalCard from "components/CarouselCard/CarousalCard";
+import CarousalCard from "components/carouselCard/CarousalCard";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
 import community from "assets/community.png";
@@ -21,20 +21,28 @@ const Overview = () => {
 
   const testimonial = [
     {
-      name: "Darshana Thamara",
-      desc: "Voluptatibus architecto quos commodi explicabo, ex delectusimpedit vero necessitatibus? Saepe atque magnam veritatis doloribus alias excepturi aperiam quidem laudantium velit repellat",
+      name: "Zayla Clover",
+      desc: "I was blown away by the artwork I received from IDILIO. The designer was able to perfectly capture my vision and create something that was truly unique. I would highly recommend their services to anyone looking for high-quality design work.",
+      image:
+        "https://media.istockphoto.com/id/1357723739/photo/studio-portrait-of-a-smiling-young-latin-woman.jpg?s=612x612&w=0&k=20&c=RIELgbZwYohh88kbJfteuuXIw_zLyRx-of4FiyUCIws=",
     },
     {
-      name: "Vidu Abaysinghe",
-      desc: "Voluptatibus architecto quos commodi explicabo, ex delectusimpedit vero necessitatibus? Saepe atque magnam veritatis doloribus alias excepturi aperiam quidem laudantium velit repellat",
+      name: "Max Paul",
+      desc: "Working with IDILIO was a dream come true. They were able to take my rough idea and turn it into something truly amazing. The designer was responsive, professional, and easy to work with. I couldn't be happier with the final product!",
+      image:
+        "https://thumbs.dreamstime.com/b/portrait-handsome-smiling-young-man-folded-arms-isolated-gray-background-joyful-cheerful-men-crossed-hands-studio-shot-172868988.jpg",
     },
     {
-      name: "Kavindu Jayawardana",
-      desc: "Voluptatibus architecto quos commodi explicabo, ex delectusimpedit vero necessitatibus? Saepe atque magnam veritatis doloribus alias excepturi aperiam quidem laudantium velit repellat",
+      name: "Elia Harper",
+      desc: "I've used IDILIO for several design projects now, and each time, they've exceeded my expectations. Their attention to detail and commitment to quality is unmatched. I wouldn't hesitate to recommend them to anyone looking for top-notch design work.",
+      image:
+        "https://as1.ftcdn.net/v2/jpg/05/72/18/54/500_F_572185457_xKg84uHz6e6dXto12uMmjg9QHLCsuTrp.jpg",
     },
     {
-      name: "Bishini Anjalee",
-      desc: "Voluptatibus architecto quos commodi explicabo, ex delectusimpedit vero necessitatibus? Saepe atque magnam veritatis doloribus alias excepturi aperiam quidem laudantium velit repellat",
+      name: "Nazeer Akbal",
+      desc: "IDILIO made the design process so easy and stress-free. They listened to my needs and provided me with multiple options to choose from. The final product was stunning and exceeded my expectations. I will definitely be using their services again in the future!",
+      image:
+        "https://media.istockphoto.com/id/612752180/photo/handsome-young-man.jpg?s=170667a&w=0&k=20&c=3W_sgSiE2Tq7Bpo2hAu3PnHZX8ruaGAUWDIlHPakIJc=",
     },
   ];
 
@@ -56,7 +64,7 @@ const Overview = () => {
       <section className="Arts">
         {/* Header */}
         <div className="font-light text-center">
-          <h5>With out Talk</h5>
+          <h5>Let's See Our</h5>
           <h2 className="text-[#FEC850] font-bold text-[18px]">
             Featured Arts
           </h2>
@@ -79,18 +87,19 @@ const Overview = () => {
         <div className="px-[150px] mt-[20px] flex justify-evenly text-center">
           {/* New Design Block */}
 
-          <div className="border-[0.5px] rounded-[20px] border-[#FEC850] w-[425px] h-[550px] m-[40px] text-white content-center">
+          <div className="border-[0.5px] rounded-[20px] border-[#fec7506b] w-[425px] h-[550px] m-[40px] text-white content-center">
             <h2 className="mt-10 font-medium text-[22px]">NEW DESIGN</h2>
-            <h5 className="p-[30px] mb-[60px]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatibus architecto quos commodi explicabo, ex delectus
-              impedit vero necessitatibus? Saepe atque magnam veritatis
-              doloribus alias excepturi aperiam quidem laudantium velit
-              repellat.lorem5
+            <h5 className="p-[30px] mb-[20px] font-light text-[15px]">
+              We offer top-notch graphic design services for your art, and we
+              have a range of pre-defined packages to choose from. With six
+              different categories and 24 packages to choose from, you're sure
+              to find the perfect fit for your project. Whether you're looking
+              for an album cover, book cover, logo, flyer, podcast cover, or
+              something else, our team of expert designers has got you covered.
               <br />
               <br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Deserunt, eos.
+              Click to move forward and our team will be in touch with you
+              shortly to get started.
             </h5>
             <Link to={routeNames.NewDesign}>
               <button className="btn1">Tap Me</button>
@@ -99,18 +108,20 @@ const Overview = () => {
 
           {/* Existing Design Block */}
 
-          <div className="border-[0.5px] rounded-[20px] border-[#FEC850] w-[425px] h-[550px] m-[40px] text-white content-center">
+          <div className="border-[0.5px] rounded-[20px] border-[#fec7506b] w-[425px] h-[550px] m-[40px] text-white content-center">
             <h2 className="mt-10 font-medium text-[22px]">RESOURCE DESIGN</h2>
-            <h5 className="p-[30px] mb-[60px]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatibus architecto quos commodi explicabo, ex delectus
-              impedit vero necessitatibus? Saepe atque magnam veritatis
-              doloribus alias excepturi aperiam quidem laudantium velit
-              repellat.lorem5
+            <h5 className="p-[30px] font-light text-[15px] mb-[20px]">
+              Here, you'll find a wide variety of previously created designs
+              that you can customize to match your unique vision. With our
+              advanced search feature, finding the perfect design is easy.
+              Simply filter by category, amount, name, and more to quickly find
+              the design that's right for you. To ensure your satisfaction, we
+              also provide client reviews for all of our <br />
+              resources.
               <br />
               <br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Deserunt, eos.
+              Click to move forward and our team will be in touch with you
+              shortly to get started.
             </h5>
             <Link to="/resourceDesign">
               <button className="btn1">Tap Me</button>
@@ -159,7 +170,11 @@ const Overview = () => {
                 <div className="w-[1000px] carousel gap-[100px]">
                   {testimonial.map((t: any, i: number) => (
                     <div id="item1" className="w-full carousel-item" key={i}>
-                      <CarousalCard name={t.name} desc={t.desc} />
+                      <CarousalCard
+                        name={t.name}
+                        desc={t.desc}
+                        image={t.image}
+                      />
                     </div>
                   ))}
                 </div>
@@ -176,37 +191,42 @@ const Overview = () => {
       <section>
         {/* Header */}
         <div className="font-light text-center">
-          <h5>Our Valuable</h5>
-          <h2 className="text-[#FEC850] font-bold text-[18px]">
-            Reviews & Projects
-          </h2>
+          <h5>From Sri Lanka</h5>
+          <h2 className="text-[#FEC850] font-bold text-[18px]">Join Idilio</h2>
         </div>
         {/* Content */}
         <div className="flex items-center justify-center">
           <img src={community} alt="" className="w-[200px]" />
         </div>
-        <div className="font-[20px] content-center text-center w-auto px-[150px]">
+        <div className="text-[15px] font-light w-[90%] content-center text-center mx-auto px-[150px]">
           <h5 className="mb-[80px]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus architecto quos commodi explicabo, ex delectus impedit
-            vero necessitatibus? Saepe atque magnam veritatis doloribus alias
-            excepturi aperiam quidem laudantium velit repellat.lorem5Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Voluptatibus architecto
-            quosLorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus architecto quos commodi explicabo, ex delectus impedit
-            vero necessitatibus? Saepe atque magnam veritatis doloribus alias
-            excepturi aperiam quidem laudantium velit repellat.lorem5Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Voluptatibus architecto
-            quos
-            <br /> commodi explicabo, ex delectus impedit commodi explicabo, ex
-            delectus impedit vero necessitatibus? Saepe atque magnam veritatis
-            doloribus alias excepturi aperiam quidem laudantium velit
-            repellat.lorem5Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Voluptatibus architecto quos commodi explicabo, ex delectus
-            impedit <br /> vero necessitatibus? Saepe atque magnam veritatis
-            doloribus alias excepturi aperiam quidem laudantium velit
-            repellat.lorem5
-            <br /> vero necessitatibus? Saepe atque magnam veritatis
+            Joining IDILIO is a great opportunity for designers in Sri Lanka to
+            build their careers and gain exposure to the global market. We
+            believe that there is an abundance of untapped talent in Sri Lanka
+            and we are dedicated to helping designers reach their full
+            potential. By joining IDILIO, designers not only gain access to a
+            global network of buyers, but they also have the opportunity to
+            learn from other talented designers and collaborate on projects. Our
+            platform encourages creativity and innovation, and we believe that
+            by working together, we can create designs that are truly
+            outstanding. In addition, our team at IDILIO is committed to
+            supporting the professional development of our members. We offer
+            training programs and resources to help our designers build their
+            skills and advance their careers.
+            <br /> <br />
+            Our goal is not only to connect designers with buyers, but to help
+            them build long-term, successful careers in the industry. Joining
+            IDILIO is easy - simply submit your resume to our admin panel for
+            review. If you meet our qualification requirements, you will be
+            invited to join our team of talented designers.
+            <br /> We are always looking for new talent to join our community,
+            and we welcome designers of all skill levels and backgrounds. At
+            IDILIO, we believe that by supporting the growth of the graphic
+            design industry in Sri Lanka, we can create a brighter future for
+            our country and our people. Join us today and start building your
+            career as a graphic designer!
+            <br />
+            <br /> Good Luck Freelance Journey !
           </h5>
         </div>
         <div className="content-center text-center">

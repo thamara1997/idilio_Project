@@ -12,6 +12,7 @@ const Flyer = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
       category: "flyer",
+      source: "No Source File",
     },
     {
       id: 14,
@@ -22,6 +23,7 @@ const Flyer = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
       category: "flyer",
+      source: "No Source File",
     },
     {
       id: 15,
@@ -32,6 +34,7 @@ const Flyer = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "flyer",
+      source: "Source File",
     },
     {
       id: 16,
@@ -42,6 +45,7 @@ const Flyer = () => {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "flyer",
+      source: "Source File",
     },
   ];
   return (
@@ -49,10 +53,10 @@ const Flyer = () => {
       <div>
         <h3 className="font-bold text-[20px] mb-8">Flyer Packages</h3>
         <h6 className="font-light text-[12px] mx-[200px]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, veniam
-          doloribus est cum recusandae assumenda dolores adipisci! Aperiam,
-          aspernatur neque officia reprehenderit numquam accusamus. Tempore
-          fugit quam commodi incidunt nulla!
+          Our user-friendly interface and notification system keep you updated
+          on the progress of your project, and our team is always available to
+          answer any questions you may have. So, if you're looking for a unique
+          and professional design, look no further than our new design page.
         </h6>
       </div>
       <div className="flex justify-center mb-[100px]">
@@ -67,7 +71,7 @@ const Flyer = () => {
                 id={t.id}
                 resolution={t.resolution}
                 size={t.size}
-                other={t.other}
+                source={t.source}
                 category={t.category}
               />
             </div>

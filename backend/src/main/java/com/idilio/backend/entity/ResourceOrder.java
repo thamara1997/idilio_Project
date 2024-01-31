@@ -2,17 +2,17 @@ package com.idilio.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
-@Table(name="ResourceOrder")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="ResourceOrder")
 public class ResourceOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +31,27 @@ public class ResourceOrder {
     @Column(name="attachments")
     private String attachments;
 
+    @Column(name="rate")
+    private int rate;
+
+    @Column(name="review")
+    private String review;
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="resourceId",referencedColumnName = "resourceId")
     private Resources resources;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="progressId" , referencedColumnName = "progressId")
+    private Progress progress;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "resourceOrder",cascade = CascadeType.MERGE)
+    private Payment payment;
+
+    @OneToMany(mappedBy = "resourceOrder", cascade = CascadeType.MERGE)
+    private List<UsersOrders> usersOrders;
 
 }

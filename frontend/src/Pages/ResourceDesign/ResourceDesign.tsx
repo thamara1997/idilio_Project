@@ -1,54 +1,64 @@
 import ArtCard from "components/ArtCard/ArtCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeNames } from "routes/route";
-import { cardDetails } from "data/data";
+import ResourcesService from "Services/ResourcesService";
+import { Resource } from "Types/Resources";
 
-const ResourceDesign = () => {
-  interface Card {
-    id: any;
-    name: any;
-    price: any;
-    link: any;
-    title: any;
-    Category: any;
-    description: any;
-    reviews: any;
-  }
+const ResourceDesign = (user: any, onLogout: () => void) => {
+  const [resources, setResources] = useState<Array<Resource>>();
+  const [cards, setCards] = useState<Array<Resource>>();
 
-  const priceRanges = [
-    { label: "All", range: [0, 100] },
-    { label: "$0 - $20", range: [0, 20] },
-    { label: "$20 - $60", range: [20, 60] },
-    { label: "$60 - $100", range: [60, 100] },
-  ];
-
-  const cards: Card[] = cardDetails;
-
-  console.log(cards);
+  useEffect(() => {
+    ResourcesService.getAllResource().then((res: any) => {
+      if (res.data.status === 1) {
+        setResources(res.data.data);
+        setCards(res.data.data);
+        return;
+      } else {
+        console.log("not found");
+      }
+    });
+  }, []);
 
   const [filter1, setFilter1] = useState("");
   const [filter2, setFilter2] = useState("");
   const [filter3, setFilter3] = useState("");
 
-  const filteredCards = cards.filter(
-    (card) =>
-      card.title.toLowerCase().includes(filter1.toLowerCase()) &&
-      card.price.toLowerCase().includes(filter2.toLowerCase()) &&
-      card.Category.toLowerCase().includes(filter3.toLowerCase())
-  );
+  useEffect(() => {
+    const filteredCards = resources?.filter(
+      (card) =>
+        card.title.toLowerCase().includes(filter1.toLowerCase()) &
+        card.amount.toString().includes(filter2) &
+        card.category.toLowerCase().includes(filter3.toLowerCase())
+    );
+    setCards(filteredCards);
+    if (filter1 == "" && filter2 == "" && filter3 == "") {
+      setCards(resources);
+    }
+  }, [filter1, filter2, filter3]);
+
+  console.log(cards);
+  const navigate = useNavigate();
+
+  if (!user) {
+    window.location.reload();
+    navigate(routeNames.Overview);
+    return null;
+  }
 
   return (
     <div className="text-center">
       <h6 className="mt-[50px] font-bold">Hola !</h6>
       <p className="font-light text-[15px] px-[200px] mt-[30px] mb-[40px]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure harum quas
-        aliquam perspiciatis eius a? Quia quaerat, necessitatibus dolores magnam
-        fugit perspiciatis, illum error accusamus, natus repudiandae omnis
-        fugiat iure!
+        The resource design page is where you can find previously created
+        designs that you can customize to your liking. With an advanced search
+        feature, you can easily browse through different categories to find the
+        perfect design that matches your needs. Plus, you can view reviews from
+        other clients to get an idea of the quality of our work.
       </p>
-      <div className="flex justify-around h-[3rem] mx-[60px] gap-[20px] content-center align-middle">
+      <div className="flex w-[70%] justify-around h-[3rem] mx-auto gap-[20px] content-center align-middle">
         <div className="relative">
           <input
             type="text"
@@ -66,7 +76,7 @@ const ResourceDesign = () => {
             value={filter3}
             onChange={(e) => setFilter3(e.target.value)}
           >
-            <option>Category</option>
+            <option value="">Category</option>
             <option>ALBUM COVER</option>
             <option>PODCAST COVER</option>
             <option>FLYER</option>
@@ -81,9 +91,7 @@ const ResourceDesign = () => {
             value={filter2}
             onChange={(e) => setFilter2(e.target.value)}
           >
-            <option disabled selected>
-              Cost
-            </option>
+            <option value="">Cost</option>
             <option>10</option>
             <option>20</option>
             <option>30</option>
@@ -96,10 +104,10 @@ const ResourceDesign = () => {
 
       <div className="flex justify-center items-center text-center mb-[100px]">
         <div className="mt-[80px] grid grid-cols-1 gap-[60px] mx-auto md:grid-cols-3">
-          {filteredCards.map((t: any, i: number) => (
+          {cards?.map((t: any, i: number) => (
             <div id="item1" className="w-full carousel-item" key={i}>
-              <Link to={routeNames.RDesignDetails.replace(":id", i.toString())}>
-                <ArtCard name={t.name} price={t.price} />
+              <Link to={routeNames.RDesignDetails.replace(":id", t.resourceId)}>
+                <ArtCard details={t} />
               </Link>
             </div>
           ))}

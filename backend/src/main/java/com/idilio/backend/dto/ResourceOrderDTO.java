@@ -1,20 +1,24 @@
 package com.idilio.backend.dto;
 
 import com.idilio.backend.entity.Resources;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 @Setter
+@Data
 public class ResourceOrderDTO {
     private int resourceOrderId;
     private String projectName;
     private String reqDescription;
     private String reqDraw;
     private String attachments;
-    private int resourceId;
+    private int rate;
+    private String review;
+    private int resourcesResourceId;
+    private int progressId;
+//    private int paymentId;
+
 }

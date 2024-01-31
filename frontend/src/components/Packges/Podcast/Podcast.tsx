@@ -13,6 +13,7 @@ function Podcast() {
       resolution: "High Resolution 300 DPI",
       size: "Size 1600x1600 px",
       category: "podcast",
+      source: "No Source File",
     },
     {
       id: 6,
@@ -23,6 +24,7 @@ function Podcast() {
       resolution: "High Resolution 300 DPI",
       size: "Size 2000x2000 px",
       category: "podcast",
+      source: "No Source File",
     },
     {
       id: 7,
@@ -33,6 +35,7 @@ function Podcast() {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "podcast",
+      source: "Source File",
     },
     {
       id: 8,
@@ -43,6 +46,7 @@ function Podcast() {
       resolution: "High Resolution 300 DPI",
       size: "Size 3000x3000 px",
       category: "podcast",
+      source: "Source File",
     },
   ];
   return (
@@ -68,7 +72,7 @@ function Podcast() {
                 resolution={t.resolution}
                 size={t.size}
                 id={t.id}
-                category={t.category}
+                source={t.source}
                 other={t.other}
               />
             </div>

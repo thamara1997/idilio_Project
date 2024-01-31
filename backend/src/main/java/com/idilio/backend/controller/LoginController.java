@@ -20,7 +20,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping("/getalllogin")
+    @GetMapping("/get/getalllogin")
     public ResponseEntity<?> getAllLogin(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<LoginDTO> loginlist = loginService.getAllLogin();
@@ -36,7 +36,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/getlogin/{id}")
+    @GetMapping("/get/getlogin/{id}")
     public ResponseEntity<?> getLoginById(@PathVariable int id){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         LoginDTO login = loginService.getLoginById(id);

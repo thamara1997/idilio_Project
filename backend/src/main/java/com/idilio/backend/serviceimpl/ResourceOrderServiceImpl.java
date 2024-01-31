@@ -1,15 +1,16 @@
 package com.idilio.backend.serviceimpl;
 
-import com.idilio.backend.dto.ResourceOrderDTO;
-import com.idilio.backend.entity.ResourceOrder;
+import com.idilio.backend.dto.*;
+import com.idilio.backend.entity.*;
+import com.idilio.backend.repository.ProgressRepo;
 import com.idilio.backend.repository.ResourceOrderRepo;
+import com.idilio.backend.repository.ResourcesRepo;
 import com.idilio.backend.service.ResourceOrderService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,38 +22,146 @@ public class ResourceOrderServiceImpl implements ResourceOrderService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private ResourcesRepo resourcesRepo;
 
-    public ResourceOrderDTO convertToDTO(ResourceOrder resourceOrder){
-        ResourceOrderDTO newResourceOrder=new ResourceOrderDTO();
-        newResourceOrder.setResourceOrderId(resourceOrder.getResourceOrderId());
-        newResourceOrder.setProjectName(resourceOrder.getProjectName());
-        newResourceOrder.setReqDescription(resourceOrder.getReqDescription());
-        newResourceOrder.setReqDraw(resourceOrder.getReqDraw());
-        newResourceOrder.setAttachments(resourceOrder.getAttachments());
-        newResourceOrder.setResourceId(resourceOrder.getResources().getResourceId());
+    @Autowired
+    private ProgressRepo progressRepo;
 
-        return  newResourceOrder;
-    }
     @Override
-    public List<ResourceOrderDTO> getAllResourceOrders() {
+    public List<ResourceOrderFullDTO> getAllResourceOrders() {
         try{
             List<ResourceOrder> list = resourceOrderRepo.findAll();
-
-            List<ResourceOrderDTO> list1=new ArrayList<ResourceOrderDTO>();
-
-            for(ResourceOrder r: list){
-                list1.add(convertToDTO(r));
-            }
-
-            //this is working
-            //return list1;
-
-            //this is not working
-            return modelMapper.map(list, new TypeToken<List<ResourceOrderDTO>>(){}.getType());
+            return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
         }
         catch (Exception e){
             System.out.println(e.toString());
             return null;
         }
     }
+
+    @Override
+    public ResourceOrderDTO addResourceOrder(ResourceOrderDTO resourceOrderDTO) {
+        try{
+            ResourceOrder resourceOrder = modelMapper.map(resourceOrderDTO, ResourceOrder.class);
+            ResourceOrder resourceOrder1 = resourceOrderRepo.save(resourceOrder);
+
+            return modelMapper.map(resourceOrder1, new TypeToken<ResourceOrderDTO>(){}.getType());
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteResourceOrder(int resourceOrderId) {
+        try{
+            ResourceOrder resourceOrder = resourceOrderRepo.getReferenceById(resourceOrderId);
+            if(resourceOrder==null){
+                return false;
+            }else{
+                resourceOrderRepo.deleteById(resourceOrderId);
+                return true;
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+
+//    @Override
+//    public ResourceOrderFullDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO) {
+//        try{
+//            Resources resources = resourcesRepo.getResourceById(resourceOrderDTO.getResourcesResourceId());
+//
+//            if(resources!=null){
+//                resourceOrderRepo.updateResourceOrder(resourceOrderDTO.getProjectName(),resourceOrderDTO.getReqDescription(),resourceOrderDTO.getReqDraw(),resourceOrderDTO.getAttachments(),resourceOrderDTO.getRate(),resourceOrderDTO.getReview(),resourceOrderDTO.getResourceOrderId());
+//                return getResourceOrderById(resourceOrderDTO.getResourceOrderId());
+//            }else{
+//                return null;
+//            }
+//        }
+//        catch(Exception e){
+//            System.out.println(e.toString());
+//            return null;
+//        }
+//    }
+
+    @Override
+    public ResourceOrderFullDTO updateResourceOrder(ResourceOrderDTO resourceOrderDTO) {
+        try {
+            Resources resources = resourcesRepo.getResourceById(resourceOrderDTO.getResourcesResourceId());
+            Progress progress = progressRepo.getReferenceById(resourceOrderDTO.getProgressId());
+
+            if (resources != null && progress != null) {
+                ResourceOrder resourceOrder = resourceOrderRepo.getById(resourceOrderDTO.getResourceOrderId());
+
+                resourceOrder.setProjectName(resourceOrderDTO.getProjectName());
+                resourceOrder.setReqDescription(resourceOrderDTO.getReqDescription());
+                resourceOrder.setReqDraw(resourceOrderDTO.getReqDraw());
+                resourceOrder.setAttachments(resourceOrderDTO.getAttachments());
+                resourceOrder.setRate(resourceOrderDTO.getRate());
+                resourceOrder.setReview(resourceOrderDTO.getReview());
+                resourceOrder.setResources(resources);
+                resourceOrder.setProgress(progress);
+
+                resourceOrderRepo.save(resourceOrder);
+
+                return getResourceOrderById(resourceOrderDTO.getResourceOrderId());
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+
+    @Override
+    public ResourceOrderFullDTO getResourceOrderById(int resourceOrderId) {
+        try{
+            ResourceOrder resourceOrder = resourceOrderRepo.getReferenceById(resourceOrderId);
+            if(resourceOrder!=null){
+                return modelMapper.map(resourceOrder, new TypeToken<ResourceOrderFullDTO>(){}.getType());
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<ResourceOrderFullDTO> getResourceOrderByDesignerId(int designerId) {
+        try{
+            List<ResourceOrder> list =  resourceOrderRepo.getResourceOrderByDesignerId(designerId);
+//            System.out.println(list.get(0).getNewOrderId());
+            return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<ResourceOrderFullDTO> getResourceReviewByResourceId(int resourceId) {
+        try{
+            List<ResourceOrder> list =  resourceOrderRepo.getResourceReviewByResourceId(resourceId);
+//            System.out.println(list.get(0).getNewOrderId());
+            return modelMapper.map(list, new TypeToken<List<ResourceOrderFullDTO>>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+
 }

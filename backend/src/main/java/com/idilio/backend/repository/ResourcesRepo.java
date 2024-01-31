@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface ResourcesRepo extends JpaRepository<Resources,Integer> {
     @Transactional
     @Modifying
@@ -17,5 +19,8 @@ public interface ResourcesRepo extends JpaRepository<Resources,Integer> {
 
     @Query("select r from Resources r where r.resourceId = ?1")
     Resources getResourceById(int resourceId);
+
+    @Query(value = "select * from idilio.resources where designer_id=?1", nativeQuery = true)
+    List<Resources> getResourcesByDesignerId(int designerId);
 
 }

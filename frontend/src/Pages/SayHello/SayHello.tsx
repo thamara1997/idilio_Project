@@ -3,17 +3,25 @@ import idilio from "assets/logo.png";
 import address from "assets/Address.png";
 import Phone from "assets/Phone.png";
 import Mail from "assets/mail.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { routeNames } from "routes/route";
 
-const SayHello = () => {
+const SayHello = ({ user, onLogout }: any) => {
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(routeNames.Overview);
+    return null;
+  }
   return (
     <div>
       <h1 className="m-8 text-center uppercase text-[25px]">Say Hello</h1>
       <p className="text-[15px] text-center font-light mx-[200px] m-5">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae quae
-        facere quisquam beatae facilis ad rerum harum dolorem repellendus
-        deserunt consequatur mollitia tempore dolorum, adipisci excepturi
-        accusantium tenetur ea ratione!
+        Our "Say Hello" page is the perfect place to get in touch with us.
+        Whether you have a question, feedback, or just want to say hello, we are
+        always happy to hear from you. Simply fill out the form on our Say Hello
+        page and one of our team members will get back to you as soon as
+        possible. We look forward to hearing from you!
       </p>
       <div className="flex items-center justify-center h-[800px] mb-4">
         <Link to="https://goo.gl/maps/muH7UF1REqq5Qqrx9">
@@ -22,8 +30,7 @@ const SayHello = () => {
       </div>
       <div className="items-center justify-center">
         <p className="text-[15px] text-center font-light mx-[200px] mb-4">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae
-          quae facere quisquam beatae facilis ad rerum harum
+          IDILIO is Sri Lankan Based Graphic Design Digital Platform
         </p>
         <img src={idilio} alt="" className="h-[80px] mx-auto" />
         <h1 className="my-[60px] text-center uppercase text-[20px]">
